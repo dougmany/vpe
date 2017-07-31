@@ -1,0 +1,261 @@
+<html>
+<head>
+<title>LaTeXDB</title>
+</head>
+<body bgcolor="white">
+
+<h1>LaTeX<i>DB</i></h1>
+
+<p>
+<font size="+1"><i>Integrating LaTeX and SQL databases</i></font>
+</p>
+
+<p>
+
+<table width="100%" border="1">
+<tr>
+<td valign="top">
+<p>
+This is LaTeX<i>DB</i>. The purpose of this project is to bring
+together LaTeX and an SQL database. By using LaTeX<i>DB</i> you
+can use SQL queries in your LaTeX document and loop over the
+result sets, creating tables, serial letters and other stuff.
+From version 0.2 on, LaTeX<i>DB</i> allows nesting of SQL queries.
+LaTeX<i>DB</i> is released under the
+<a href="http://www.fsf.org/licenses/gpl.html">GPL</a>.
+</p>
+
+
+<h3>Contents</h3>
+
+<table>
+<tr>
+<td valign="top">
+<p>
+<a href="#intro">Introduction</a> <br>
+<a href="#require">Requirements</a> <br>
+<a href="#download">Download</a> version 0.3 / Release Notes &nbsp;&nbsp;<br>
+<a href="#install">Installation</a> <br>
+<a href="#first">First try</a> <br>
+</p>
+</td>
+<td valign="top">
+<p>
+<a href="#limits">Limitations</a> <br>
+<a href="workshop.html">Workshop</a> (new page) <br>
+Reference (n.a.) <br>
+<a href="#credits">Credits</a> <br>
+<a href="#copyright">Copyright/Feedback</a>
+</p>
+</td>
+</tr>
+</table>
+</td>
+<td bgcolor="yellow" valign="top">
+<pre>
+
+ \begin{document}
+   \texdbfor{<i>##AllUsers</i>}{
+     Dear <i>##Title ##Lastname</i>,
+
+     thanks for ordering <i>##Quant</i> items of <i>##Product</i>. 
+     I'll ship it to your address in <i>##Town</i> when I 
+     find the time.
+
+     Best regards,
+     \newpage
+   }
+ \end{document}
+</pre>
+</td>
+</tr>
+</table>
+
+<p>
+[2006/04/24] Version 0.3 released which fixes the bug described in the next entry.
+</p>
+
+<p>
+[2006/03/26] Some users noted a bug where LaTeXDB will terminate with an error (and no
+output) when the size of a \texdbfor{} loop is too big. This is actually a stupid programming
+mistake causing Python to recurse too deeply. I'll exchange the recursive code with an
+iterative equivalent. Won't be long now ;)
+</p>
+
+<p>
+[2005/10/27] There's a spanish introduction to LaTeXDB at <a href="http://caldum.um.es/~juanjo/?p=30">http://caldum.um.es/~juanjo/?p=30</a>.
+</p>
+
+<a name="intro">
+<h3>Introduction</h3>
+
+<p>
+LaTeX<i>DB</i> is pretty simple to use, there are only three
+new commands to extend your LaTeX files: With them you define
+a database connection, create queries and access the result sets.
+</p>
+
+<p>
+You include commands such as
+<pre>\texdbconnection{DBType,host,user,passwd,db}</pre>
+to setup a database connection,
+<pre>\texdbdef{##<i>query</i>}{select <i>var1</i>,<i>var2</i>,... from <i>table</i> where...}{##<i>VAR1</i>,##<i>VAR2</i>,...}</pre>
+to define a query, and
+<pre>\texdbfor{##<i>query</i>}{... some LaTeX stuff with ##<i>VAR1</i>, ...}</pre>
+to use the results in your LaTeX code.
+</p>
+
+
+<a name="require">
+<h3>Requirements</h3>
+
+<p>
+This relase of LaTeX<i>DB</i> supports MySQL and PostgreSQL. You
+need Python (tested with version 2.2.2) and the Python <i>MySQLdb</i>
+or <i>psycopg</i> module
+for MySQL or PostgreSQL support, respectively. The database need not
+be running on the local machine, since you can use any server
+that you could also access from the <i>mysql</i> or similar command
+line client.
+</p>
+
+
+<a name="download">
+<h3>Download / Release Notes</h3>
+
+
+<p>
+<b>Version 0.3 [2006/04/24]:</b>
+latexdb-0.3.tgz <br>
+A bug within the preparser that caused latexdb to break in texdbfor
+loops with too big arguments was fixed
+(contributed by Francois Meyer) <br>
+- New script pdflatexdb which is the same as latexdb but calls pdflatex
+instead of latex, so it generates PDF, not DVI files (user request)
+</p>
+
+<p>
+<b>Version 0.2 [2003/08/20]:</b>
+latexdb-0.2.tgz <br>
+Queries can now be nested (refering to data from the upper query). <br>
+Using MySQLdb modules instead of _mysql <br>
+Extended to use PostgreSQL as well, code cleanup.
+(contributed by Gerhard Kirchmann)
+</p>
+
+<p>
+<b>Version 0.1 [2003/08/15]:</b>
+latexdb-0.1.tgz <br>
+Initial release, MySQL support
+</p>
+
+
+<a name="install">
+<h3>Installation</h3>
+
+<p>
+This is easy too: Grab the archive, unpack it, and run <i>install</i>
+as <i>root</i>, or for minimum functionality copy
+<i>latexdb</i>, <i>latexdb.py</i> and <i>latexdb-preparse.py</i> from
+the <i>code</i> directory to <i>/usr/local/bin</i> or
+some other directory that can be found in $PATH. Only put them in
+the same directory, because <i>latexdb</i> expects <i>latexdb.py</i>
+and <i>latexdb-preparse.py</i> in its own directory.
+</p>
+
+
+<a name="first">
+<h3>First try</h3>
+
+<p>
+For a first try of LaTeX<i>DB</i> check the tiny tutorial in
+<a href="workshop.html">workshop.html</a>. A more thorough
+description can be found in
+<i>reference.html</i> (not available yet). There are some examples
+in the <i>examples</i> folder of the package. 
+</p>
+
+
+<a name="limits">
+<h3>Limitations</h3>
+
+<p>
+This is a quick hack, more a proof of concept.
+One of the special commands introduced with LaTeX<i>DB</i> 
+(the database connection) needs to
+sit on a line of its own (and only one line), only the
+commands for defining queries and using the result set can
+use as many lines as you like and have other stuff in front
+and behind.
+</p>
+
+<p>
+The Python code is strictly procedural. Some people won't like
+that since you're supposed to do objects in Python ;)  But I
+couldn't be bothered. If anyone likes to write up this code
+and make it follow standard Python programming more properly,
+I'd be happy to see that code.
+</p>
+
+<p>
+I have not included proper error condition checking. Do something
+wrong, and the tool will break. It won't kill any of your files,
+and it will even give some hint as to what was wrong while it
+dies.
+</p>
+
+
+<a name="credits">
+<h3>Credits</h3>
+
+<p>
+There's no point in trying to list all developers who have
+created the software that I used. However, this program is here
+thanks to the existence of Linux, MySQL, Python, TeX, LaTeX, and
+lots of other stuff -- we tend to forget.
+</p>
+
+<p>
+PostgreSQL support was contributed by Gerhard Kirchmann.
+</p>
+
+<p>
+The man page was created using <i>manedit</i>,
+<a href="http://wolfpack.twu.net/ManEdit/">http://wolfpack.twu.net/ManEdit/</a>.
+</p>
+
+
+<a name="copyright">
+<h3>Copyright and Feedback</h3>
+
+<p>
+LaTeX<i>DB</i> is Copyright &copy; 2003-2006 Hans-Georg Eßer
+(<a href="mailto:h.g.esser@gmx.de">h.g.esser@gmx.de</a>).
+</p>
+
+<p>
+It is released under the GNU 
+<a href="http://www.fsf.org/licenses/gpl.html">GPL</a>,
+a copy of which you find in the package after downloading.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+</p>
+
+<p>
+If you have suggestions how to improve this software,
+or if you have successfully used it for something a lot better
+than the trivial examples given in the documentation -- please
+drop me a note.
+</p>
+
+<hr>
+<address><a href="/kontakt.html">Hans-Georg Eßer</a> -
+<a href="http://privat.hgesser.com/">http://privat.hgesser.com/</a></address>
+
+</body>
+</html>
+
+
+

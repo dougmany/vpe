@@ -1,0 +1,25 @@
+LaTeXDB Release Notes
+---------------------
+
+
+0.3  [2006/04/24]
+
+- A bug within the preparser that caused latexdb to break in texdbfor
+  loops with too big arguments was fixed
+  (contributed by Francois Meyer)
+- New script pdflatexdb which is the same as latexdb but calls pdflatex
+  instead of latex, so it generates PDF, not DVI files (user request)
+
+
+0.2  [2003/08/20]
+
+- Queries can now be nested (refering to data from the upper query).
+  Using MySQLdb modules instead of _mysql
+- Extended to use PostgreSQL as well, code cleanup
+  (contributed by Gerhard Kirchmann)
+
+
+0.1  [2003/08/15]
+
+Initial release, MySQL support
+

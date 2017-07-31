@@ -1,0 +1,494 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>LaTeXDB - Workshop</title>
+</head>
+
+<body bgcolor="white">
+<h1>LaTeX<i>DB</i> - Workshop</h1>
+
+<p>
+<font size="+1"><i>Integrating LaTeX and SQL databases</i></font>
+</p>
+
+<table width="100%" border="1">
+<tr>
+<td valign="top">
+<p>
+Now here's a little workshop that shows
+<ul>
+<li>how to create a simple
+database with MySQL (which is assumed to be installed and setup
+in a way that you can login with the <i>mysql</i> command line
+tool),
+<li>how to write a LaTeX document that uses some extra
+commands to access the database and loop over query result sets,
+<li>and finally process this "sort-of-latex" file through
+LaTeX<i>DB</i>.
+</ul>
+
+
+<a name="contents">
+<h3>Contents</h3>
+
+<table>
+<tr>
+<td valign="top">
+<p>
+<a href="#createdb">1. Creating the database</a> &nbsp;&nbsp;&nbsp; <br>
+<a href="#latexfile">2. The LaTeX file</a> <br>
+<a href="#example">3. Example</a>
+</p>
+</td>
+<td valign="top">
+<p>
+<a href="#running">4. Running latexdb</a> <br>
+<a href="#nestexample">5. Nested Example</a>
+
+</p>
+</td>
+</tr>
+</table>
+</td>
+
+<td bgcolor="yellow" valign="top">
+<pre>
+
+ \begin{document}
+   \texdbfor{<i>##AllUsers</i>}{
+     Dear <i>##Title ##Lastname</i>,
+
+     thanks for ordering <i>##Quant</i> items of <i>##Product</i>. 
+     I'll ship it to your address in <i>##Town</i> when I 
+     find the time.
+
+     Best regards,
+     \newpage
+   }
+ \end{document}
+</pre>
+</td>
+</tr>
+</table>
+
+
+<a name="createdb">
+<h3>1. Creating the database</h3>
+
+<p>
+First let's create the database and fill it with some values.
+We'll do a simple First name, last name database.
+</p>
+
+<pre>
+# <b>mysql -p</b>
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8 to server version: 3.23.55-log
+
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+mysql> <b>create database texdb;</b>
+Query OK, 1 row affected (0.00 sec)
+
+mysql> <b>use texdb</b>
+Database changed
+
+mysql> <b>create table Users ( id INT PRIMARY KEY, Vorname VARCHAR(40), Nachname VARCHAR(40) );</b>
+Query OK, 0 rows affected (0.00 sec)
+</pre>
+
+<p>
+<i>id</i> is the primary key. It's not really needed but more
+convenient. <i>Vorname</i> is german for "first name",
+<i>Nachname</i> is the "(last) name". We're now putting three
+people in there:
+</p>
+
+<pre>
+mysql> <b>insert into Users values (0,"Hans-Georg","Eßer");</b>
+Query OK, 1 row affected (0.00 sec)
+mysql> <b>insert into Users values (1,"Stefan","Mustermann");</b>
+Query OK, 1 row affected (0.00 sec)
+mysql> <b>insert into Users values (2,"Sabine","Sauer");</b>
+Query OK, 1 row affected (0.01 sec)
+</pre>
+
+<p>
+Finally, let's check things worked well:
+</p>
+
+<pre>
+mysql> <b>select * from Users;</b>
++----+------------+------------+
+| id | Vorname    | Nachname   |
++----+------------+------------+
+|  0 | Hans-Georg | Eßer       |
+|  1 | Stefan     | Mustermann |
+|  2 | Sabine     | Sauer      |
++----+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> _
+</pre>
+
+<p>
+Yes, we've done it.
+</p>
+
+<p>
+<small><i>Back to <a href="#contents">table of contents</a></i></small>
+</p>
+
+
+<a name="latexfile">
+<h3>2. The LaTeX file</h3>
+
+<p>
+The basic idea behind LaTeX<i>DB</i> is that you can write a pretty
+standard LaTeX file, but this file can include loops over result
+sets from database queries.
+</p>
+
+<p>
+Only three new commands are needed to do what we want:
+<ol>
+<li>We need a way of defining what database to use, how to connect,
+etc. The command is
+<pre>\texdbconnection{DBType,host,user,passwd,db}</pre>
+<li>Queries must be defined, and we must have a way to tell what
+names we will use in LaTeX later, because the table field names
+might conflict with something we need in TeX. So the syntax is
+<pre>\texdbdef{##<i>query</i>}{select <i>var1</i>,<i>var2</i>,... from <i>table</i> where...}{##<i>VAR1</i>,##<i>VAR2</i>,...}</pre>
+Now here with ##<i>query</i> we set a name for query we're just
+defining, and it will be reused later. The point is: You can define
+several queries in one go, and then later reference each of them
+separately. <i>var1</i>, ... are table field names, and they do
+correspond to the ##<i>VAR1</i> names that appear in the end. The order
+must be the same: ##<i>VAR1</i> belongs to <i>var1</i>, ##<i>VAR2</i>
+to <i>var2</i> etc. Finally <i>table</i> is a db table name.
+<li>The last thing there is to do is use the query. The standard
+thing you'll want to do is write some LaTeX stuff for each element
+of the result set---that's a for loop:
+<pre>\texdbfor{##<i>query</i>}{... some LaTeX stuff with ##<i>VAR1</i>, ...}</pre>
+Here the ##<i>query</i> refers to the same query that was defined with
+the previous command. So in each for loop you can decide which of your
+several queries to use. They need to have different names, of course.
+The variables in the second { } block are going to be substituted with
+the corresponding values from the result rows, and for each row
+the { } block will be used once. That's it.
+</ol>
+
+<p>
+<small><i>Back to <a href="#contents">table of contents</a></i></small>
+</p>
+
+
+<a name="example">
+<h3>3. Example</h3>
+
+<p>
+OK, here's a simple example (<i>example.tex</i>) that uses the database
+table we've defined further up:
+</p>
+
+
+<pre>
+\documentclass[a4]{article}
+
+% Standard LaTeX stuff
+\usepackage{isolatin1}
+
+% DB connection, SQL queries
+<b>\texdbconnection{MySQL,localhost,****,*****,texdb}
+%\texdbconnection{File,-,-,-,/var/db/mydata/}
+\texdbdef{##q1}{select Vorname,Nachname from Users}{##Vorname,##Nachname}
+\texdbdef{##q2}{select CONCAT(Nachname,", ",Vorname),CONCAT(Vorname," ",Nachname) from Users}{##Vorname,##Nachname}</b>
+
+% Here the text begins
+\begin{document}
+This is a header for the page.
+
+What you're seeing is \LaTeX{} with a MySQL extension.\\
+
+\begin{tabular}{|l|l|}
+\hline
+Vorname & Nachname \\
+<b>\texdbfor{##q1}{\hline \textit{##Vorname} & \textbf{##Nachname}\\}</b>
+\hline
+\hline
+Nachname, Vorname & Vorname Nachname \\
+<b>\texdbfor{##q2}{\hline \textit{##Vorname} & \textbf{##Nachname}\\}</b>
+
+\hline
+\end{tabular}\\
+
+This is a footer for the page.
+\end{document}
+</pre>
+
+<p>
+Note that there are only five line that make this document <i>not</i>
+be a regular LaTeX document: 
+<ul>
+<li>There is a database connection definition
+(currently LaTeX<i>DB</i> can only do MySQL, but the commented line
+below shows how my next idea is to implement working with plain
+comma- (or whatever) separated files instead of a big DB), 
+<li>There are two query definitions. The queries have names of
+##q1 and ##q2, and they both use standard SQL select
+commands, the second one only combining the fields in two ways.
+The database field names "Vorname" and "Nachname" are mapped
+to "##Vorname" and "##Nachname" in this case to make things look
+transparent, but you could pick any choice of ## variable names.
+<li>Finally there are tweo for loops using the data.
+</ul>
+
+<p>
+<small><i>Back to <a href="#contents">table of contents</a></i></small>
+</p>
+
+
+<a name="running">
+<h3>4. Running latexdb</h3>
+
+<p>
+Now what will you have to do in order to process this file? Well,
+instead of the standard <i>latex example.tex</i> command, just issue
+<pre>latexdb example.tex</pre>
+If there is no error in preprocessing the file, this will just look
+like a regular run of <i>latex</i>.
+</p>
+
+<p>
+The dvi files looks like this:<br>
+<img src="result.png">
+</p>
+
+<p>
+For debugging purposes, temporary files of <i>latexdb</i> are
+not deleted in this version. Next to your <i>file.tex</i> source,
+you will find two more files:
+
+<ul>
+<li><i>file.tex.pre</i> is the output of <i>latexdb-preparse.py</i>.
+This is a tool that turns each \texdbfor{}{} block into a line
+(and just one line) of its own.
+<li><i>file.tex.debug</i> is the output of <i>latexdb.py</i> which
+takes the <i>.pre</i> file as input. The <i>.tex.debug</i> file
+is a regular LaTeX file which then gets processed by <i>latex</i>.
+</ul>
+
+<p>
+You can find this example and a further one in the <i>examples/</i>
+tree of the package.
+</p>
+
+<p>
+<small><i>Back to <a href="#contents">table of contents</a></i></small>
+</p>
+
+
+<a name="nestexample">
+<h3>5. A nested example</h3>
+
+<p>
+In many cases it is convenient to nest queries, e.g. 
+<ul>
+<li>to first fetch all customers who bought at least one product 
+in the last week, 
+<li>then create the header (with address and stuff),
+<li>and then fetch the products they bought and create a small table
+with the list of products, prices, and sum,
+<li>before finally putting a footer on the page and switching the
+page.
+</ul>
+</p>
+
+<p>
+Now let's assume you have the following three tables:
+</p>
+
+<pre>
+Customers { id INT PRIMARY KEY, LastName VARCHAR(30), FirstName VARCHAR(30), 
+  Street VARCHAR(50), ZIP VARCHAR(10), Town VARCHAR(40), Country VARCHAR(20) }
+
+Products { id INT PRIMARY KEY, ProdName VARCHAR(30), Price REAL, Stock INT }
+
+Sales { id INT PRIMARY KEY, CustID INT, Date DATE }
+
+SaleItem { id INT PRIMARY KEY, SalesID INT, ProdID INT, Quantity INT }
+
+</pre>
+
+<p>
+The idea behind SaleItem and Sales is that you may have a sale that
+consists of several different products. Now even if you have a
+customer placing more than one order at one day, you can differentiate
+the different orders, because one order is one entry in the Sales
+table, and it consists of all the entries in the SaleItem table
+which have SaleItem.SalesID = Sales.id.
+</p>
+
+<p>
+To first select all customers who bought something during the last
+week you would do something like
+</p>
+
+<pre>
+select Customers.id as CuID,LastName,FirstName,Street,ZIP,Town,Country,
+  Sales.id as SalesID
+  from Customers,Sales where CuID=Sales.CustID and Date < "2003-08-10"
+</pre>
+
+<p>
+In LaTeX<i>DB</i> this turns into
+</p>
+
+<pre>
+\texdbdef{##cust}
+  {select Customers.id as CuID,LastName,FirstName,Street,ZIP,Town,Country,
+  Sales.id
+  from Customers,Sales where CuID=Sales.CustID and Date < "2003-08-10"}
+  {##custid,##last,##first,##street,##zip,##town,##country,##salesid}
+</pre>
+
+<p>
+You could now start by creating a LaTeX document that loops over the
+result set:
+</p>
+
+<pre>
+\texdbfor{##cust}{
+  \newpage
+  \header  % standard stuff on your letter
+  ##first ##last \\
+  ##street\\
+  ##town  ##tip\\
+  ##country
+
+  Invoice for order No. ##salesid \\
+
+  Dear Mr/Mrs ##name, \\
+
+  ...
+}
+</pre>
+
+<p>
+This will already generate one invoice page for each sale by any
+customer. (A customer with several sales in the time period generates
+several invoices.)
+</p>
+
+<p>
+Now let's add another query to cycle over the items of this sale.
+For that, in SQL we would do something like
+</p>
+
+<pre>
+select id as SaleItemID, ProdName, Price, Quantity, Price*Quantity 
+  from SaleItem, Products
+  where SaleItem.SalesID = ##salesid
+  and SaleItem.ProdID = Products.id
+</pre>
+
+<p>
+Here of course, we will need to replace "##salesid" with the
+sales ID we got in the outer loop.
+</p>
+
+<p>
+With LaTeX<i>DB</i> you can write this query as
+</p>
+
+<pre>
+\texdbdef{##prods}
+  {select id, ProdName, Price, Quantity, Price*Quantity
+   from SaleItem, Products
+   where SaleItem.SalesID = ##salesid
+   and SaleItem.ProdID = Products.id}
+  {##id,##prodname,##price,##quant,##amount}
+</pre>
+
+<p>
+Notice how ##salseid is used in this \texdbdef statements. Since
+it is living inside a \texdbfor loop, ##salesid will be replaced
+with the current value from the outer loop for every instance.
+</p>
+
+<p>
+Then you can use another \texdbfor loop to show all the products.
+If you put it all together, it will look like this:
+</p>
+
+<pre>
+\texdbdef{##cust}
+  {select Customers.id as CuID,LastName,FirstName,Street,ZIP,Town,Country,
+  Sales.id
+  from Customers,Sales where CuID=Sales.CustID and Date < "2003-08-10"}
+  {##custid,##last,##first,##street,##zip,##town,##country,##salesid}
+
+\begin{document}
+
+\texdbfor{##cust}{
+  \newpage
+  \header  % standard stuff on your letter
+  ##first ##last \\
+  ##street\\
+  ##town  ##tip\\
+  ##country
+
+  Invoice for order No. ##salesid \\
+
+  Dear Mr/Mrs ##name, \\
+
+  \texdbdef{##prods}
+    {select id, ProdName, Price, Quantity, Price*Quantity
+     from SaleItem, Products
+     where SaleItem.SalesID = ##salesid
+     and SaleItem.ProdID = Products.id}
+    {##id,##prodname,##price,##quant,##amount}
+
+  \begin{tabular}{l|r|r|r}
+  Product Name & Quantity & Price per unit & Total \\
+  \hline
+  \texdbfor{##prods}{
+    ##prodname & ##price & ##quant & ##amount} \\
+  }
+  \end{tabular}
+
+  ...
+}
+
+\end{document}</pre>
+
+<p>
+In the <i>examples</i> directory you'll find the subdirectory
+<i>nested</i> which holds a simpler example of the use of
+nesting. Note that the example from above has not been tested,
+it was a write-up from scratch intended to make sense and be
+understandable. The examples in <i>examples/</i> however all
+proved OK, so you may be better on starting with one of them
+and modifying them to suit your needs.
+</p>
+
+<p>
+There is no limit to the level of nesting, so you can really
+create complex stuff.
+</p>
+
+<p>
+<small><i>Back to <a href="#contents">table of contents</a></i></small>
+</p>
+
+
+<hr>
+<address><a href="mailto:h.g.esser@gmx.de">Hans-Georg Eßer</a> -
+<a href="http://privat.hgesser.com/">http://privat.hgesser.com/</a></address>
+<!-- Created: Fri Aug 15 01:13:00 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Wed Aug 20 02:49:16 CEST 2003
+<!-- hhmts end -->
+  </body>
+</html>

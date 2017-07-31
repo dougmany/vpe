@@ -1,0 +1,47 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="nlatexdb/Program.cs">
+    <Files>
+      <File FileName="nlatexdb/app.config" Line="1" Column="1" />
+      <File FileName="nlatexdb/Program.cs" Line="33" Column="1" />
+      <File FileName="nlatexdb/Processer.cs" Line="54" Column="11" />
+      <File FileName="nlatexdb/LatexCharReplace.cs" Line="9" Column="34" />
+      <File FileName="nlatexdb/SqlQueryVar.cs" Line="27" Column="11" />
+      <File FileName="nlatexdb/NlatexdbSettings.cs" Line="1" Column="1" />
+      <File FileName="nlatexdb/SqlQuery.cs" Line="151" Column="34" />
+      <File FileName="nlatexdb/CommandParser.cs" Line="51" Column="20" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="nlatexdb" expanded="True">
+            <Node name="Program.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.nlatexdb>
+    <MonoDevelop.Ide.CustomExecutionModes>
+      <Data Name="Standard (Benutzerdefiniert)" Id="3b2d22ce-d8f2-43a7-b8d2-726012231795" ModeId="Default">
+        <CommandData>
+          <Item Key="MonoDevelop.Ide.Execution.CustomArgsCustomizer">
+            <Value Arguments="kleinertest.tex" WorkingDirectory="/home/robin/Projects/nlatexdb-0.02/nlatexdb/bin/Debug" ctype="CustomArgsExecutionModeData">
+              <EnvironmentVariables />
+            </Value>
+          </Item>
+          <Item Key="MonoDevelop.Ide.Execution.MonoExecutionCustomizer">
+            <Value DebugMode="True" ctype="MonoExecutionParameters" />
+          </Item>
+        </CommandData>
+      </Data>
+    </MonoDevelop.Ide.CustomExecutionModes>
+  </MonoDevelop.Ide.ItemProperties.nlatexdb>
+</Properties>

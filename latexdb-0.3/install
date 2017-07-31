@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# copy all files from the code/ sub directory
+# to $TARGET, change owner/group to root/root
+# and set mode rwxr-xr-x. The manual file will
+# be copied to $MANTARGET/man1/.
+#
+# You might want to change TARGET to /usr/ and
+# MANTARGET to /usr/share/man/.
+
+TARGET=/usr/local/bin/
+MANTARGET=/usr/local/man/
+
+install -o root -g root -m 755 -v /vagrant/latexdb-0.3/code/* $TARGET
+install -o root -g root -m 644 -v /vagrant/latexdb-0.3/doc/latexdb.1 $MANTARGET
+

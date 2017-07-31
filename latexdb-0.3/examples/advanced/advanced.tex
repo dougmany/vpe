@@ -1,0 +1,38 @@
+\documentclass[a4]{article}
+
+% Standard LaTeX stuff
+\usepackage{isolatin1}
+
+% SQL queries
+\texdbconnection{MySQL,localhost,root,*****,texdb}
+
+% get all order data
+\texdbdef{##orders}{select Title, First, Last, Street, Zip, Town, Country, Name, Price, Date from AdvancedUsers, Products, Orders where UserID=AdvancedUsers.id and ProductID=Products.id;}{##title,##first,##last,##street,##zip,##town,##country,##product,##price,##date}
+% how many orders from how many users have there been?
+\texdbdef{##stats}{select count(id), count(distinct UserID) from Orders}{##count,##users}
+
+% Here the text begins
+\begin{document}
+
+\tableofcontents
+
+\section{Orders for this week}
+
+The following subsections will each list one of the orders
+we received this week. There have been \texdbfor{##stats}{##count
+orders from ##users} different customers.
+
+\texdbfor{##orders}{
+  \subsection{##first ##last ordered ``##product''}
+  ##title ##first ##last has ordered the product named
+  \textit{##product} on ##date. The price is USD ##price,
+  and it will be shipped to the following address: \\
+  ##street; ##zip ##town (##country)
+
+}
+
+\section{What more to do?}
+
+We could certainly do more in this document.
+
+\end{document}

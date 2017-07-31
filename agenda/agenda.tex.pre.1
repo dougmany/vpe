@@ -1,0 +1,35 @@
+\documentclass{article}
+
+
+\texdbconnection{MySQL,localhost,root,test123,toastmasters}
+%% BEGIN TeXDBdef
+\texdbdef{##q1}{select FirstName,LastName from Users}{##FirstName,##LastName}
+%% EHD TeXDBdef
+
+%% BEGIN TeXDBdef
+\texdbdef{##q2}{select CONCAT(LastName,", ",FirstName),CONCAT(FirstName," ",LastName) from Users}{##FirstName,##LastName}
+%% EHD TeXDBdef
+
+
+
+\begin{document}
+This is a header for the page.
+
+What you're seeing is \LaTeX{} with a MySQL extension.\\
+
+\begin{tabular}{|l|l|}
+\hline
+FirstName & LastName \\
+\texdbfor{##q1}{\hline \textit{##FirstName} & \textbf{##LastName}\\}
+
+\hline
+\hline
+LastName, FirstName & FirstName LastName \\
+\texdbfor{##q2}{\hline \textit{##FirstName} & \textbf{##LastName}\\}
+
+
+\hline
+\end{tabular}\\
+
+This is a footer for the page.
+\end{document}

@@ -1,0 +1,488 @@
+Nlatexdb Version 0.05
+Database Access in LaTeX
+Copyright (C) 2011-2012 Robin Höns
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    For more information see the web page http://www.hoens.net/robin
+
+
+1. Why nlatexdb? The history...
+
+A few years ago, I wanted to do database reports, and MS Reporting
+Services appeared rather inconvenient to me. So I figured I'd use the
+typesetting power of Latex, and I found latexdb by Hans-Georg Eßer
+(http://privat.hgesser.com/software/latexdb/). The idea was great, but
+unfortunately I couldn't make it run under Windows, so I wrote a clone
+in Ruby, called ratexdb.
+
+At the time, Ruby had a convenient and powerful database access
+package called DBI, so I really didn't have to write much code in
+order to support a whole bunch of data sources. Great! In the next few
+years, I fixed some bugs, added some nice features at the request of
+helpful users (thank you!), -- and then I got a new computer.
+
+I installed Latex, I installed Ruby, and it turned out DBI wouldn't
+work any more. It seems that people have chosen than from now on DBI
+shall be deprecated, there is a new thing called RDBI, and everybody
+should use that. I tried it, it didn't work. It depended on some
+packages, and those packages on some other packages, and I can't
+really claim I had a good time installing all these packages.
+
+So what did I do? Well, I had a good time rewriting the whole thing in
+C# -- since my Ruby code was rather ugly anyway, I decided this time
+I'd do it a bit more cleanly. Most of the code was written in a
+delayed train, so thanks to the Deutsche Bahn for making this program
+possible.
+
+
+2. I know latexdb, and I'm in a hurry. What are the improvements over
+   latexdb?
+
+- You can connect to a wide variety of data sources, as supported by
+  .Net DbProviderFactories.
+
+- One executable only, one language. Works under Microsoft .Net 2.0 or
+  above as well as under Mono.
+
+- Latexdb writes a series of output files for nested queries. Nlatexdb
+  writes one output file only, nested queries are done by recursion.
+
+- Added the \texdbif{##query}{latex stuff} command: Include "latex
+  stuff" only if the query returns at least one row. This is useful
+  for table headings, which can be omitted if there is no data anyway.
+
+- In database results, Latex special characters (\, _, $, &, #, {, }
+  and %) are replaced by appropriate Latex commands. You can disable
+  this with the command line argument "-n", though (if your database
+  contains LaTeX code).
+
+- If variables are used in nested SQL queries, they are protected
+  against SQL injection.
+
+- The database results can be post-processed by regular expression
+  search and replace.
+
+- Nlatexdb allows command line arguments, which can be referenced in
+  the Latex source by variable names ##1, ##2, etc.
+
+- Added the \texdbcommand{database command}, which sends SQL commands
+  directly to the database.
+
+3. I know ratexdb. What are the differences?
+
+- The command \texdbconnection has been replaced by
+  \texdbconnectionnet{provider}{connectionstring}
+  where provider is a database provider (e.g. "System.Data.SqlClient"
+  for MS SQLServer, or "System.Data.OracleClient" for Oracle; calling
+  "nlatexdb.exe -P" will give you a list of all installed providers)
+  and connectionstring is the connection string.
+
+- In ratexdb, variables came in one of three flavours:
+  ##varname, $$varname, and &&varname. This doesn't exist any more.
+  Nlatexdb, unlike ratexdb, knows whether we are in Latex or in SQL,
+  and behaves accordingly.
+  In fact, query or variable names don't even have to start with "##"
+  any more (except for the command line variables, which are still
+  called "##1", "##2" etc.), but it is still recommended to name them
+  like this, so there is no danger of confusion.
+
+- The parser has less restrictions (I hope). You can split all
+  commands among several lines. You should only watch out that if a
+  command has several blocks of braces, they follow each other
+  immediately; so please always write "\texdbfor{##query}{Hello
+  world!}", not "\texdbfor{##query} {Hello world!}".
+
+- The Latex comment character "%" is honoured more or less correctly.
+  So you can comment out your \texdb stuff, and nlatexdb should ignore
+  it. "\%" will be recognized as no comment, but please don't write
+  "\\%": The comment will not be recognized. Write "\\ %" or "\\%%" or
+  something like that. That should work.
+
+
+3. What do I need?
+
+3.1. How do I install nlatexdb?
+
+You don't. Just copy nlatexdb.exe from the bin\Debug path to wherever
+you feel it's convenient. If you want to change the default settings
+(see section 6 of this README), copy the nlatexdb.exe.config, too; but
+you don't have to.
+
+3.2. What else is required?
+
+You need Latex (I used Miktex 2.9) and a .Net runtime version 2.0 or
+above. Under Windows, install the .Net runtime if it isn't already
+installed, available here:
+http://www.microsoft.com/download/en/details.aspx?DisplayLang=en&id=19
+Under Linux or MacOS, install Mono: http://www.mono-project.com
+
+For using your favourite database, you might need to install an
+appropriate database provider. Mono installs a whole bunch of database
+providers. Microsoft .Net has fewer, but usually when installing a
+database client, a DbPRovider is installed, too. Maybe you'll have to
+add it to your machine.config or to nlatexdb.exe.config:
+http://msdn.microsoft.com/en-us/library/dd0w4a2z.aspx
+
+For example, for MySQL the MySQL Connector/Net has been reported to
+work fine. Under Windows it works out of the box, but under Mono it
+has to be added to the machine.config file by hand:
+http://stackoverflow.com/questions/3987266/mysql-connector-with-mod-mono-and-mono-2-6-7
+
+
+4. How do I use it?
+
+It works almost identical to Latexdb. There is a very good tutorial of
+Latexdb at http://privat.hgesser.com/software/latexdb/.
+
+Here is a step for step description of how to use Nlatexdb.
+
+4.1. Get the .Net runtime
+
+Well, if you have Windows, not too old hopefully, you probably already
+have it. If you don't, go to Microsoft and get it for free.
+
+If you have Linux or MacOS, install Mono.
+
+4.2. Get your DbProvider
+
+You need an ADO.Net database provider for your database. Usually, if
+you install a database, it will be installed automatically. If you use
+Mono, a whole bunch of the most important database providers will be
+installed by default.
+
+Call "nlatexdb -P" to see a list of the known providers. Remember the
+InvariantName of your provider.
+
+If you are under Windows and you have never used a command-line tool:
+Open a DOS box: Push <Windows-key>+R, type "cmd", and a black window
+appears. Now find Nlatexdb.exe in the Windows Explorer, and drag&drop
+it to the black window. Its complete path should appear. Add " -P" and
+press Enter: The list of DbProviders will be shown. Or, like in the
+old DOS days, use the "cd" command to move to the correct directory,
+and just type "nlatexdb -P". A third possibility is to create a text
+file called "getproviders.bat" with the following two lines:
+nlatexdb -P
+pause
+If you double-click it, the black DOS box with the list of providers
+opens for you to read.
+
+4.3. Create your Latex input
+
+Just write your normal Latex file with your favourite Latex editor.
+There are a few examples in the examples directory.
+
+If you use a wysiwyg frondend for Latex, it might get confused by the
+unknown new commands. Therefore, you might add the following lines to
+your file:
+
+\newcommand{\texdbconnectionnet}[2]{}
+\newcommand{\texdbdef}[3]{}
+\newcommand{\texdbfor}[2]{#2}
+\newcommand{\texdbforfile}[3]{#3}
+\newcommand{\texdbif}[2]{#2}
+\newcommand{\texdbcommand}[1]{}
+
+Like this, Latex will ignore all the SQL stuff.
+
+4.3.1. \texdbconnectionnet
+
+Now, first you have to define the database connection. The syntax is:
+
+\texdbconnectionnet{provider}{connectionstring}
+
+where provider is the database provider you found out in 4.2.
+Examples are:
+"System.Data.SqlClient" for MS SQLServer
+"System.Data.OracleClient" for Oracle
+"Mono.Data.SQLite" for SQLite under Mono
+
+The second pait of braces contains the connection string. This one
+depends on the database you use. Search the internet for the correct
+connection string of your database. There are whole web pages about
+nothing but connection strings!
+
+
+4.3.2. \texdbdef
+
+Next, you define the SQL queries that you need. This works with the
+\texdbdef command. It takes three parameters:
+1. The name of the query
+2. The SQL select command
+3. The variable names for referencing the columns
+
+This command works like in Latexdb. It may be split among more than
+one line, with the exception, that a closing brace should be
+immediately followed by the opening brace of the following block. So,
+no line breaks or other white space between them.
+
+Also, like in Latexdb, variables should be prefix free, to avoid
+confusions. 
+
+Note that \texdbdef should not appear inside a \texdbfor block. 
+It's probably the best to define all querys right behind the
+\texdbconnectionnet command, so they are all in one place.
+
+There are some additions:
+
+4.3.2.1. Reference to variables in SQL
+
+Just like in latexdb, you can refer to the variables in nested SQL
+queries as well. Unlike ratexdb, there are no different flavours to
+worry about. The parameters will be added as DbParameters, no SQL
+injection danger here. Also, in SQL no Latex special characters or
+regex postprocessing will be done; these happen only in the Latex
+part.
+
+4.3.2.2. Regular expression postprocessing
+
+When defining a variable name, you can append a series of
+"/regexp/replacement" pairs. These replacements are performed when
+inserting the value in the Latex file.
+
+Suppose your table contains a column "gender", which contains a single
+"m" or "f". But you'd like to see "male" or "female" in the Latex
+result. You can refer to the variable like this:
+
+\texdbdef{##sexample}{select gender from person}{##gender/m/male/f/female}
+
+Another example: Say, the database contained timestamp values, which
+were returned in this format: 2007-11-12 10:33:36.807000000
+
+A bit too much information, isn't it? At least, we'd like to cut off
+at the point. This is done by defining the variable like this:
+
+##timestamp/(.*)\.(.*)/$1
+
+(To be read: First any string, then a point, then a second string, to
+be replaced by the first string only.)
+
+(Note: In ratexdb the regex syntax was a bit different. E.g. referring
+to a matched group was done with "\1", not "$1". Go figure.)
+
+Regular expressions are a very powerful tool. If you don't know them,
+look them up on the web.
+
+The regular expression replace strings may contain Latex commands. The
+special characters in these will not be replaced. For example:
+
+\texdbdef{##sexample}{select sex from 
+person}{##sex/\Am\Z/\textbf{male}/\Af\Z/\textbf{female}}
+
+(Note the \A and \Z which stand for beginning and end of the
+string. Without these, "m" would be replaced by "\textbf{male}" and
+afterwards by "\textb\textbf{female}{male}"!)
+
+
+4.3.3. \texdbfor
+
+This works just like in Latexdb.
+
+\texdbfor{queryname}{latex stuff} will connect to the database,
+execute the query (previously defined with \texdbdef) and for each
+returned row write the latex stuff to the output.
+
+All variables defined for the query will be replaced by the values
+read from the database. They can be used in Latex as well as in nested
+SQL queries.
+
+4.3.4. \texdbif
+
+This is a new command that does not exist in Latexdb. It processes a
+Latex block if the given query returns at least one row. This is
+useful for tabular heads which should not even appear when there is no
+data at all.
+
+Here's an example:
+
+\texdbif{##q3}{
+\subsection*{File attachments}
+
+\begin{tabular}{lr}
+  Name & Size \\
+\hline
+\texdbfor{##q3}{##att_name & ##att_size \\ }
+\end{tabular}
+}
+
+If there are no file attachments, the whole subsection will be
+omitted.
+
+4.3.5. \texdbforfile
+
+Usually, nlatexdb writes only one output file. If you need to produce
+multiple output files, the command \texdbforfile is just for you. If
+not, disregard this section.
+
+It takes three parameters:
+\texdbforfile{queryname}{filename pattern}{latex stuff}
+
+The queryname and latex stuff work just like in \texdbfor. The
+filename pattern contains the paths for the output files. It should
+contain at least one variable from the query to be inserted into the
+file name (Otherwise the same file will be overwritten again and
+again... not good). For example: {invoice##id.tex}, where ##id
+contains the id number of an invoice; the variable will be replaced by
+the id for each data row.
+
+Note that as opposed to \texdbfor, the "latex stuff" should contain a
+complete Latex file, from "\documentclass" till "\end{document}".
+Of course, this will definitely confuse any Latex frondend you might
+use. If you rely on one of those, I hope you don't need multiple
+output files.
+
+There is a small, clarifying example for this in the "examples"
+directory, called testfile.tex.
+
+This command works fine with the arguments -l and -p for Latex
+postprocessing. Each output file will be processed by Latex. But of
+course, unlike the normal way, the resulting dvi/pdf won't be renamed
+to match the input file name.
+
+4.3.6. \texdbcommand
+
+This allows to send non-query SQL commands to the database. It is
+especially useful for "SET" statements. E.g. if you wish to access a
+MySQL database in UTF-8 mode, you might want to add this line to the
+TeX file:
+
+\texdbcommand{SET NAMES utf8}
+
+Of course, this command is only allowed after the \texdbconnectionnet,
+otherwise an error is issued.
+
+
+5. Invoking nlatexdb
+
+nlatexdb is called like this:
+
+nlatexdb [-l|-p] [-v] [-o filename] [-e encoding] [-h] [-P] [-n]
+  <texfile.tex> [par1] [par2]...
+
+If you give the -l parameter, the resulting texfile1.tex is processed
+with latex, and the resulting texfile1.dvi is renamed as texfile.dvi.
+
+If you give the -p parameter, the resulting texfile1.tex is processed
+with pdflatex, and the resulting texfile1.pdf is renamed as
+texfile.pdf.
+
+If you give neither of these, only texfile1.tex is generated.
+
+If you don't like the name texfile1.tex, you can give a different
+output file name using the argument -o <filename>.
+
+By default, encoding of input and output file is set to CP-1252. You
+can change it with the -e argument. E.g. "-e utf-8" sets it to UTF-8.
+In this case, don't forget to add "\usepackage[utf8]{inputenc}" to the
+input file.
+
+The -v argument turns on a rudimentary debug mode; some debug output
+will be written to the standard console.
+
+Behind the name of the .tex file, you can give optional parameters,
+which can be referred to in the tex file as ##1, ##2 etc. This is
+useful to generate a report for a special row, the ID of which can be
+given on the command line. Of course only up to nine parameters are
+possible, since the parameter names must be prefix-free. 
+
+(Maybe in a future version this will be changed, so the parameters
+will be called ##01, ##02, ..., ##99, and ninety-nine parameters will
+be possible. If you need this, drop me a line.)
+
+
+6. Configuration
+
+You can use the nlatexdb.exe.config file to change a few settings.
+Currently there are the following possibilities:
+
+The attribute "CmdLineArgumentVarPrefix" defines the prefix for
+referencing the command-line arguments in the tex file. E.g. if you
+set CmdLineArgumentVarPrefix="??", they will be referenced by ??1,
+??2, etc.
+
+The attribute "RegexSplitter" defines the character to separate the
+variable names and the Regex search/replace pairs. By default this is
+the character "/", but if you need it in one of your regular
+expressions, you can change the splitter to something you don't need.
+
+Similarly, the variables in the \texdbdef variable list are separated
+by commas, but you can change that, too. Just change the attribute
+"VariableSplitter" in nlatexdb.exe.config, if you need the comma in
+one of your regular expressions.
+
+But please, watch out you don't wreak havoc with these settings. If
+you make them too crazy, you might not understand anything any more.
+
+The <LatexCharReplace> section allows to add more characters to be
+replaced by Latex commands. Thus, if the database contains characters
+which will break Latex, you can add them here, so they will be
+replaced by appropriate commands, like this:
+<LatexCharReplace>
+<add char="¤" replace="\euro{}" />
+<add char="ß" replace="\ss{}" />
+</LatexCharReplace>
+
+
+7. Contact
+
+Please, if you have a question, find a bug or like to propose an
+improvement, contact me at robin@hoens.net.
+
+
+8. Acknowledgements
+
+Many thanks to Hans-Georg Eßer for LatexDb.
+Many thanks to all users who gave feedbank on ratexdb or nlatexdb,
+helping to make the tool more useful.
+
+
+9. Release history
+
+2012-10-11 nlatexdb 0.05
+
+Fixed a crash when a line contains text before a \texdb... command. 
+Oops. 
+
+Added the "-n" command line option to switch off LaTeX special
+character replacements if the database contains LaTeX code.
+
+
+2011-08-29 nlatexdb 0.04
+
+Added some more debug output. This should help in debugging the SQL
+queries.
+
+
+2011-08-16 nlatexdb 0.03
+
+Added variables RegexSplitter and VariableSplitter.
+
+Added command \texdbforfile.
+
+More debug output.
+
+
+2011-08-16 nlatexdb 0.02
+
+Compiled under Mono for .Net 2.0. Should be more platform-independent.
+
+Added exe.config file for some configuration possibilities.
+
+Renamed from natexdb to nlatexdb (turns out there is somebody calling
+himself natexdb... no need to create name clashes)
+
+
+2011-08-05 natexdb 0.01
+
+Initial release.
