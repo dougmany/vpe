@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2017.7.28)  28 JUL 2017 23:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2017.7.28)  31 JUL 2017 17:17
 entering extended mode
  %&-line parsing enabled.
 **agenda.tex
@@ -37,17 +37,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 17.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 17.
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--36
+Underfull \hbox (badness 10000) in paragraph at lines 15--29
 
  []
 
@@ -55,12 +46,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--36
 
 ] (./agenda.aux) ) 
 Here is how much of TeX's memory you used:
- 206 strings out of 495062
- 2185 string characters out of 1182644
- 48022 words of memory out of 3000000
- 3468 multiletter control sequences out of 15000+50000
- 4294 words of font info for 16 fonts, out of 3000000 for 9000
+ 202 strings out of 495062
+ 2136 string characters out of 1182644
+ 47022 words of memory out of 3000000
+ 3465 multiletter control sequences out of 15000+50000
+ 3986 words of font info for 15 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 23i,6n,17p,137b,132s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,4n,17p,137b,107s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on agenda.dvi (1 page, 1396 bytes).
+Output written on agenda.dvi (1 page, 528 bytes).
