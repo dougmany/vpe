@@ -2,26 +2,47 @@
 
 \texdbconnection{MySQL,localhost,root,test123,toastmasters}
 
-\texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName FROM Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id }{##Date,##Toastmaster,##Inspirational}
-
 \texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName, j.FirstName, ge.FirstName, e1.FirstName, e2.FirstName, t.FirstName, bc.FirstName, g.FirstName, tt.FirstName, s1.FirstName, s2.FirstName FROM  Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id LEFT JOIN Users j On a.Joke = j.id LEFT JOIN Users ge On a.GeneralEvaluator = ge.id LEFT JOIN Users e1 On a.Evaluator1 = e1.id LEFT JOIN Users e2 On a.Evaluator2 = e2.id LEFT JOIN Users t On a.Timer = t.id LEFT JOIN Users bc On a.BallotCounter = bc.id LEFT JOIN Users g On a.Grammarian = g.id LEFT JOIN Users tt On a.TableTopics = tt.id LEFT JOIN Users s1 On a.Speaker1 = s1.id LEFT JOIN Users s2 On a.Speaker2 = s2.id;}{##Date,##Toastmaster,##Inspirational,##Joke,##GeneralEvaluator,##Evaluator1,##Evaluator2,##Timer,##BallotCounter,##Grammarian,##TableTopics,##Speaker1,##Speaker2}
+
 
 \begin{document}
 This is a header for the page.
 \texdbfor{##q1}{\textit{##Date}\\
- \textit{##Toastmaster}\\
- \textit{##Inspirational}\\
- \textit{##Joke}\\
- \textit{##Evaluator1}\\
- \textit{##GeneralEvaluator}\\
- \textit{##Evaluator2}\\
- \textit{##Timer}\\
- \textit{##BallotCounter}\\
- \textit{##Grammarian}\\
- \textit{##TableTopics}\\
- \textit{##Speaker1}\\
- \textit{##Speaker2}\\
- }
+  \textit{##Toastmaster}\\
+  \textit{##Inspirational}\\
+  \textit{##Joke}\\
+  \textit{##Evaluator1}\\
+  \textit{##GeneralEvaluator}\\
+  \textit{##Evaluator2}\\
+  \textit{##Timer}\\
+  \textit{##BallotCounter}\\
+  \textit{##Grammarian}\\
+  \textit{##TableTopics}\\
+  \textit{##Speaker1}\\
+  \textit{##Speaker2}\\
+  }
+
+\section{Sargent at Arms} Leo
+\begin{itemize}
+	\item Call Meeting to order
+	\item Pledge of Allegiance
+	\item Introduce Toastmaster of the Day
+\end{itemize}
+
+\section{Toastmaster of the Day}
+\begin{itemize}
+	\item Ask Guest to introduce themselves
+	\item Distribute Manuals
+	\item Introduce Theme
+	\item Jokemaster
+	\item Introduce General Evaluator - \textit{##GeneralEvaluator}
+	\item Introduce Speaker Evaluators - \textit{##Evaluator1} and \textit{##Evaluator2}
+\end{itemize}
+
+\section{New Business}
+\begin{items}
+	\item some items
+\end{items}
 
 
 This is a footer for the page.
