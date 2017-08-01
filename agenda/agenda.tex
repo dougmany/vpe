@@ -1,34 +1,49 @@
-\documentclass{article}
+\documentclass{meetingmins}
+
 
 \texdbconnection{MySQL,localhost,root,test123,toastmasters}
 
 \texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName, j.FirstName, ge.FirstName, e1.FirstName, e2.FirstName, t.FirstName, bc.FirstName, g.FirstName, tt.FirstName, s1.FirstName, s2.FirstName FROM  Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id LEFT JOIN Users j On a.Joke = j.id LEFT JOIN Users ge On a.GeneralEvaluator = ge.id LEFT JOIN Users e1 On a.Evaluator1 = e1.id LEFT JOIN Users e2 On a.Evaluator2 = e2.id LEFT JOIN Users t On a.Timer = t.id LEFT JOIN Users bc On a.BallotCounter = bc.id LEFT JOIN Users g On a.Grammarian = g.id LEFT JOIN Users tt On a.TableTopics = tt.id LEFT JOIN Users s1 On a.Speaker1 = s1.id LEFT JOIN Users s2 On a.Speaker2 = s2.id;}{##Date,##Toastmaster,##Inspirational,##Joke,##GeneralEvaluator,##Evaluator1,##Evaluator2,##Timer,##BallotCounter,##Grammarian,##TableTopics,##Speaker1,##Speaker2}
+%\texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName, j.FirstName, ge.FirstName, e1.FirstName, e2.FirstName, t.FirstName, bc.FirstName, g.FirstName, tt.FirstName, s1.FirstName, s2.FirstName, pres.FirstName, sarg.FirstName FROM  Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id LEFT JOIN Users j On a.Joke = j.id LEFT JOIN Users ge On a.GeneralEvaluator = ge.id LEFT JOIN Users e1 On a.Evaluator1 = e1.id LEFT JOIN Users e2 On a.Evaluator2 = e2.id LEFT JOIN Users t On a.Timer = t.id LEFT JOIN Users bc On a.BallotCounter = bc.id LEFT JOIN Users g On a.Grammarian = g.id LEFT JOIN Users tt On a.TableTopics = tt.id LEFT JOIN Users s1 On a.Speaker1 = s1.id LEFT JOIN Users s2 On a.Speaker2 = s2.id LEFT JOIN Users pres ON a.President = pres.id LEFT JOIN Users sarg On a.Sargent = sarg.id;}{##Date,##Toastmaster,##Inspirational,##Joke,##GeneralEvaluator,##Evaluator1,##Evaluator2,##Timer,##BallotCounter,##Grammarian,##TableTopics,##Speaker1,##Speaker2,##President,##Sargent}
+\texdbdef{##q2}{SELECT FirstName FROM Users Where IsPresident}{##President}
+\texdbdef{##q3}{SELECT FirstName FROM Users Where IsSargent}{##Sargent}
 
+\setcommittee{Clear Signals Toastmasters Club 999\\Area 53 Division E, District 39}
+\setdate{\texdbfor{##q1}{##Date}}
 
 \begin{document}
-\texdbfor{##q1}{
-Clear Signals Toastmasters Club \#999\\
-\textit{##Date}\\
 
-\section{Sargent at Arms - Leo}
+\maketitle
+\texdbfor{##q3}{
+\section{Sargent at Arms - \textit{##Sargent}}
 \begin{itemize}
 	\item Call Meeting to order
 	\item Pledge of Allegiance
 	\item Introduce Toastmaster of the Day
 \end{itemize}
-
+}
+\texdbfor{##q1}{
 \section{Toastmaster of the Day - \textit{##Toastmaster}} 
 \begin{itemize}
 	\item Ask Guest to introduce themselves
 	\item Distribute Manuals
 	\item Introduce Theme
+    \item Inspirational - \textit{##Inspirational}
 	\item Jokemaster - \textit{##Joke}
-	\item Inspirational - \textit{##Inspirational}
+	\item Introduce General Evaluator - \textit{##GeneralEvaluator}
+	\item Introduce Speaker Evaluators - \textit{##Evaluator1} and \textit{##Evaluator2}
 	\item Grammarian - \textit{##Grammarian}
 	\item Timer - \textit{##Timer}
 	\item Ballot Counter - \textit{##BallotCounter}
-	\item Introduce General Evaluator - \textit{##GeneralEvaluator}
-	\item Introduce Speaker Evaluators - \textit{##Evaluator1} and \textit{##Evaluator2}
+    \item Table Topics Master - \textit{##TableTopics}
+    \item Speaker 1 - \textit{##Speaker1}
+        \subitem{Title:}
+        \subitem{Project}
+        \subitem{Time Limits}
+    \item Speaker 2 - \textit{##Speaker2}
+        \subitem{Title:}
+        \subitem{Project}
+        \subitem{Time Limits}
 \end{itemize}
 
 \section{Table Topice - \textit{##TableTopics}} 
@@ -45,7 +60,9 @@ Clear Signals Toastmasters Club \#999\\
 	\item Evaluator 2 - \textit{##Evaluator2}
 	\item vote
 \end{itemize}
-\section{President - \textit{Dale}} 
+}
+\texdbfor{##q2}{
+\section{President - \textit{##President}} 
 \begin{itemize}
 	\item Next Meeting
 	\item Other Business
