@@ -1,4 +1,6 @@
-\documentclass{meetingmins}
+\documentclass{article}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage[T1]{fontenc}
 
 
 \texdbconnection{MySQL,localhost,root,test123,toastmasters}
@@ -8,20 +10,25 @@
 \texdbdef{##q2}{SELECT FirstName FROM Users Where IsPresident}{##President}
 \texdbdef{##q3}{SELECT FirstName FROM Users Where IsSargent}{##Sargent}
 
-\setcommittee{Clear Signals Toastmasters Club 999\\Area 53 Division E, District 39}
-\setdate{\texdbfor{##q1}{##Date}}
-
 \begin{document}
 
-\maketitle
+\texdbfor{##q1}{
+  \begin{figure}
+    \centering
+    \large\textbf{Clear Signals Toastmasters Club \#999\\Area 53 Division E District 39} \\
+    ##Date
+  \end{figure}
+}
+
 \texdbfor{##q3}{
 \section{Sargent at Arms - \textit{##Sargent}}
 \begin{itemize}
-	\item Call Meeting to order
-	\item Pledge of Allegiance
-	\item Introduce Toastmaster of the Day
+  \item Call Meeting to order
+  \item Pledge of Allegiance
+  \item Introduce Toastmaster of the Day
 \end{itemize}
 }
+
 \texdbfor{##q1}{
 \section{Toastmaster of the Day - \textit{##Toastmaster}} 
 \begin{itemize}

@@ -117,7 +117,7 @@ def texDBconvert(val):
         if locale == "de":
             return str(val.day)+"."+str(val.month)+"."+str(val.year)
         else:
-            return val.date
+            return str(val.day)+" "+str(val.month)+" "+str(val.year)
     else:
         return str(val)
 ## texDBconvert ends
