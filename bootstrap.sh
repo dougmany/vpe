@@ -33,9 +33,9 @@ rm -f install-tl-unx.tar.gz
 
 # Install with the meduim scheme
 cd install-tl-20* || error_exit "Failure changing to texlive install directory"
-#echo 'selected_scheme scheme-meduim' > temp.profile
-#./install-tl -profile temp.profile || error_exit "Failure installing texlive core"
-#rm -f temp.profile
+echo 'selected_scheme scheme-meduim' > temp.profile
+./install-tl -profile temp.profile || error_exit "Failure installing texlive core"
+rm -f temp.profile
 
 # Add the bin directory to the path
 echo 'export PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH' >> ~/.bashrc
