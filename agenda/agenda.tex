@@ -1,12 +1,12 @@
 \documentclass{article}
-\RequirePackage[margin=1in]{geometry}
+\RequirePackage[margin=.5in]{geometry}
 \RequirePackage[T1]{fontenc}
-
+\linespread{.6}
 
 \texdbconnection{MySQL,localhost,dbuser,test123,toastmasters}
 
 \texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName, j.FirstName, ge.FirstName, e1.FirstName, e2.FirstName, t.FirstName, bc.FirstName, g.FirstName, tt.FirstName, s1.FirstName, s2.FirstName FROM  Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id LEFT JOIN Users j On a.Joke = j.id LEFT JOIN Users ge On a.GeneralEvaluator = ge.id LEFT JOIN Users e1 On a.Evaluator1 = e1.id LEFT JOIN Users e2 On a.Evaluator2 = e2.id LEFT JOIN Users t On a.Timer = t.id LEFT JOIN Users bc On a.BallotCounter = bc.id LEFT JOIN Users g On a.Grammarian = g.id LEFT JOIN Users tt On a.TableTopics = tt.id LEFT JOIN Users s1 On a.Speaker1 = s1.id LEFT JOIN Users s2 On a.Speaker2 = s2.id;}{##Date,##Toastmaster,##Inspirational,##Joke,##GeneralEvaluator,##Evaluator1,##Evaluator2,##Timer,##BallotCounter,##Grammarian,##TableTopics,##Speaker1,##Speaker2}
-%\texdbdef{##q1}{SELECT a.Date, tod.FirstName, i.FirstName, j.FirstName, ge.FirstName, e1.FirstName, e2.FirstName, t.FirstName, bc.FirstName, g.FirstName, tt.FirstName, s1.FirstName, s2.FirstName, pres.FirstName, sarg.FirstName FROM  Meetings a LEFT JOIN Users tod On a.Toastmaster = tod.id LEFT JOIN Users i On a.Inspirational = i.id LEFT JOIN Users j On a.Joke = j.id LEFT JOIN Users ge On a.GeneralEvaluator = ge.id LEFT JOIN Users e1 On a.Evaluator1 = e1.id LEFT JOIN Users e2 On a.Evaluator2 = e2.id LEFT JOIN Users t On a.Timer = t.id LEFT JOIN Users bc On a.BallotCounter = bc.id LEFT JOIN Users g On a.Grammarian = g.id LEFT JOIN Users tt On a.TableTopics = tt.id LEFT JOIN Users s1 On a.Speaker1 = s1.id LEFT JOIN Users s2 On a.Speaker2 = s2.id LEFT JOIN Users pres ON a.President = pres.id LEFT JOIN Users sarg On a.Sargent = sarg.id;}{##Date,##Toastmaster,##Inspirational,##Joke,##GeneralEvaluator,##Evaluator1,##Evaluator2,##Timer,##BallotCounter,##Grammarian,##TableTopics,##Speaker1,##Speaker2,##President,##Sargent}
+
 \texdbdef{##q2}{SELECT FirstName FROM Users Where IsPresident}{##President}
 \texdbdef{##q3}{SELECT FirstName FROM Users Where IsSargent}{##Sargent}
 
@@ -15,13 +15,13 @@
 \texdbfor{##q1}{
   \begin{figure}
     \centering
-    \large\textbf{Clear Signals Toastmasters Club \#999\\Area 53 Division E District 39} \\
-    ##Date
+	\linespread{1}
+    \large\textbf{Clear Signals Toastmasters Club \#999\\Area 53 Division E District 39\\##Date} \\
   \end{figure}
 }
 
 \texdbfor{##q3}{
-\section{Sargent at Arms - \textit{##Sargent}}
+\section*{Sargent at Arms - \textit{##Sargent}}
 \begin{itemize}
   \item Call Meeting to order
   \item Pledge of Allegiance
@@ -30,7 +30,7 @@
 }
 
 \texdbfor{##q1}{
-\section{Toastmaster of the Day - \textit{##Toastmaster}} 
+\section*{Toastmaster of the Day - \textit{##Toastmaster}} 
 \begin{itemize}
 	\item Ask Guest to introduce themselves
 	\item Distribute Manuals
@@ -53,14 +53,14 @@
         \subitem{Time Limits}
 \end{itemize}
 
-\section{Table Topice - \textit{##TableTopics}} 
+\section*{Table Topice - \textit{##TableTopics}} 
 \begin{itemize}
 	\item Use Word of the day
 	\item Time Limits
 	\item Vote
 \end{itemize}
 
-\section{Evaluation - \textit{##GeneralEvaluator}} 
+\section*{Evaluation - \textit{##GeneralEvaluator}} 
 \begin{itemize}
 	\item Time Limits
 	\item Evaluator 1 - \textit{##Evaluator1}
@@ -69,7 +69,7 @@
 \end{itemize}
 }
 \texdbfor{##q2}{
-\section{President - \textit{##President}} 
+\section*{President - \textit{##President}} 
 \begin{itemize}
 	\item Next Meeting
 	\item Other Business
