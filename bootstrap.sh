@@ -38,14 +38,8 @@ echo 'selected_scheme scheme-meduim' > temp.profile
 rm -f temp.profile
 
 # Add the bin directory to the path
-PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH export PATH
-
-# Install additional packages
-tlmgr install meetingmins || error_exit "Failure installing meetingmins"
-tlmgr install minutes || error_exit "Failure installing minutes"
-tlmgr install environ ||error_exit "Failure installing environ"
-tlmgr install trimspaces ||error_exit "Failure installing trimspaces"
-
+echo 'export PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH' >> ~/.profile
+source ~/.profile
 
 install -o root -g root -m 755 -v /vagrant/latexdb-0.3/code/* /usr/local/bin/
 
