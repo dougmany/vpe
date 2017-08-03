@@ -14,11 +14,12 @@ echo -e "\n--- Seed Data ---\n"
 
 mysql -uroot -p$ROOTPASSWD -e "CREATE DATABASE $DBNAME"
 mysql -uroot -p$ROOTPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'localhost' identified by '$DBPASSWD'"
-mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Users ( id INT PRIMARY KEY, FirstName VARCHAR(40), LastName VARCHAR(40), IsPresident BOOLEAN, IsSargent BOOLEAN );"
+mysql -uroot -p$ROOTPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'10.0.2.2' identified by '$DBPASSWD'"
+mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Members ( id INT PRIMARY KEY, FirstName VARCHAR(40), LastName VARCHAR(40), Email VARCHAR(100), IsPresident BOOLEAN, IsSargent BOOLEAN );"
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Meetings ( id INT PRIMARY KEY, Date DateTime, Toastmaster INT, Inspirational INT, Joke INT, GeneralEvaluator INT, Evaluator1 INT, Evaluator2 INT, Timer INT, BallotCounter INT, Grammarian INT, TableTopics INT, Speaker1 INT, Speaker2 INT, President INT, Sargent INT );"
-mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; INSERT INTO Users VALUES (0,'Dale','Rinde',1,0); INSERT INTO Users VALUES (1,'Doug','Meeker',0,0); INSERT INTO Users VALUES (2,'Gina','Leal',0,0); INSERT INTO Users VALUES (3,'Gordon','Owyang',0,0); INSERT INTO Users VALUES (4,'Hasheem','Whitmore',0,0); INSERT INTO Users VALUES (5,'Janelle','Graham',0,0); INSERT INTO Users VALUES (6,'Kim','Glazzard',0,0); INSERT INTO Users VALUES (7,'Kim','Nguyen',0,0); INSERT INTO Users VALUES (8,'Laleh','Rastegarzadeh',0,0); INSERT INTO Users VALUES (9,'Leo','Barsukov',0,1); INSERT INTO Users VALUES (10,'Marty','Gunn',0,0); INSERT INTO Users VALUES (11,'Min','Wu',0,0); INSERT INTO Users VALUES (12,'Tyler','Jennings',0,0); INSERT INTO Users VALUES (13,'Bill','Stuart',0,0); INSERT INTO Users VALUES (14,'Xiaoying','Zhou',0,0);"
+mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; INSERT INTO Members VALUES (0,'Dale','Rinde','',1,0); INSERT INTO Members VALUES (1,'Doug','Meeker','',0,0); INSERT INTO Members VALUES (2,'Gina','Leal','',0,0); INSERT INTO Members VALUES (3,'Gordon','Owyang','',0,0); INSERT INTO Members VALUES (4,'Hasheem','Whitmore','',0,0); INSERT INTO Members VALUES (5,'Janelle','Graham','',0,0); INSERT INTO Members VALUES (6,'Kim','Glazzard','',0,0); INSERT INTO Members VALUES (7,'Kim','Nguyen','',0,0); INSERT INTO Members VALUES (8,'Laleh','Rastegarzadeh','',0,0); INSERT INTO Members VALUES (9,'Leo','Barsukov','',0,1); INSERT INTO Members VALUES (10,'Marty','Gunn','',0,0); INSERT INTO Members VALUES (11,'Min','Wu','',0,0); INSERT INTO Members VALUES (12,'Tyler','Jennings','',0,0); INSERT INTO Members VALUES (13,'Bill','Stuart','',0,0); INSERT INTO Members VALUES (14,'Xiaoying','Zhou','',0,0);"
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; INSERT INTO Meetings VALUES( 0, '2017-07-31 12:05:00', 3, 7, 12, 6, 9, 1, 0, 8, 11, 5, 14, 13, 0, 9 );"
-mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Users"
+mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Members"
 
 echo -e "\n--- Install Latex ---\n"
 
