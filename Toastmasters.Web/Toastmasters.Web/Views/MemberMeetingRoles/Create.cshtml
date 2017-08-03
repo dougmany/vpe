@@ -1,0 +1,55 @@
+@model Toastmasters.Web.Models.MemberMeetingRole
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>MemberMeetingRole</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="MemberID" class="col-md-2 control-label">Member</label>
+            <div class="col-md-10">
+                <select asp-for="MemberID" class ="form-control" asp-items="ViewBag.MemberID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MeetingRoleID" class="col-md-2 control-label">Role</label>
+            <div class="col-md-10">
+                <select asp-for="MeetingRoleID" class ="form-control" asp-items="ViewBag.MeetingRoleID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Meeting" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Meeting" class="form-control" type="date"/>
+                <span asp-validation-for="Meeting" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="Signoff" />
+                    <label asp-for="Signoff"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
