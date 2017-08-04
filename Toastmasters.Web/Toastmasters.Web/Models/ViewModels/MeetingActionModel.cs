@@ -11,6 +11,7 @@ namespace Toastmasters.Web.Models
     {
         public Int32 MeetingID { get; set; }
         [Display(Name = "Date")]
+        [Display(DisplayFormatAttribute="d")]
         public DateTime MeetingDate { get; set; }
         [Display (Name="Toastmaster")]
         public Int32 ToastmasterMemberID { get; set; }
