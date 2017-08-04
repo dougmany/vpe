@@ -1,0 +1,100 @@
+@model IEnumerable<Toastmasters.Web.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Toastmaster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TableTopics)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speaker1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speaker2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneralEvaluator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Evaluator1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Evaluator2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inspirational)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Joke)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grammarian)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a> 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Toastmaster.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TableTopics.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speaker1.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speaker2.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneralEvaluator.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Evaluator1.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Evaluator2.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inspirational.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Joke.FirstInitial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timer.FirstInitial)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grammarian.FirstInitial)
+                </td>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.MeetingID" >X</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

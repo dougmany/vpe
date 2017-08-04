@@ -1,0 +1,96 @@
+@model Toastmasters.Web.Models.Meeting
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MeetingRole</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Toastmaster)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Toastmaster.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspirational)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Inspirational.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Joke)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Joke.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GeneralEvaluator)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GeneralEvaluator.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Evaluator1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Evaluator1.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Evaluator2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Evaluator2.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Timer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Timer.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BallotCounter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BallotCounter.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grammarian)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grammarian.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TableTopics)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TableTopics.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Speaker1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Speaker1.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Speaker2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Speaker2.FullName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MeetingID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -20,6 +20,9 @@ namespace Toastmasters.Web.Models
         [Display(Name="Name")]
         [NotMapped]
         public String FullName { get { return $"{FirstName} {LastName}"; } }
+        [Display(Name = "Name")]
+        [NotMapped]
+        public String FirstInitial { get { return $"{FirstName} {LastName[0]}."; } }
 
     }
 }

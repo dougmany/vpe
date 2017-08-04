@@ -1,0 +1,114 @@
+@model Toastmasters.Web.Models.MeetingActionModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Meeting</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="MeetingID" />
+        <div class="form-group">
+            <label asp-for="MeetingDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MeetingDate" class="form-control" type="date" />
+                <span asp-validation-for="MeetingDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ToastmasterMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ToastmasterMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TableTopicsMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="TableTopicsMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GeneralEvaluatorMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="GeneralEvaluatorMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Evaluator1MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Evaluator1MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Evaluator2MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Evaluator2MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Speaker1MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Speaker1MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Speaker2MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Speaker2MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InspirationalMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="InspirationalMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JokeMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="JokeMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TimerMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="TimerMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GrammarianMemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="GrammarianMemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Absent1MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Absent1MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Absent2MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Absent2MemberID" class="form-control" asp-items="Model.Members"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
