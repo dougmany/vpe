@@ -11,9 +11,8 @@ namespace Toastmasters.Web.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Member> Members { get; set; }
-
+        public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingRole> MeetingRoles { get; set; }
-
         public DbSet<MemberMeetingRole> MemberMeetingRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
