@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Toastmasters.Web.Models.ViewModels;
 
 namespace Toastmasters.Web.Models
 {
@@ -11,7 +12,7 @@ namespace Toastmasters.Web.Models
     {
         public Int32 MeetingID { get; set; }
         [Display(Name = "Date")]
-        [Display(DisplayFormatAttribute="d")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime MeetingDate { get; set; }
         [Display (Name="Toastmaster")]
         public Int32 ToastmasterMemberID { get; set; }
@@ -57,13 +58,15 @@ namespace Toastmasters.Web.Models
             _members = members;
         }
 
-        public Meeting Create(MeetingActionModel actionModel)
+        public Meeting Create(MeetingActionModel actionModel, out string ChangeLog)
         {
             //DateTime meetingDate;
             //if (!DateTime.TryParse(actionModel.MeetingDate, out meetingDate))
             //{
             //    meetingDate = DateTime.Now;
             //}
+            ChangeLog = "";
+
             return new Meeting
             {
                 MeetingID = actionModel.MeetingID,
@@ -86,10 +89,9 @@ namespace Toastmasters.Web.Models
                 Absent2 = _members.Single(m => m.MemberID == actionModel.Absent2MemberID),
             };
         }
-
-        public bool Update(MeetingActionModel actionModel, Meeting entity, out String ChangeDescription)
+        public bool Update(MeetingActionModel actionModel, Meeting entity, out List<string> ChangeLogs)
         {
-            ChangeDescription = "";
+            ChangeLogs = new List<String>();
             if (entity.MeetingID != actionModel.MeetingID)
             {
                 return false;
@@ -163,14 +165,14 @@ namespace Toastmasters.Web.Models
                 entity.Absent2 = _members.Single(m => m.MemberID == actionModel.Absent2MemberID);
             }
 
-            return ChangeDescription == "" ? false : true;
+            return ChangeLogs.Count == 0 ? false : true;
         }
 
         public MeetingActionModel View(Meeting entity)
         {
             
             var members = new SelectList(_members, "MemberID", "FullName");
-            members.Append(new SelectListItem { Text = "-Select Member-", Value =  "0" });
+            members = (SelectList)members.Append(new SelectListItem { Text = "-Select Member-", Value =  "0" });
 
             return new MeetingActionModel
             {

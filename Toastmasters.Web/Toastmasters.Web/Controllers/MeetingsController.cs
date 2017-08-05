@@ -114,7 +114,7 @@ namespace Toastmasters.Web.Controllers
                 try
                 {
                     var builder = new MeetingActionBuilder(_context.Members.ToArray());
-                    String changes;
+                    List<String> changes;
                     var entity = _context.Meetings.Single(m => m.MeetingID == meeting.MeetingID);
                     builder.Update(meeting, entity, out changes);
 
