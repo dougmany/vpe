@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Toastmasters.Tex": {
+      "commandName": "Project",
+      "commandLineArgs": "../../agenda/variableTest.tex"
+    }
+  }
+}

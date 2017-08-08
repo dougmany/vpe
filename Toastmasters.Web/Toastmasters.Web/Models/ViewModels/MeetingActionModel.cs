@@ -23,9 +23,9 @@ namespace Toastmasters.Web.Models
         [Display(Name = "General Evaluator")]
         public Int32 GeneralEvaluatorMemberID { get; set; }
         [Display(Name = "Evaluator 1")]
-        public Int32 Evaluator1MemberID { get; set; }
+        public Int32 EvaluatorIMemberID { get; set; }
         [Display(Name = "Evaluator 2")]
-        public Int32 Evaluator2MemberID { get; set; }
+        public Int32 EvaluatorIIMemberID { get; set; }
         [Display(Name = "Timer")]
         public Int32 TimerMemberID { get; set; }
         [Display(Name = "Ballot Counter")]
@@ -35,17 +35,17 @@ namespace Toastmasters.Web.Models
         [Display(Name = "Table Topics")]
         public Int32 TableTopicsMemberID { get; set; }
         [Display(Name = "Speaker 1")]
-        public Int32 Speaker1MemberID { get; set; }
+        public Int32 SpeakerIMemberID { get; set; }
         [Display(Name = "Speaker 2")]
-        public Int32 Speaker2MemberID { get; set; }
+        public Int32 SpeakerIIMemberID { get; set; }
         [Display(Name = "President")]
         public Int32 PresidentMemberID { get; set; }
         [Display(Name = "Sargent")]
         public Int32 SargentMemberID { get; set; }
         [Display(Name = "Absent")]
-        public Int32 Absent1MemberID { get; set; }
+        public Int32 AbsentIMemberID { get; set; }
         [Display(Name = "Absent")]
-        public Int32 Absent2MemberID { get; set; }
+        public Int32 AbsentIIMemberID { get; set; }
 
         public SelectList Members { get; set; }
     }
@@ -73,11 +73,11 @@ namespace Toastmasters.Web.Models
                 MeetingDate = actionModel.MeetingDate,
                 Toastmaster = _members.Single(m => m.MemberID == actionModel.ToastmasterMemberID),
                 TableTopics = _members.Single(m => m.MemberID == actionModel.TableTopicsMemberID),
-                Speaker1 = _members.Single(m => m.MemberID == actionModel.Speaker1MemberID),
-                Speaker2 = _members.Single(m => m.MemberID == actionModel.Speaker2MemberID),
+                SpeakerI = _members.Single(m => m.MemberID == actionModel.SpeakerIMemberID),
+                SpeakerII = _members.Single(m => m.MemberID == actionModel.SpeakerIIMemberID),
                 GeneralEvaluator = _members.Single(m => m.MemberID == actionModel.GeneralEvaluatorMemberID),
-                Evaluator1 = _members.Single(m => m.MemberID == actionModel.Evaluator1MemberID),
-                Evaluator2 = _members.Single(m => m.MemberID == actionModel.Evaluator2MemberID),
+                EvaluatorI = _members.Single(m => m.MemberID == actionModel.EvaluatorIMemberID),
+                EvaluatorII = _members.Single(m => m.MemberID == actionModel.EvaluatorIIMemberID),
                 Inspirational = _members.Single(m => m.MemberID == actionModel.InspirationalMemberID),
                 Joke = _members.Single(m => m.MemberID == actionModel.JokeMemberID),
                 Grammarian = _members.Single(m => m.MemberID == actionModel.GrammarianMemberID),
@@ -85,8 +85,8 @@ namespace Toastmasters.Web.Models
                 BallotCounter = _members.Single(m => m.MemberID == actionModel.BallotCounterMemberID),
                 President = _members.Single(m => m.MemberID == actionModel.PresidentMemberID),
                 Sargent = _members.Single(m => m.MemberID == actionModel.SargentMemberID),
-                Absent1 = _members.Single(m => m.MemberID == actionModel.Absent1MemberID),
-                Absent2 = _members.Single(m => m.MemberID == actionModel.Absent2MemberID),
+                AbsentI = _members.Single(m => m.MemberID == actionModel.AbsentIMemberID),
+                AbsentII = _members.Single(m => m.MemberID == actionModel.AbsentIIMemberID),
             };
         }
         public bool Update(MeetingActionModel actionModel, Meeting entity, out List<string> ChangeLogs)
@@ -108,25 +108,25 @@ namespace Toastmasters.Web.Models
             {
                 entity.TableTopics = _members.Single(m => m.MemberID == actionModel.TableTopicsMemberID);
             }
-            if (actionModel.Speaker1MemberID != 0)
+            if (actionModel.SpeakerIMemberID != 0)
             {
-                entity.Speaker1 = _members.Single(m => m.MemberID == actionModel.Speaker1MemberID);
+                entity.SpeakerI = _members.Single(m => m.MemberID == actionModel.SpeakerIMemberID);
             }
-            if (actionModel.Speaker2MemberID != 0)
+            if (actionModel.SpeakerIIMemberID != 0)
             {
-                entity.Speaker2 = _members.Single(m => m.MemberID == actionModel.Speaker2MemberID);
+                entity.SpeakerII = _members.Single(m => m.MemberID == actionModel.SpeakerIIMemberID);
             }
             if (actionModel.GeneralEvaluatorMemberID != 0)
             {
                 entity.GeneralEvaluator = _members.Single(m => m.MemberID == actionModel.GeneralEvaluatorMemberID);
             }
-            if (actionModel.Evaluator1MemberID != 0)
+            if (actionModel.EvaluatorIMemberID != 0)
             {
-                entity.Evaluator1 = _members.Single(m => m.MemberID == actionModel.Evaluator1MemberID);
+                entity.EvaluatorI = _members.Single(m => m.MemberID == actionModel.EvaluatorIMemberID);
             }
-            if (actionModel.Evaluator2MemberID != 0)
+            if (actionModel.EvaluatorIIMemberID != 0)
             {
-                entity.Evaluator2 = _members.Single(m => m.MemberID == actionModel.Evaluator2MemberID);
+                entity.EvaluatorII = _members.Single(m => m.MemberID == actionModel.EvaluatorIIMemberID);
             }
             if (actionModel.InspirationalMemberID != 0)
             {
@@ -156,13 +156,13 @@ namespace Toastmasters.Web.Models
             {
                 entity.Sargent = _members.Single(m => m.MemberID == actionModel.SargentMemberID);
             }
-            if (actionModel.Absent1MemberID != 0)
+            if (actionModel.AbsentIMemberID != 0)
             {
-                entity.Absent1 = _members.Single(m => m.MemberID == actionModel.Absent1MemberID);
+                entity.AbsentI = _members.Single(m => m.MemberID == actionModel.AbsentIMemberID);
             }
-            if (actionModel.Absent2MemberID != 0)
+            if (actionModel.AbsentIIMemberID != 0)
             {
-                entity.Absent2 = _members.Single(m => m.MemberID == actionModel.Absent2MemberID);
+                entity.AbsentII = _members.Single(m => m.MemberID == actionModel.AbsentIIMemberID);
             }
 
             return ChangeLogs.Count == 0 ? false : true;
@@ -180,11 +180,11 @@ namespace Toastmasters.Web.Models
                 MeetingDate = entity.MeetingDate,
                 ToastmasterMemberID = entity.Toastmaster == null ? 0 : entity.Toastmaster.MemberID,
                 TableTopicsMemberID = entity.TableTopics == null ? 0 : entity.TableTopics.MemberID,
-                Speaker1MemberID = entity.Speaker1 == null ? 0 : entity.Speaker1.MemberID,
-                Speaker2MemberID = entity.Speaker2 == null ? 0 : entity.Speaker2.MemberID,
+                SpeakerIMemberID = entity.SpeakerI == null ? 0 : entity.SpeakerI.MemberID,
+                SpeakerIIMemberID = entity.SpeakerII == null ? 0 : entity.SpeakerII.MemberID,
                 GeneralEvaluatorMemberID = entity.GeneralEvaluator == null ? 0 : entity.GeneralEvaluator.MemberID,
-                Evaluator1MemberID = entity.Evaluator1 == null ? 0 : entity.Evaluator1.MemberID,
-                Evaluator2MemberID = entity.Evaluator2 == null ? 0 : entity.Evaluator2.MemberID,
+                EvaluatorIMemberID = entity.EvaluatorI == null ? 0 : entity.EvaluatorI.MemberID,
+                EvaluatorIIMemberID = entity.EvaluatorII == null ? 0 : entity.EvaluatorII.MemberID,
                 InspirationalMemberID = entity.Inspirational == null ? 0 : entity.Inspirational.MemberID,
                 JokeMemberID = entity.Joke == null ? 0 : entity.Joke.MemberID,
                 GrammarianMemberID = entity.Grammarian == null ? 0 : entity.Grammarian.MemberID,
@@ -192,8 +192,8 @@ namespace Toastmasters.Web.Models
                 BallotCounterMemberID = entity.BallotCounter == null ? 0 : entity.BallotCounter.MemberID,
                 PresidentMemberID = entity.President == null ? 0 : entity.President.MemberID,
                 SargentMemberID = entity.Sargent == null ? 0 : entity.Sargent.MemberID,
-                Absent1MemberID = entity.Absent1 == null ? 0 : entity.Absent1.MemberID,
-                Absent2MemberID = entity.Absent1 == null ? 0 : entity.Absent2.MemberID,
+                AbsentIMemberID = entity.AbsentI == null ? 0 : entity.AbsentI.MemberID,
+                AbsentIIMemberID = entity.AbsentII == null ? 0 : entity.AbsentII.MemberID,
                 
                 Members = members
             };

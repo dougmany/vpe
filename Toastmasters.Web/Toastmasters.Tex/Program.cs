@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Toastmasters.Tex
@@ -10,8 +11,6 @@ namespace Toastmasters.Tex
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
-            Console.ReadLine();
 
             var inpath = args[0];
 
@@ -30,43 +29,56 @@ namespace Toastmasters.Tex
                 }
             }
 
-            List<String> File = new List<string>();
+            List<String> file = new List<string>();
 
             var apiCall = new WebGet();
             var meetingTask = apiCall.GetMeetingAsync("Meetings/Next");
             meetingTask.Wait();
 
             var meeting = meetingTask.Result;
+            Console.WriteLine(meeting.President + meeting.Toastmaster);
 
             using (var stream = new FileStream(inpath, FileMode.Open))
-            using (var reader = new StreamReader(stream))
             {
-                try
+                using (var reader = new StreamReader(stream))
                 {
-
-                    FileStream outStream = new System.IO.FileStream(outpath, FileMode.Create, FileAccess.Write);
-                    var outWriter = new StreamWriter(outStream, Encoding.UTF8);
-
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
+                    try
                     {
-                        //var apiCall = new WebGet();
-                        //var Meeting = apiCall.GetMeetingAsync("Meetings/Next");
-                        if (line.Contains("##"))
+
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
                         {
-                            var start = line.IndexOf("##");
-                            var end = line.Substring(start).IndexOf("}");
-                            var variableName = line.Substring(start, end);
+                            //var apiCall = new WebGet();
+                            //var Meeting = apiCall.GetMeetingAsync("Meetings/Next");
+                            if (line.Contains("##"))
+                            {
+                                var start = line.IndexOf("##");
+                                var length = line.Substring(start).IndexOf("}");
+                                var variableName = line.Substring(start + 2, length - 2);
+
+                                var first = line.Substring(0, start);
+                                var middle = meeting.GetType().GetProperty(variableName).GetValue(meeting);
+                                var last = line.Substring(start + length);
+                                line = first + middle + last;
+                            }
+
+                            file.Add(line);
                         }
+
+                    }
+                    finally
+                    {
+
                     }
                 }
-                finally
+            }
+
+            using (FileStream outStream = new System.IO.FileStream(outpath, FileMode.Create, FileAccess.Write))
+            {
+                var outWriter = new StreamWriter(outStream, Encoding.UTF8);
+                foreach (var line  in file)
                 {
-                    //if (outstream != null)
-                    //{
-                    //    outstream.Close();
-                    //    outstream = null;
-                    //}
+                    outWriter.Write(line);
                 }
             }
         }

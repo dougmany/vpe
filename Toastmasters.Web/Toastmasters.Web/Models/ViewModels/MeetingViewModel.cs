@@ -11,14 +11,14 @@ namespace Toastmasters.Web.Models
             Inspirational = meeting.Inspirational.FullName;
             Joke = meeting.Joke.FullName;
             GeneralEvaluator = meeting.GeneralEvaluator.FullName;
-            Evaluator1 = meeting.Evaluator1.FullName;
-            Evaluator2 = meeting.Evaluator2.FullName;
+            EvaluatorI = meeting.EvaluatorI.FullName;
+            EvaluatorII = meeting.EvaluatorII.FullName;
             Timer = meeting.Timer.FullName;
             BallotCounter = meeting.BallotCounter.FullName;
             Grammarian = meeting.Grammarian.FullName;
             TableTopics = meeting.TableTopics.FullName;
-            Speaker1 = meeting.Speaker1.FullName;
-            Speaker2 = meeting.Speaker2.FullName;
+            SpeakerI = meeting.SpeakerI.FullName;
+            SpeakerII = meeting.SpeakerII.FullName;
             President = meeting.President.FullName;
             Sargent = meeting.Sargent.FullName;
         }
@@ -28,17 +28,17 @@ namespace Toastmasters.Web.Models
         public String Inspirational { get; set; }
         public String Joke { get; set; }
         public String GeneralEvaluator { get; set; }
-        public String Evaluator1 { get; set; }
-        public String Evaluator2 { get; set; }
+        public String EvaluatorI { get; set; }
+        public String EvaluatorII { get; set; }
         public String Timer { get; set; }
         public String BallotCounter { get; set; }
         public String Grammarian { get; set; }
         public String TableTopics { get; set; }
-        public String Speaker1 { get; set; }
-        public String Speaker2 { get; set; }
+        public String SpeakerI { get; set; }
+        public String SpeakerII { get; set; }
         public String President { get; set; }
         public String Sargent { get; set; }
-        public String Absent1 { get; set; }
-        public String Absent2 { get; set; }
+        public String AbsentI { get; set; }
+        public String AbsentII { get; set; }
     }
 }

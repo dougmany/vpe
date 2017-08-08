@@ -23,17 +23,18 @@ namespace Toastmasters.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Meetings
-                .Include(m=>m.Toastmaster)
+                .Include(m => m.Toastmaster)
                 .Include(m => m.TableTopics)
-                .Include(m => m.Speaker1)
-                .Include(m => m.Speaker2)
+                .Include(m => m.SpeakerI)
+                .Include(m => m.SpeakerII)
                 .Include(m => m.GeneralEvaluator)
-                .Include(m => m.Evaluator1)
-                .Include(m => m.Evaluator2)
+                .Include(m => m.EvaluatorI)
+                .Include(m => m.EvaluatorII)
                 .Include(m => m.Inspirational)
                 .Include(m => m.Joke)
                 .Include(m => m.Timer)
                 .Include(m => m.Grammarian)
+                .Include(m => m.BallotCounter)
                 .ToListAsync());
         }
 
@@ -171,11 +172,11 @@ namespace Toastmasters.Web.Controllers
             var meeting = _context.Meetings
                 .Include(m => m.Toastmaster)
                 .Include(m => m.TableTopics)
-                .Include(m => m.Speaker1)
-                .Include(m => m.Speaker2)
+                .Include(m => m.SpeakerI)
+                .Include(m => m.SpeakerII)
                 .Include(m => m.GeneralEvaluator)
-                .Include(m => m.Evaluator1)
-                .Include(m => m.Evaluator2)
+                .Include(m => m.EvaluatorI)
+                .Include(m => m.EvaluatorII)
                 .Include(m => m.Inspirational)
                 .Include(m => m.Joke)
                 .Include(m => m.Timer)
@@ -193,7 +194,6 @@ namespace Toastmasters.Web.Controllers
 
             return model;
         }
-
 
         private bool MeetingExists(int id)
         {

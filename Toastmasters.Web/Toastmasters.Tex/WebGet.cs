@@ -37,17 +37,17 @@ namespace Toastmasters.Tex
         public String Inspirational { get; set; }
         public String Joke { get; set; }
         public String GeneralEvaluator { get; set; }
-        public String Evaluator1 { get; set; }
-        public String Evaluator2 { get; set; }
+        public String EvaluatorI { get; set; }
+        public String EvaluatorII { get; set; }
         public String Timer { get; set; }
         public String BallotCounter { get; set; }
         public String Grammarian { get; set; }
         public String TableTopics { get; set; }
-        public String Speaker1 { get; set; }
-        public String Speaker2 { get; set; }
+        public String SpeakerI { get; set; }
+        public String SpeakerII { get; set; }
         public String President { get; set; }
         public String Sargent { get; set; }
-        public String Absent1 { get; set; }
-        public String Absent2 { get; set; }
+        public String AbsentI { get; set; }
+        public String AbsentII { get; set; }
     }
 }

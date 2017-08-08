@@ -22,7 +22,16 @@ namespace Toastmasters.Web.Models
         public String FullName { get { return $"{FirstName} {LastName}"; } }
         [Display(Name = "Name")]
         [NotMapped]
-        public String FirstInitial { get { return $"{FirstName} {LastName[0]}."; } }
-
+        public String FirstInitial
+        {
+            get
+            {
+                if (LastName!= null )
+                {
+                    return $"{FirstName} {LastName[0]}.";
+                }
+                return "";
+            }
+        }
     }
 }

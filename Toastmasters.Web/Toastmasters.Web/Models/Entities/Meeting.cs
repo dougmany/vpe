@@ -15,18 +15,18 @@ namespace Toastmasters.Web.Models
             Inspirational = new Member();
             Joke = new Member();
             GeneralEvaluator = new Member();
-            Evaluator1 = new Member();
-            Evaluator2 = new Member();
+            EvaluatorI = new Member();
+            EvaluatorII = new Member();
             Timer = new Member();
             BallotCounter = new Member();
             Grammarian = new Member();
             TableTopics = new Member();
-            Speaker1 = new Member();
-            Speaker2 = new Member();
+            SpeakerI = new Member();
+            SpeakerII = new Member();
             President = new Member();
             Sargent = new Member();
-            Absent1 = new Member();
-            Absent2 = new Member();
+            AbsentI = new Member();
+            AbsentII = new Member();
         }
         [Display(Name = "Meeting")]
         public Int32 MeetingID { get; set; }
@@ -36,17 +36,17 @@ namespace Toastmasters.Web.Models
         public Member Inspirational { get; set; }
         public Member Joke { get; set; }
         public Member GeneralEvaluator { get; set; }
-        public Member Evaluator1 { get; set; }
-        public Member Evaluator2 { get; set; }
+        public Member EvaluatorI { get; set; }
+        public Member EvaluatorII { get; set; }
         public Member Timer { get; set; }
         public Member BallotCounter { get; set; }
         public Member Grammarian { get; set; }
         public Member TableTopics { get; set; }
-        public Member Speaker1 { get; set; }
-        public Member Speaker2 { get; set; }
+        public Member SpeakerI { get; set; }
+        public Member SpeakerII { get; set; }
         public Member President  { get; set; }        
         public Member Sargent { get; set; }
-        public Member Absent1 { get; set; }
-        public Member Absent2 { get; set; }
+        public Member AbsentI { get; set; }
+        public Member AbsentII { get; set; }
     }
 }
