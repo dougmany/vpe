@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace Toastmasters.Tex
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            Console.ReadLine();
 
             var inpath = args[0];
 
@@ -27,6 +30,14 @@ namespace Toastmasters.Tex
                 }
             }
 
+            List<String> File = new List<string>();
+
+            var apiCall = new WebGet();
+            var meetingTask = apiCall.GetMeetingAsync("Meetings/Next");
+            meetingTask.Wait();
+
+            var meeting = meetingTask.Result;
+
             using (var stream = new FileStream(inpath, FileMode.Open))
             using (var reader = new StreamReader(stream))
             {
@@ -39,6 +50,8 @@ namespace Toastmasters.Tex
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
+                        //var apiCall = new WebGet();
+                        //var Meeting = apiCall.GetMeetingAsync("Meetings/Next");
                         if (line.Contains("##"))
                         {
                             var start = line.IndexOf("##");

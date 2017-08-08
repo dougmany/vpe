@@ -165,6 +165,36 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Meeting/Next
+        public  MeetingViewModel Next()
+        {
+            var meeting = _context.Meetings
+                .Include(m => m.Toastmaster)
+                .Include(m => m.TableTopics)
+                .Include(m => m.Speaker1)
+                .Include(m => m.Speaker2)
+                .Include(m => m.GeneralEvaluator)
+                .Include(m => m.Evaluator1)
+                .Include(m => m.Evaluator2)
+                .Include(m => m.Inspirational)
+                .Include(m => m.Joke)
+                .Include(m => m.Timer)
+                .Include(m => m.Grammarian)
+                .Include(m => m.BallotCounter)
+                .Include(m => m.President)
+                .Include(m => m.Sargent)
+                .Where(m => m.MeetingDate > DateTime.Now).OrderBy(m=>m.MeetingDate).FirstOrDefault();
+            if (meeting == null)
+            {
+                return new MeetingViewModel(new Meeting());
+            }
+
+            var model = new MeetingViewModel(meeting);
+
+            return model;
+        }
+
+
         private bool MeetingExists(int id)
         {
             return _context.Meetings.Any(e => e.MeetingID == id);

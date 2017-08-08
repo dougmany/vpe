@@ -170,9 +170,9 @@ namespace Toastmasters.Web.Models
 
         public MeetingActionModel View(Meeting entity)
         {
-            
+            var blankMember = new Member { MemberID = 0, FirstName = "-Select", LastName = "Member -" };
+            _members = _members.Prepend(blankMember).ToArray();
             var members = new SelectList(_members, "MemberID", "FullName");
-            members = (SelectList)members.Append(new SelectListItem { Text = "-Select Member-", Value =  "0" });
 
             return new MeetingActionModel
             {

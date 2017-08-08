@@ -9,6 +9,25 @@ namespace Toastmasters.Web.Models
 {
     public class Meeting
     {
+        public Meeting()
+        {
+            Toastmaster = new Member();
+            Inspirational = new Member();
+            Joke = new Member();
+            GeneralEvaluator = new Member();
+            Evaluator1 = new Member();
+            Evaluator2 = new Member();
+            Timer = new Member();
+            BallotCounter = new Member();
+            Grammarian = new Member();
+            TableTopics = new Member();
+            Speaker1 = new Member();
+            Speaker2 = new Member();
+            President = new Member();
+            Sargent = new Member();
+            Absent1 = new Member();
+            Absent2 = new Member();
+        }
         [Display(Name = "Meeting")]
         public Int32 MeetingID { get; set; }
         [Display(Name ="Date")]
