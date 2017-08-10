@@ -73,14 +73,16 @@ namespace Toastmasters.Tex
 
             using (FileStream outStream = new FileStream(outpath, FileMode.Create, FileAccess.Write))
             {
-                var outWriter = new StreamWriter(outStream, Encoding.UTF8);
-                for (var i = 0; i < file.Count; i++)
+                using (var outWriter = new StreamWriter(outStream, Encoding.UTF8))
                 {
-                    outWriter.WriteLine(file[i]);
+                    for (var i = 0; i < file.Count; i++)
+                    {
+                        outWriter.WriteLine(file[i]);
 
-                    Console.WriteLine($"Line {i:d3}: {file[i]}");
+                        Console.WriteLine($"Line {i:d3}: {file[i]}");
+                    }
+                    outWriter.Flush();
                 }
-                outWriter.Flush();
             }
 
             Console.ReadKey();
