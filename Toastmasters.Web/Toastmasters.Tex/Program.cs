@@ -10,9 +10,9 @@ namespace Toastmasters.Tex
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Converting File....");
 
-            var inpath = args[0];
+            var inpath = "../../agenda/variableTest.tex"; //args[0];
 
             if (String.IsNullOrEmpty(inpath))
             {
@@ -36,7 +36,6 @@ namespace Toastmasters.Tex
             meetingTask.Wait();
 
             var meeting = meetingTask.Result;
-            Console.WriteLine(meeting.President + meeting.Toastmaster);
 
             using (var stream = new FileStream(inpath, FileMode.Open))
             {
@@ -44,7 +43,6 @@ namespace Toastmasters.Tex
                 {
                     try
                     {
-
                         string line;
                         while ((line = reader.ReadLine()) != null)
                         {
@@ -73,14 +71,19 @@ namespace Toastmasters.Tex
                 }
             }
 
-            using (FileStream outStream = new System.IO.FileStream(outpath, FileMode.Create, FileAccess.Write))
+            using (FileStream outStream = new FileStream(outpath, FileMode.Create, FileAccess.Write))
             {
                 var outWriter = new StreamWriter(outStream, Encoding.UTF8);
-                foreach (var line  in file)
+                for (var i = 0; i < file.Count; i++)
                 {
-                    outWriter.Write(line);
+                    outWriter.WriteLine(file[i]);
+
+                    Console.WriteLine($"Line {i:d3}: {file[i]}");
                 }
+                outWriter.Flush();
             }
+
+            Console.ReadKey();
         }
     }
 }
