@@ -19,9 +19,8 @@ namespace Toastmasters.Tex
             meetingTask.Wait();
 
             var meeting = meetingTask.Result;
-            var file = FileManager.ReadAndReplace(inpath, meeting);
 
-            FileManager.WriteFile(outpath, file);
+            FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meeting));
 
             Console.ReadKey();
         }

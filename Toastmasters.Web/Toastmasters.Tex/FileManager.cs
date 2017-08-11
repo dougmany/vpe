@@ -25,7 +25,7 @@ namespace Toastmasters.Tex
             }
         }
 
-        public static List<string> ReadAndReplace(string inpath, Meeting meeting)
+        public static List<string> ReadAndReplace<T>(string inpath, T data)
         {
             var file = new List<string>();
             using (var stream = new FileStream(inpath, FileMode.Open))
@@ -44,7 +44,7 @@ namespace Toastmasters.Tex
                                 var variableName = line.Substring(start + 2, length - 2);
 
                                 var first = line.Substring(0, start);
-                                var middle = meeting.GetType().GetProperty(variableName).GetValue(meeting);
+                                var middle = data.GetType().GetProperty(variableName).GetValue(data);
                                 var last = line.Substring(start + length);
                                 line = first + middle + last;
                             }
