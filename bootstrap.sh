@@ -13,7 +13,7 @@ sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-rel
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B02C46DF417A0893
 apt-get update
 
-apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4
+apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4 nginx
 
 echo -e "\n--- Seed Data ---\n"
 
@@ -29,6 +29,11 @@ INSERT INTO Members VALUES (4,'Gordon','Owyang','Gordon.Owyang@gartner.com',0,0)
 
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; INSERT INTO Meetings VALUES( 1, '2017-07-31 12:05:00', 4, 8, 13, 7, 10, 2, 1, 9, 12, 6, 15, 14, 1, 10, NULL, NULL );"
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Members"
+
+
+cp /vagrant/nginxDefault /etc/nginx/sites-available/default
+cp /vagrant/toastmasters.service /etc/systemd/system/kestral-toastmasters.service
+systemctl enable kestrel-hellomvc.service
 
 
 
