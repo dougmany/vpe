@@ -1,6 +1,0 @@
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\obj\x86\Debug\nlatexdb.csprojResolveAssemblyReference.cache
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\bin\Debug\nlatexdb.exe.config
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\bin\Debug\nlatexdb.exe
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\bin\Debug\nlatexdb.pdb
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\obj\x86\Debug\nlatexdb.exe
-C:\Users\dmeeker\Downloads\nlatexdb-0.05\nlatexdb\obj\x86\Debug\nlatexdb.pdb
