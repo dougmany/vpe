@@ -20,9 +20,9 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Meetings
+            var meetings =  _context.Meetings
                 .Include(m => m.Toastmaster)
                 .Include(m => m.TableTopics)
                 .Include(m => m.SpeakerI)
@@ -35,7 +35,9 @@ namespace Toastmasters.Web.Controllers
                 .Include(m => m.Timer)
                 .Include(m => m.Grammarian)
                 .Include(m => m.BallotCounter)
-                .ToListAsync());
+                .ToList();
+
+            return View(meetings);
         }
 
         // GET: Meeting/Details/5
