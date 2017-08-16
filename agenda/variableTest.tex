@@ -1,9 +1,8 @@
 \documentclass{article}
 \RequirePackage[margin=.5in]{geometry}
 \RequirePackage[T1]{fontenc}
-\linespread{.6}
 
-\newcommand{\meetingDate}{##MeetingDate}
+\newcommand{\meetingDateString}{##MeetingDateString}
 \newcommand{\toastmaster}{##Toastmaster}
 \newcommand{\president}{##President}
 \newcommand{\sargent}{##Sargent}
@@ -21,12 +20,11 @@
 
 \begin{document}
 
+{\centering {\bf Clear Signals Toastmasters Club \#999\\}}
+{\centering {\bf Area 53 Division E District 39\\}}
+{\centering \meetingDateString{} Room 230 \\}
 
-\begin{figure}
-  \centering
-  \linespread{1}
-  \large\textbf{Clear Signals Toastmasters Club \#999\\Area 53 Division E District 39\\ \meetingDate{}} \\
-\end{figure}
+\begin{spacing}{.6}
 
 \section*{Sargent at Arms - \textit{\sargent{}}}
 \begin{itemize}
@@ -49,13 +47,17 @@
   \item Ballot Counter - \textit{\ballotCounter{}}
   \item Table Topics Master - \textit{\tableTopics{}}
   \item Speaker 1 - \textit{\speakerI{}}
-    \subitem{Title:}
-    \subitem{Project}
-    \subitem{Time Limits}
+    \begin{description}
+        \item{Title:}
+        \item{Project:}
+        \item{Time Limits:}
+    \end{description}
   \item Speaker 2 - \textit{\speakerII{}}
-    \subitem{Title:}
-    \subitem{Project}
-    \subitem{Time Limits}
+    \begin{description}
+        \item{Title:}
+        \item{Project:}
+        \item{Time Limits:}
+    \end{description}
 \end{itemize}
 
 \section*{Table Topice - \textit{\tableTopics{}}} 
@@ -73,13 +75,13 @@
   \item vote
 \end{itemize}
 
-
 \section*{President - \textit{\president{}}} 
 \begin{itemize}
   \item Next Meeting
   \item Other Business
 \end{itemize}
 
+\end{spacing}
 
 \end{document}
 
