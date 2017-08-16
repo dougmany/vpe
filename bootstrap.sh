@@ -32,8 +32,9 @@ mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Members"
 
 
 cp /vagrant/nginxDefault /etc/nginx/sites-available/default
-cp /vagrant/toastmasters.service /etc/systemd/system/kestral-toastmasters.service
-systemctl enable kestrel-hellomvc.service
+nginx -s reload
+#cp /vagrant/kestral-toastmasters.service /etc/systemd/system/kestral-toastmasters.service
+#systemctl enable kestrel-toastmasters.service
 
 
 
