@@ -1,0 +1,14 @@
+[Unit]
+Description=Example .NET Web API Application running on Ubuntu
+
+[Service]
+WorkingDirectory=/var/aspnetcore/toastmasters/
+ExecStart=/usr/bin/dotnet /var/aspnetcore/toastmasters/Toastmasters.Web.dll
+Restart=always
+RestartSec=10  # Restart service after 10 seconds if dotnet service crashes
+SyslogIdentifier=dotnet-toastmasters
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production 
+
+[Install]
+WantedBy=multi-user.target
