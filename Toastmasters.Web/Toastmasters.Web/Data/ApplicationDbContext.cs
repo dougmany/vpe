@@ -16,6 +16,6 @@ namespace Toastmasters.Web.Data
         public DbSet<MemberMeetingRole> MemberMeetingRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseMySql(@"Server=localhost;port=3336;database=toastmasters;uid=dbuser;pwd=test123;");
+            => optionsBuilder.UseMySql(@"Server=localhost;database=toastmasters;uid=dbuser;pwd=test123;");
     }
 }

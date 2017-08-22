@@ -18,6 +18,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="1.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity" version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Owin" version="1.0.3" />
+
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />

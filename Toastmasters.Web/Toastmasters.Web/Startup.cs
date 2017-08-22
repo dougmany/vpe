@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Toastmasters.Web.Data;
 using Toastmasters.Web.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Toastmasters.Web
 {
@@ -52,6 +53,11 @@ namespace Toastmasters.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                LoginPath = new PathString("/Account/SignIn")
+            });
 
             app.UseStaticFiles();
 
