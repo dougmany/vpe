@@ -30,7 +30,10 @@ INSERT INTO Members VALUES (4,'Gordon','Owyang','Gordon.Owyang@gartner.com',0,0)
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; INSERT INTO Meetings VALUES( 1, '2017-07-31 12:05:00', 4, 8, 13, 7, 10, 2, 1, 9, 12, 6, 15, 14, 1, 10, NULL, NULL );"
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Members"
 
+mkdir /var/aspnetcore/
 mkdir /var/aspnetcore/toastmasters/
+dotnet restore
+dotnet build
 dotnet publish /vagrant/Toastmasters.Web/Toastmasters.Web/ -o /var/aspnetcore/toastmasters/
 
 cp /vagrant/nginxDefault /etc/nginx/sites-available/default
