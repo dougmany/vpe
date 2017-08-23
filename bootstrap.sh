@@ -32,16 +32,16 @@ mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; SELECT * FROM Members"
 
 mkdir /var/aspnetcore/
 mkdir /var/aspnetcore/toastmasters/
-dotnet restore
-dotnet build
+dotnet restore /vagrant/Toastmasters.Web/Toastmasters.Web/
+dotnet build /vagrant/Toastmasters.Web/Toastmasters.Web/
 dotnet publish /vagrant/Toastmasters.Web/Toastmasters.Web/ -o /var/aspnetcore/toastmasters/
 
 cp /vagrant/nginxDefault /etc/nginx/sites-available/default
 nginx -s reload
 
-cp /vagrant/toastmasters.service /etc/systemd/system/kestral-toastmasters.service
-systemctl enable kestrel-toastmasters.service
-systemctl start kestrel-toastmasters.service
+cp /vagrant/toastmasters.service /etc/systemd/system/kestrel-toastmasters.service
+systemctl enable /etc/systemd/system/kestrel-toastmasters.service
+systemctl start  kestrel-toastmasters.service
 systemctl status kestrel-toastmasters.service
 
 
