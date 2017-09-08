@@ -60,14 +60,9 @@ namespace Toastmasters.Web.Models
 
         public Meeting Create(MeetingActionModel actionModel, out string ChangeLog)
         {
-            //DateTime meetingDate;
-            //if (!DateTime.TryParse(actionModel.MeetingDate, out meetingDate))
-            //{
-            //    meetingDate = DateTime.Now;
-            //}
             ChangeLog = "";
 
-            return new Meeting
+            var meeting =  new Meeting
             {
                 MeetingID = actionModel.MeetingID,
                 MeetingDate = actionModel.MeetingDate,
@@ -88,6 +83,7 @@ namespace Toastmasters.Web.Models
                 AbsentI = _members.Single(m => m.MemberID == actionModel.AbsentIMemberID),
                 AbsentII = _members.Single(m => m.MemberID == actionModel.AbsentIIMemberID),
             };
+            return meeting;
         }
         public bool Update(MeetingActionModel actionModel, Meeting entity, out List<string> ChangeLogs)
         {
