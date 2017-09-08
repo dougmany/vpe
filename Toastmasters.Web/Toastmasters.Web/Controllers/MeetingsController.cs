@@ -60,9 +60,13 @@ namespace Toastmasters.Web.Controllers
         // GET: Meeting/Create
         public IActionResult Create()
         {
+            var blankMember = new Member { MemberID = 0, FirstName = "-Select", LastName = "Member -" };
+            var members = _context.Members.OrderBy(m => m.FullName).Prepend(blankMember).ToArray();
+            var membersList = new SelectList(members, "MemberID", "FullName");
+
             var model = new MeetingActionModel
             {
-                Members = new SelectList(_context.Members.OrderBy(m=>m.FullName), "MemberID", "FullName")
+                Members = membersList
             };
             ViewBag.Members = model.Members;
             return View(model);
@@ -73,12 +77,15 @@ namespace Toastmasters.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingID,Name,Description")] Meeting meeting)
+        public async Task<IActionResult> Create([Bind("MeetingID,Name,Description")] MeetingActionModel meeting)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(meeting);
+                var builder = new MeetingActionBuilder(_context.Members.ToArray());
+                String changes;
+                _context.Add(builder.Create(meeting, out changes));
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
             return View(meeting);

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -16,21 +17,59 @@ namespace Toastmasters.Tex
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<Meeting> GetMeetingAsync(string path)
+        public Meeting GetMeeting(string path, out String error)
         {
-            Meeting meeting = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            Meeting meeting = new Meeting();
+            error = "";
+            try
             {
-                var json = await response.Content.ReadAsStringAsync();
-                meeting = JsonConvert.DeserializeObject<Meeting>(json);             
+                var responseTask = client.GetAsync(path);
+                responseTask.Wait();
+                var response = responseTask.Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonTask = response.Content.ReadAsStringAsync();
+                    jsonTask.Wait();
+                    meeting = JsonConvert.DeserializeObject<Meeting>(jsonTask.Result);             
+                }
+                else
+                {
+                    error = $"{response.StatusCode.ToString()}: {response.RequestMessage.RequestUri}";
+                }
+                return meeting;
             }
-            return meeting;
+            catch (WebException e)
+            {
+                error = e.Message;
+                return meeting;
+            }
         }
     }
 
     public class Meeting
     {
+        public Meeting()
+        {
+            MeetingDate = DateTime.Now;
+            Toastmaster = "";
+            Inspirational = "";
+            Joke = "";
+            GeneralEvaluator = "";
+            EvaluatorI = "";
+            EvaluatorII = "";
+            Timer = "";
+            BallotCounter = "";
+            Grammarian = "";
+            TableTopics = "";
+            SpeakerI = "";
+            SpeakerII = "";
+            President = "";
+            Sargent = "";
+            AbsentI = "";
+            AbsentII = "";
+        }  
+
         public DateTime MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }

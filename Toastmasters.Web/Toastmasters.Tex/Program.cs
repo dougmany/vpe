@@ -14,12 +14,15 @@ namespace Toastmasters.Tex
 
             outpath = inpath.Replace(".tex", "1.tex");
 
-            var apiCall = new WebGet("http://localhost:8656/");
-            var meetingTask = apiCall.GetMeetingAsync("Meetings/Next");
-            meetingTask.Wait();
+            var apiCall = new WebGet("http://localhost:8000/");
+            String error;
+            var meeting = apiCall.GetMeeting("Meetings/Next", out error);
 
-            var meeting = meetingTask.Result;
-
+            if (!String.IsNullOrWhiteSpace(error) )
+            {
+                Console.WriteLine($"ERROR: {error}");
+            }
+        
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meeting));
 
             Console.ReadKey();
