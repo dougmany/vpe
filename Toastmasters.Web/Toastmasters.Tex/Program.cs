@@ -8,11 +8,11 @@ namespace Toastmasters.Tex
         {
             Console.WriteLine("Converting File....");
 
-            var inpath = "../../agenda/variableTest.tex";
+            var inpath = "../../agenda/AgendaTemplate.tex";
 
             string outpath = "1";
 
-            outpath = inpath.Replace(".tex", "1.tex");
+            outpath = inpath.Replace("Template.tex", ".tex");
 
             var apiCall = new WebGet("http://localhost:8000/");
             String error;
