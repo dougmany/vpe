@@ -77,14 +77,14 @@ namespace Toastmasters.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingID,Name,Description")] MeetingActionModel meeting)
+        public IActionResult Create([Bind("MeetingID,Name,Description")] MeetingActionModel meeting)
         {
             if (ModelState.IsValid)
             {
                 var builder = new MeetingActionBuilder(_context.Members.ToArray());
                 String changes;
-                _context.Add(builder.Create(meeting, out changes));
-                await _context.SaveChangesAsync();
+                _context.Meetings.Add(builder.Create(meeting, out changes));
+                _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -92,14 +92,14 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var meeting = await _context.Meetings.SingleOrDefaultAsync(m => m.MeetingID == id);
+            var meeting = _context.Meetings.SingleOrDefault(m => m.MeetingID == id);
             if (meeting == null)
             {
                 return NotFound();
@@ -109,7 +109,6 @@ namespace Toastmasters.Web.Controllers
             var model = builder.View(meeting);
 
             return View(model);
-
         }
 
         // POST: Meeting/Edit/5
@@ -117,7 +116,7 @@ namespace Toastmasters.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(MeetingActionModel meeting)
+        public IActionResult Edit(MeetingActionModel meeting)
         {
             if (ModelState.IsValid)
             {
@@ -128,7 +127,7 @@ namespace Toastmasters.Web.Controllers
                     var entity = _context.Meetings.Single(m => m.MeetingID == meeting.MeetingID);
                     builder.Update(meeting, entity, out changes);
 
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,15 +146,15 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var meeting = await _context.Meetings
-                .SingleOrDefaultAsync(m => m.MeetingID == id);
+            var meeting = _context.Meetings
+                .SingleOrDefault(m => m.MeetingID == id);
             if (meeting == null)
             {
                 return NotFound();
@@ -167,11 +166,11 @@ namespace Toastmasters.Web.Controllers
         // POST: Meeting/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var meeting = await _context.Meetings.SingleOrDefaultAsync(m => m.MeetingID == id);
+            var meeting = _context.Meetings.SingleOrDefault(m => m.MeetingID == id);
             _context.Meetings.Remove(meeting);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -200,6 +199,35 @@ namespace Toastmasters.Web.Controllers
             }
 
             var model = new MeetingViewModel(meeting);
+
+            return model;
+        }
+
+        public IEnumerable<MeetingViewModel> NextFive()
+        {
+            var model = _context.Meetings
+                .Include(m => m.Toastmaster)
+                .Include(m => m.TableTopics)
+                .Include(m => m.SpeakerI)
+                .Include(m => m.SpeakerII)
+                .Include(m => m.GeneralEvaluator)
+                .Include(m => m.EvaluatorI)
+                .Include(m => m.EvaluatorII)
+                .Include(m => m.Inspirational)
+                .Include(m => m.Joke)
+                .Include(m => m.Timer)
+                .Include(m => m.Grammarian)
+                .Include(m => m.BallotCounter)
+                .Include(m => m.President)
+                .Include(m => m.Sargent)
+                .Where(m => m.MeetingDate > DateTime.Now)
+                .OrderBy(m => m.MeetingDate)
+                .Select(m => new MeetingViewModel(m))
+                .ToArray();
+            if (model == null)
+            {
+                return new MeetingViewModel[1] { new MeetingViewModel(new Meeting()) };
+            }
 
             return model;
         }
