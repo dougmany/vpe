@@ -88,5 +88,23 @@ namespace Toastmasters.Tex
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
         public String MeetingDateString { get { return MeetingDate.ToString("f"); } }
+
+        public DateTime NextMeetingDate { get; set; }
+        public String NextToastmaster { get; set; }
+        public String NextInspirational { get; set; }
+        public String NextJoke { get; set; }
+        public String NextGeneralEvaluator { get; set; }
+        public String NextEvaluatorI { get; set; }
+        public String NextEvaluatorII { get; set; }
+        public String NextTimer { get; set; }
+        public String NextBallotCounter { get; set; }
+        public String NextGrammarian { get; set; }
+        public String NextTableTopics { get; set; }
+        public String NextSpeakerI { get; set; }
+        public String NextSpeakerII { get; set; }
+        public String NextPresident { get; set; }
+        public String NextSargent { get; set; }
+
+        public String NextMeetingDateString { get { return NextMeetingDate.ToString("d"); } }
     }
 }

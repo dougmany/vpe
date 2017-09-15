@@ -1,6 +1,7 @@
 \documentclass{article}
-\RequirePackage[margin=.5in]{geometry}
+\RequirePackage[letterpaper, margin=.5in]{geometry}
 \RequirePackage[T1]{fontenc}
+\usepackage{graphicx}
 
 \newcommand{\meetingDateString}{##MeetingDateString}
 \newcommand{\toastmaster}{##Toastmaster}
@@ -18,70 +19,115 @@
 \newcommand{\ballotCounter}{##BallotCounter}
 \newcommand{\joke}{##Joke}
 
+\newcommand{\nextMeetingDateString}{##NextMeetingDateString}
+\newcommand{\nextToastmaster}{##NextToastmaster}
+\newcommand{\nextPresident}{##NextPresident}
+\newcommand{\nextSargent}{##NextSargent}
+\newcommand{\nextTableTopics}{##NextTableTopics}
+\newcommand{\nextGeneralEvaluator}{##NextGeneralEvaluator}
+\newcommand{\nextEvaluatorI}{##NextEvaluatorI}
+\newcommand{\nextEvaluatorII}{##NextEvaluatorII}
+\newcommand{\nextSpeakerI}{##NextSpeakerI}
+\newcommand{\nextSpeakerII}{##NextSpeakerII}
+\newcommand{\nextGrammarian}{##NextGrammarian}
+\newcommand{\nextTimer}{##NextTimer}
+\newcommand{\nextInspirational}{##NextInspirational}
+\newcommand{\nextBallotCounter}{##NextBallotCounter}
+\newcommand{\nextJoke}{##NextJoke}
+
 \begin{document}
-
-{\centering {\bf Clear Signals Toastmasters Club \#999\\}}
-{\centering {\bf Area 53 Division E District 39\\}}
-{\centering \meetingDateString{} Room 230 \\}
-
-\begin{spacing}{.6}
-
-\section*{12:05 Sargent at Arms - \textit{\sargent{}}}
-\begin{itemize}
-  \item Call Meeting to order
-  \item Pledge of Allegiance
-  \item Introduce Toastmaster of the Day
-\end{itemize}
-
-\section*{12:10 Toastmaster of the Day - \textit{\toastmaster{}}} 
-\begin{itemize}
-  \item Ask Guest to introduce themselves
-  \item Distribute Manuals
-  \item Introduce Theme
-  \item Inspirational - \textit{\inspirational{}}
-  \item Jokemaster - \textit{\joke{}}
-  \item Introduce General Evaluator - \textit{\generalEvaluator{}}
-  \item Introduce Speaker Evaluators - \textit{\evaluatorI{}} and \textit{\evaluatorII{}}
-  \item Grammarian - \textit{\grammarian{}}
-  \item Timer - \textit{\timer{}}
-  \item Ballot Counter - \textit{\ballotCounter{}}
-  \item Table Topics Master - \textit{\tableTopics{}}
-  \item Speaker 1 - \textit{\speakerI{}}
-    \begin{description}
-        \item{Title:}
-        \item{Project:}
-        \item{Time Limits:}
-    \end{description}
-  \item Speaker 2 - \textit{\speakerII{}}
-    \begin{description}
-        \item{Title:}
-        \item{Project:}
-        \item{Time Limits:}
-    \end{description}
-\end{itemize}
-
-\section*{12:xx Table Topice - \textit{\tableTopics{}}} 
-\begin{itemize}
- \item Use Word of the day
- \item Time Limits
- \item Vote
-\end{itemize}
-
-\section*{12:xx Evaluation - \textit{\generalEvaluator{}}} 
-\begin{itemize}
-  \item Time Limits
-  \item Evaluator 1 - \textit{\evaluatorI{}}
-  \item Evaluator 2 - \textit{\evaluatorII{}}
-  \item vote
-\end{itemize}
-
-\section*{12:xx President - \textit{\president{}}} 
-\begin{itemize}
-  \item Next Meeting
-  \item Other Business
-\end{itemize}
-\section*{12:xx Adjourn Meeting} 
-\end{spacing}
-
+  {\centering {\bf Clear Signals Toastmasters Club \#999\\}}
+  {\centering {\bf Area 53 Division E District 39\\}}
+  {\centering \meetingDateString{} Room 230 \\}
+  \begin{spacing}{.6}
+  
+  \section*{12:05 Sargent at Arms - \textcolor{blue}{\sargent{}}}
+  \begin{itemize}
+    \item Call Meeting to order
+    \item Pledge of Allegiance
+    \item Introduce Toastmaster of the Day
+  \end{itemize}
+  
+  \section*{12:10 Toastmaster of the Day - \textcolor{blue}{\toastmaster{}}} 
+  \begin{itemize}
+    \item Ask Guest to introduce themselves
+    \item Distribute Manuals
+    \item Introduce Theme
+    \item Inspirational - \textcolor{blue}{\inspirational{}}
+    \item Jokemaster - \textcolor{blue}{\joke{}}
+    \item Introduce General Evaluator - \textcolor{blue}{\generalEvaluator{}}
+    \item Introduce Speaker Evaluators - \textcolor{blue}{\evaluatorI{}} and \textcolor{blue}{\evaluatorII{}}
+    \item Grammarian - \textcolor{blue}{\grammarian{}}
+    \item Timer - \textcolor{blue}{\timer{}}
+    \item Ballot Counter - \textcolor{blue}{\ballotCounter{}}
+    \item Table Topics Master - \textcolor{blue}{\tableTopics{}}
+    \item Speaker 1 - \textcolor{blue}{\speakerI{}}
+      \begin{description}
+          \item{Title:}
+          \item{Project:}
+          \item{Time Limits:}
+      \end{description}
+    \item Speaker 2 - \textcolor{blue}{\speakerII{}}
+      \begin{description}
+          \item{Title:}
+          \item{Project:}
+          \item{Time Limits:}
+      \end{description}
+  \end{itemize}
+  
+  \section*{12:xx Table Topice - \textcolor{blue}{\tableTopics{}}} 
+  \begin{itemize}
+   \item Use Word of the day
+   \item Time Limits
+   \item Vote
+  \end{itemize}
+  
+  \section*{12:xx Evaluation - \textcolor{blue}{\generalEvaluator{}}} 
+  \begin{itemize}
+    \item Time Limits
+    \item Evaluator 1 - \textcolor{blue}{\evaluatorI{}}
+    \item Evaluator 2 - \textcolor{blue}{\evaluatorII{}}
+    \item vote
+  \end{itemize}
+  
+  \section*{12:xx President - \textcolor{blue}{\president{}}} 
+  \begin{itemize}
+    \item Next Meeting
+    \item Other Business
+  \end{itemize}
+  \section*{12:xx Adjourn Meeting} 
+  \end{spacing}
+  
+  \begin{figure}[b]
+    \includegraphics[width=3cm]{logo}
+    \includegraphics[width=5cm]{mission}
+  \end{figure}
+  \begin{tabular}{ |l|c| }
+    \hline
+    Roles and Speakers & \nextMeetingDateString{} \\
+    \hline
+    Toastmaster of the Day & \nextToastmaster{} \\
+    \hline
+    Inspirational & \nextInspirational{} \\
+    \hline
+    Jokemaster & \nextJoke{} \\
+    \hline
+    General Evaluator & \nextGeneralEvaluator{} \\
+    \hline
+    Speaker Evaluator I & \nextEvaluatorI{} \\
+    \hline
+    Speaker Evaluator II & \nextEvaluatorII{} \\
+    \hline
+    Timer & \nextTimer{} \\
+    \hline
+    Ballot Counter & \nextBallotCounter{} \\
+    \hline
+    Table Topics Master & \nextTableTopics{} \\
+    \hline\hline
+    Speaker I & \nextSpeakerI{} \\
+    \hline
+    Speaker II & \nextSpeakerII{} \\
+    \hline
+  \end{tabular}
 \end{document}
 

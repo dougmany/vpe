@@ -193,19 +193,8 @@ namespace Toastmasters.Web.Controllers
                 .Include(m => m.President)
                 .Include(m => m.Sargent)
                 .Where(m => m.MeetingDate > DateTime.Now).OrderBy(m=>m.MeetingDate).FirstOrDefault();
-            if (meeting == null)
-            {
-                return new MeetingViewModel(new Meeting());
-            }
 
-            var model = new MeetingViewModel(meeting);
-
-            return model;
-        }
-
-        public IEnumerable<MeetingViewModel> NextFive()
-        {
-            var model = _context.Meetings
+            var nextMeeting = _context.Meetings
                 .Include(m => m.Toastmaster)
                 .Include(m => m.TableTopics)
                 .Include(m => m.SpeakerI)
@@ -220,14 +209,13 @@ namespace Toastmasters.Web.Controllers
                 .Include(m => m.BallotCounter)
                 .Include(m => m.President)
                 .Include(m => m.Sargent)
-                .Where(m => m.MeetingDate > DateTime.Now)
-                .OrderBy(m => m.MeetingDate)
-                .Select(m => new MeetingViewModel(m))
-                .ToArray();
-            if (model == null)
+                .Where(m => m.MeetingDate > meeting.MeetingDate).OrderBy(m => m.MeetingDate).FirstOrDefault();
+            if (meeting == null || nextMeeting == null)
             {
-                return new MeetingViewModel[1] { new MeetingViewModel(new Meeting()) };
+                return new MeetingViewModel(new Meeting(), new Meeting());
             }
+
+            var model = new MeetingViewModel(meeting, nextMeeting);
 
             return model;
         }

@@ -4,7 +4,7 @@ namespace Toastmasters.Web.Models
 {
     public class MeetingViewModel
     {
-        public MeetingViewModel(Meeting meeting)
+        public MeetingViewModel(Meeting meeting, Meeting nextMeeting)
         {
             MeetingDate = meeting.MeetingDate;
             Toastmaster = meeting.Toastmaster.FullName;
@@ -21,6 +21,22 @@ namespace Toastmasters.Web.Models
             SpeakerII = meeting.SpeakerII.FullName;
             President = meeting.President.FullName;
             Sargent = meeting.Sargent.FullName;
+
+            NextMeetingDate = nextMeeting.MeetingDate;
+            NextToastmaster = nextMeeting.Toastmaster.FullName;
+            NextInspirational = nextMeeting.Inspirational.FullName;
+            NextJoke = nextMeeting.Joke.FullName;
+            NextGeneralEvaluator = nextMeeting.GeneralEvaluator.FullName;
+            NextEvaluatorI = nextMeeting.EvaluatorI.FullName;
+            NextEvaluatorII = nextMeeting.EvaluatorII.FullName;
+            NextTimer = nextMeeting.Timer.FullName;
+            NextBallotCounter = nextMeeting.BallotCounter.FullName;
+            NextGrammarian = nextMeeting.Grammarian.FullName;
+            NextTableTopics = nextMeeting.TableTopics.FullName;
+            NextSpeakerI = nextMeeting.SpeakerI.FullName;
+            NextSpeakerII = nextMeeting.SpeakerII.FullName;
+            NextPresident = nextMeeting.President.FullName;
+            NextSargent = nextMeeting.Sargent.FullName;
         }
 
         public DateTime MeetingDate { get; set; }
@@ -40,5 +56,21 @@ namespace Toastmasters.Web.Models
         public String Sargent { get; set; }
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
+
+        public DateTime NextMeetingDate { get; set; }
+        public String NextToastmaster { get; set; }
+        public String NextInspirational { get; set; }
+        public String NextJoke { get; set; }
+        public String NextGeneralEvaluator { get; set; }
+        public String NextEvaluatorI { get; set; }
+        public String NextEvaluatorII { get; set; }
+        public String NextTimer { get; set; }
+        public String NextBallotCounter { get; set; }
+        public String NextGrammarian { get; set; }
+        public String NextTableTopics { get; set; }
+        public String NextSpeakerI { get; set; }
+        public String NextSpeakerII { get; set; }
+        public String NextPresident { get; set; }
+        public String NextSargent { get; set; }
     }
 }

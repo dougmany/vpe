@@ -25,7 +25,6 @@ namespace Toastmasters.Tex
         
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meeting));
 
-            Console.ReadKey();
         }
     }
 }
