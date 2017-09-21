@@ -68,7 +68,27 @@ namespace Toastmasters.Web.Controllers
             {
                 Members = membersList
             };
-            ViewBag.Members = model.Members;
+
+            //var query =
+            //from a in _context.Members
+            //from b in _context.Meetings
+            //    .Where(b => b.Toastmaster.MemberID == a.MemberID).DefaultIfEmpty()
+            //orderby b.MeetingDate descending
+            //select new
+            //{
+            //    Name = a.FirstName + a.LastName,
+            //    Date = b.MeetingDate
+            //};
+
+            //String memberHistory = "<ul>";
+            //foreach (var item in query.ToArray())
+            //{
+            //    memberHistory += $"<li>{item.Name} | {item.Date.ToString("d")}</li>";
+            //}
+            //memberHistory = "</ul>";
+
+            //ViewBag.MemberHistory = memberHistory;
+
             return View(model);
         }
 
@@ -77,7 +97,7 @@ namespace Toastmasters.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("MeetingID,Name,Description")] MeetingActionModel meeting)
+        public IActionResult Create(MeetingActionModel meeting)
         {
             if (ModelState.IsValid)
             {
