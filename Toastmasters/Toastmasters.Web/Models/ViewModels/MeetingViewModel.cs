@@ -73,4 +73,10 @@ namespace Toastmasters.Web.Models
         public String NextPresident { get; set; }
         public String NextSargent { get; set; }
     }
+
+    public class MemberHistory
+    {
+        public String MemberName { get; set; }
+        public DateTime MeetingDate { get; set; }
+    }
 }

@@ -7,118 +7,110 @@
 <h2>Create</h2>
 
 <form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Meeting</h4>
-        <hr />
+    <h4>Meeting</h4>
+    <hr />
+    <div class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="MeetingID" />
-        <div class="form-group">
-            <label asp-for="MeetingDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="MeetingDate" class="form-control" type="date" />
-                <span asp-validation-for="MeetingDate" class="text-danger"></span>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="MeetingDate" class=" control-label"></label>
+            <input asp-for="MeetingDate" class="form-control" type="date" />
+            <span asp-validation-for="MeetingDate" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="ToastmasterMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="ToastmasterMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="ToastmasterMemberID" class="control-label"></label>
+            <select asp-for="ToastmasterMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="TableTopicsMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="TableTopicsMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="TableTopicsMemberID" class="control-label"></label>
+            <select asp-for="TableTopicsMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="GeneralEvaluatorMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="GeneralEvaluatorMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="GeneralEvaluatorMemberID" class="control-label"></label>
+            <select asp-for="GeneralEvaluatorMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="EvaluatorIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="EvaluatorIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="EvaluatorIMemberID" class="control-label"></label>
+            <select asp-for="EvaluatorIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="EvaluatorIIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="EvaluatorIIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="EvaluatorIIMemberID" class="control-label"></label>
+            <select asp-for="EvaluatorIIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="SpeakerIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="SpeakerIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="SpeakerIMemberID" class="control-label"></label>
+            <select asp-for="SpeakerIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="SpeakerIIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="SpeakerIIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="SpeakerIIMemberID" class="control-label"></label>
+            <select asp-for="SpeakerIIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="InspirationalMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="InspirationalMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="InspirationalMemberID" class="control-label"></label>
+            <select asp-for="InspirationalMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="JokeMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="JokeMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="JokeMemberID" class="control-label"></label>
+            <select asp-for="JokeMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="TimerMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="TimerMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="TimerMemberID" class="control-label"></label>
+            <select asp-for="TimerMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="GrammarianMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="GrammarianMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="GrammarianMemberID" class="control-label"></label>
+            <select asp-for="GrammarianMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="BallotCounterMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="BallotCounterMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="BallotCounterMemberID" class="control-label"></label>
+            <select asp-for="BallotCounterMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="PresidentMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="PresidentMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="PresidentMemberID" class="control-label"></label>
+            <select asp-for="PresidentMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="SargentMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="SargentMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="SargentMemberID" class="control-label"></label>
+            <select asp-for="SargentMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="AbsentIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="AbsentIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="AbsentIMemberID" class="control-label"></label>
+            <select asp-for="AbsentIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <label asp-for="AbsentIIMemberID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="AbsentIIMemberID" class="form-control" asp-items="Model.Members"></select>
-            </div>
+        <div class="col-md-3">
+            <label asp-for="AbsentIIMemberID" class="control-label"></label>
+            <select asp-for="AbsentIIMemberID" class="form-control" asp-items="Model.Members"></select>
+            <p class="form-control-static">@Html.Raw(ViewBag.MemberHistory)</p>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+
+            <input type="submit" value="Save" class="btn btn-default" />
+
         </div>
     </div>
 </form>

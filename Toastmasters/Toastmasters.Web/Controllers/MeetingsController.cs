@@ -69,25 +69,28 @@ namespace Toastmasters.Web.Controllers
                 Members = membersList
             };
 
-            //var query =
-            //from a in _context.Members
-            //from b in _context.Meetings
-            //    .Where(b => b.Toastmaster.MemberID == a.MemberID).DefaultIfEmpty()
-            //orderby b.MeetingDate descending
-            //select new
-            //{
-            //    Name = a.FirstName + a.LastName,
-            //    Date = b.MeetingDate
-            //};
+            var toastmasterMeetings = _context.Meetings.Select(m => new
+            {
+                MemberID = m.Toastmaster.MemberID,
+                Date = m.MeetingDate
+            });
 
-            //String memberHistory = "<ul>";
-            //foreach (var item in query.ToArray())
-            //{
-            //    memberHistory += $"<li>{item.Name} | {item.Date.ToString("d")}</li>";
-            //}
-            //memberHistory = "</ul>";
+            var meetingHistory = new List<MemberHistory>();
+            foreach (var item in _context.Members.ToArray())
+            {
+                var toastmasterMeeting = toastmasterMeetings.Where(tm => tm.MemberID == item.MemberID).FirstOrDefault();
+                var meetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.Date;
+                meetingHistory.Add(new MemberHistory { MemberName = item.FullName, MeetingDate = meetingDate });
+            }
 
-            //ViewBag.MemberHistory = memberHistory;
+            String memberHistory = "<ul>";
+            foreach (var item in meetingHistory.OrderByDescending(mh=>mh.MeetingDate))
+            {
+                memberHistory += $"<li>{item.MemberName} | {item.MeetingDate.ToString("d")}</li>";
+            }
+            memberHistory += "</ul>";
+
+            ViewBag.MemberHistory = memberHistory;
 
             return View(model);
         }
