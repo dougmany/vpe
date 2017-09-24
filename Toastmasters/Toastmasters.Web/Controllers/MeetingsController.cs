@@ -16,13 +16,13 @@ namespace Toastmasters.Web.Controllers
 
         public MeetingsController(ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Meeting
         public ActionResult Index()
         {
-            var meetings =  _context.Meetings
+            var meetings = _context.Meetings
                 .Include(m => m.Toastmaster)
                 .Include(m => m.TableTopics)
                 .Include(m => m.SpeakerI)
@@ -69,28 +69,44 @@ namespace Toastmasters.Web.Controllers
                 Members = membersList
             };
 
-            var toastmasterMeetings = _context.Meetings.Select(m => new
-            {
-                MemberID = m.Toastmaster.MemberID,
-                Date = m.MeetingDate
-            });
+            var toastmasterMeetingHistory = new MemberHistories();
+            var tabletopicsMeetingHistory = new MemberHistories();
+            var GeneralEvaluatorMeetingHistory = new MemberHistories();
+            var evaluatorIMeetingHistory = new MemberHistories();
+            var evaluatorIItoastmasterMeetingHistory =new MemberHistories();
+            var speakerIMeetingHistory = new MemberHistories();
+            var speakerIIMeetingHistory =new MemberHistories();
+            var timerMeetingHistory = new MemberHistories();
+            var grammarianMeetingHistory = new List<MemberHistory>();
+            var inspirationalMeetingHistory = new MemberHistories();
+            var jokeMeetingHistory = new MemberHistories();
+            var ballotCounterMeetingHistory = new MemberHistories();
 
-            var meetingHistory = new List<MemberHistory>();
             foreach (var item in _context.Members.ToArray())
             {
-                var toastmasterMeeting = toastmasterMeetings.Where(tm => tm.MemberID == item.MemberID).FirstOrDefault();
-                var meetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.Date;
-                meetingHistory.Add(new MemberHistory { MemberName = item.FullName, MeetingDate = meetingDate });
+                var toastmasterMeeting = _context.Meetings
+                    .Where(m => m.Toastmaster.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                toastmasterMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.MeetingDate
+                });
+                var tabletopicsMeeting = _context.Meetings
+                    .Where(m => m.TableTopics.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                tabletopicsMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = tabletopicsMeeting == null ? new DateTime() : tabletopicsMeeting.MeetingDate
+                });
             }
 
-            String memberHistory = "<ul>";
-            foreach (var item in meetingHistory.OrderByDescending(mh=>mh.MeetingDate))
-            {
-                memberHistory += $"<li>{item.MemberName} | {item.MeetingDate.ToString("d")}</li>";
-            }
-            memberHistory += "</ul>";
-
-            ViewBag.MemberHistory = memberHistory;
+            ViewBag.ToastmasterMemberHistory = toastmasterMeetingHistory.HtmlList;
+            ViewBag.TabletopicsMeetingHistory = tabletopicsMeetingHistory.HtmlList;
+            ViewBag.MemberHistory = toastmasterMeetingHistory.HtmlList;
 
             return View(model);
         }
@@ -198,7 +214,7 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Next
-        public  MeetingViewModel Next()
+        public MeetingViewModel Next()
         {
             var meeting = _context.Meetings
                 .Include(m => m.Toastmaster)
@@ -215,7 +231,7 @@ namespace Toastmasters.Web.Controllers
                 .Include(m => m.BallotCounter)
                 .Include(m => m.President)
                 .Include(m => m.Sargent)
-                .Where(m => m.MeetingDate > DateTime.Now).OrderBy(m=>m.MeetingDate).FirstOrDefault();
+                .Where(m => m.MeetingDate > DateTime.Now).OrderBy(m => m.MeetingDate).FirstOrDefault();
 
             var nextMeeting = _context.Meetings
                 .Include(m => m.Toastmaster)

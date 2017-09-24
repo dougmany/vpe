@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Toastmasters.Web.Models
 {
@@ -78,5 +80,36 @@ namespace Toastmasters.Web.Models
     {
         public String MemberName { get; set; }
         public DateTime MeetingDate { get; set; }
+    }
+
+    public class MemberHistories
+    {
+        public MemberHistories()
+        {
+            Histories = new List<MemberHistory>();
+        }
+
+        public List<MemberHistory> Histories { get; set; }
+        
+        public String HtmlList
+        {
+            get
+            {
+                String memberHistory = "<ul>";
+                foreach (var item in Histories.OrderByDescending(mh => mh.MeetingDate))
+                {
+                    memberHistory += $"<li>{item.MemberName} | {item.MeetingDate.ToString("d")}</li>";
+                }
+                memberHistory += "</ul>";
+
+                return memberHistory;
+
+            }
+        }
+        public void Add(MemberHistory history)
+        {
+            Histories.Add(history);
+        }
+
     }
 }
