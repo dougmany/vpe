@@ -71,13 +71,13 @@ namespace Toastmasters.Web.Controllers
 
             var toastmasterMeetingHistory = new MemberHistories();
             var tabletopicsMeetingHistory = new MemberHistories();
-            var GeneralEvaluatorMeetingHistory = new MemberHistories();
+            var generalEvaluatorMeetingHistory = new MemberHistories();
             var evaluatorIMeetingHistory = new MemberHistories();
-            var evaluatorIItoastmasterMeetingHistory =new MemberHistories();
+            var evaluatorIIMeetingHistory = new MemberHistories();
             var speakerIMeetingHistory = new MemberHistories();
-            var speakerIIMeetingHistory =new MemberHistories();
+            var speakerIIMeetingHistory = new MemberHistories();
             var timerMeetingHistory = new MemberHistories();
-            var grammarianMeetingHistory = new List<MemberHistory>();
+            var grammarianMeetingHistory = new MemberHistories();
             var inspirationalMeetingHistory = new MemberHistories();
             var jokeMeetingHistory = new MemberHistories();
             var ballotCounterMeetingHistory = new MemberHistories();
@@ -102,10 +102,111 @@ namespace Toastmasters.Web.Controllers
                     MemberName = item.FullName,
                     MeetingDate = tabletopicsMeeting == null ? new DateTime() : tabletopicsMeeting.MeetingDate
                 });
+                var generalEvaluatorMeeting = _context.Meetings
+                    .Where(m => m.GeneralEvaluator.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                generalEvaluatorMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = generalEvaluatorMeeting == null ? new DateTime() : generalEvaluatorMeeting.MeetingDate
+                });
+                var evaluatorIMeeting = _context.Meetings
+                    .Where(m => m.EvaluatorI.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                evaluatorIMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = evaluatorIMeeting == null ? new DateTime() : evaluatorIMeeting.MeetingDate
+                });
+                var evaluatorIIMeeting = _context.Meetings
+                    .Where(m => m.EvaluatorII.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                evaluatorIIMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = evaluatorIIMeeting == null ? new DateTime() : evaluatorIIMeeting.MeetingDate
+                });
+                var speakerIMeeting = _context.Meetings
+                    .Where(m => m.SpeakerI.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                speakerIMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = speakerIMeeting == null ? new DateTime() : speakerIMeeting.MeetingDate
+                });
+                var speakerIIMeeting = _context.Meetings
+                    .Where(m => m.SpeakerII.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                speakerIIMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = speakerIIMeeting == null ? new DateTime() : speakerIIMeeting.MeetingDate
+                });
+                var timerMeeting = _context.Meetings
+                    .Where(m => m.Timer.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                timerMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = timerMeeting == null ? new DateTime() : timerMeeting.MeetingDate
+                });
+                var grammarianMeeting = _context.Meetings
+                    .Where(m => m.Grammarian.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                grammarianMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = grammarianMeeting == null ? new DateTime() : grammarianMeeting.MeetingDate
+                });
+                var inspirationalMeeting = _context.Meetings
+                    .Where(m => m.Inspirational.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                inspirationalMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = inspirationalMeeting == null ? new DateTime() : inspirationalMeeting.MeetingDate
+                });
+                var jokeMeeting = _context.Meetings
+                    .Where(m => m.Joke.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                jokeMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = jokeMeeting == null ? new DateTime() : jokeMeeting.MeetingDate
+                });
+                var ballotCounterMeeting = _context.Meetings
+                    .Where(m => m.BallotCounter.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                ballotCounterMeetingHistory.Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = ballotCounterMeeting == null ? new DateTime() : ballotCounterMeeting.MeetingDate
+                });
             }
 
             ViewBag.ToastmasterMemberHistory = toastmasterMeetingHistory.HtmlList;
             ViewBag.TabletopicsMeetingHistory = tabletopicsMeetingHistory.HtmlList;
+            ViewBag.GeneralEvaluatorMeetingHistory = generalEvaluatorMeetingHistory.HtmlList;
+            ViewBag.EvaluatorIMeetingHistory = evaluatorIMeetingHistory.HtmlList;
+            ViewBag.EvaluatorIIMeetingHistory = evaluatorIIMeetingHistory.HtmlList;
+            ViewBag.SpeakerIMeetingHistory = speakerIMeetingHistory.HtmlList;
+            ViewBag.SpeakerIIMeetingHistory = speakerIIMeetingHistory.HtmlList;
+            ViewBag.TimerMeetingHistory = timerMeetingHistory.HtmlList;
+            ViewBag.GrammarianMeetingHistory = grammarianMeetingHistory.HtmlList;
+            ViewBag.InspirationalMeetingHistory = inspirationalMeetingHistory.HtmlList;
+            ViewBag.JokeMeetingHistory = jokeMeetingHistory.HtmlList;
+            ViewBag.BallotCounterMeetingHistory = ballotCounterMeetingHistory.HtmlList;
+
             ViewBag.MemberHistory = toastmasterMeetingHistory.HtmlList;
 
             return View(model);
