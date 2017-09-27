@@ -72,10 +72,8 @@ namespace Toastmasters.Web.Controllers
             var toastmasterMeetingHistory = new MemberHistories();
             var tabletopicsMeetingHistory = new MemberHistories();
             var generalEvaluatorMeetingHistory = new MemberHistories();
-            var evaluatorIMeetingHistory = new MemberHistories();
-            var evaluatorIIMeetingHistory = new MemberHistories();
-            var speakerIMeetingHistory = new MemberHistories();
-            var speakerIIMeetingHistory = new MemberHistories();
+            var evaluatorMeetingHistory = new MemberHistories();
+            var speakerMeetingHistory = new MemberHistories();
             var timerMeetingHistory = new MemberHistories();
             var grammarianMeetingHistory = new MemberHistories();
             var inspirationalMeetingHistory = new MemberHistories();
@@ -111,41 +109,24 @@ namespace Toastmasters.Web.Controllers
                     MemberName = item.FullName,
                     MeetingDate = generalEvaluatorMeeting == null ? new DateTime() : generalEvaluatorMeeting.MeetingDate
                 });
-                var evaluatorIMeeting = _context.Meetings
-                    .Where(m => m.EvaluatorI.MemberID == item.MemberID)
+                var evaluatorMeeting = _context.Meetings
+                    .Where(m => m.EvaluatorI.MemberID == item.MemberID || m.EvaluatorII.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                evaluatorIMeetingHistory.Add(new MemberHistory
+                evaluatorMeetingHistory.Add(new MemberHistory
                 {
                     MemberName = item.FullName,
-                    MeetingDate = evaluatorIMeeting == null ? new DateTime() : evaluatorIMeeting.MeetingDate
+                    MeetingDate = evaluatorMeeting == null ? new DateTime() : evaluatorMeeting.MeetingDate
                 });
-                var evaluatorIIMeeting = _context.Meetings
-                    .Where(m => m.EvaluatorII.MemberID == item.MemberID)
+
+                var speakerMeeting = _context.Meetings
+                    .Where(m => m.SpeakerI.MemberID == item.MemberID || m.SpeakerII.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                evaluatorIIMeetingHistory.Add(new MemberHistory
+                speakerMeetingHistory.Add(new MemberHistory
                 {
                     MemberName = item.FullName,
-                    MeetingDate = evaluatorIIMeeting == null ? new DateTime() : evaluatorIIMeeting.MeetingDate
-                });
-                var speakerIMeeting = _context.Meetings
-                    .Where(m => m.SpeakerI.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                speakerIMeetingHistory.Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = speakerIMeeting == null ? new DateTime() : speakerIMeeting.MeetingDate
-                });
-                var speakerIIMeeting = _context.Meetings
-                    .Where(m => m.SpeakerII.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                speakerIIMeetingHistory.Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = speakerIIMeeting == null ? new DateTime() : speakerIIMeeting.MeetingDate
+                    MeetingDate = speakerMeeting == null ? new DateTime() : speakerMeeting.MeetingDate
                 });
                 var timerMeeting = _context.Meetings
                     .Where(m => m.Timer.MemberID == item.MemberID)
@@ -197,10 +178,8 @@ namespace Toastmasters.Web.Controllers
             ViewBag.ToastmasterMemberHistory = toastmasterMeetingHistory.HtmlList;
             ViewBag.TabletopicsMeetingHistory = tabletopicsMeetingHistory.HtmlList;
             ViewBag.GeneralEvaluatorMeetingHistory = generalEvaluatorMeetingHistory.HtmlList;
-            ViewBag.EvaluatorIMeetingHistory = evaluatorIMeetingHistory.HtmlList;
-            ViewBag.EvaluatorIIMeetingHistory = evaluatorIIMeetingHistory.HtmlList;
-            ViewBag.SpeakerIMeetingHistory = speakerIMeetingHistory.HtmlList;
-            ViewBag.SpeakerIIMeetingHistory = speakerIIMeetingHistory.HtmlList;
+            ViewBag.EvaluatorMeetingHistory = evaluatorMeetingHistory.HtmlList;
+            ViewBag.SpeakerMeetingHistory = speakerMeetingHistory.HtmlList;
             ViewBag.TimerMeetingHistory = timerMeetingHistory.HtmlList;
             ViewBag.GrammarianMeetingHistory = grammarianMeetingHistory.HtmlList;
             ViewBag.InspirationalMeetingHistory = inspirationalMeetingHistory.HtmlList;
