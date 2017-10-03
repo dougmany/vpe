@@ -35,6 +35,7 @@ namespace Toastmasters.Web.Controllers
                 .Include(m => m.Timer)
                 .Include(m => m.Grammarian)
                 .Include(m => m.BallotCounter)
+                .OrderByDescending(m => m.MeetingDate)
                 .ToList();
 
             return View(meetings);
@@ -294,49 +295,70 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Next
-        public MeetingViewModel Next()
+        public AgendaViewModel Next()
         {
-            var meeting = _context.Meetings
-                .Include(m => m.Toastmaster)
-                .Include(m => m.TableTopics)
-                .Include(m => m.SpeakerI)
-                .Include(m => m.SpeakerII)
-                .Include(m => m.GeneralEvaluator)
-                .Include(m => m.EvaluatorI)
-                .Include(m => m.EvaluatorII)
-                .Include(m => m.Inspirational)
-                .Include(m => m.Joke)
-                .Include(m => m.Timer)
-                .Include(m => m.Grammarian)
-                .Include(m => m.BallotCounter)
-                .Include(m => m.President)
-                .Include(m => m.Sargent)
-                .Where(m => m.MeetingDate > DateTime.Now).OrderBy(m => m.MeetingDate).FirstOrDefault();
+            Meeting meeting = GetMeetingAfterDate(DateTime.Now);
 
-            var nextMeeting = _context.Meetings
-                .Include(m => m.Toastmaster)
-                .Include(m => m.TableTopics)
-                .Include(m => m.SpeakerI)
-                .Include(m => m.SpeakerII)
-                .Include(m => m.GeneralEvaluator)
-                .Include(m => m.EvaluatorI)
-                .Include(m => m.EvaluatorII)
-                .Include(m => m.Inspirational)
-                .Include(m => m.Joke)
-                .Include(m => m.Timer)
-                .Include(m => m.Grammarian)
-                .Include(m => m.BallotCounter)
-                .Include(m => m.President)
-                .Include(m => m.Sargent)
-                .Where(m => m.MeetingDate > meeting.MeetingDate).OrderBy(m => m.MeetingDate).FirstOrDefault();
+            var nextMeeting = GetMeetingAfterDate(meeting.MeetingDate);
+
             if (meeting == null || nextMeeting == null)
             {
-                return new MeetingViewModel(new Meeting(), new Meeting());
+                return new AgendaViewModel(new Meeting(), new Meeting());
             }
 
-            var model = new MeetingViewModel(meeting, nextMeeting);
+            var model = new AgendaViewModel(meeting, nextMeeting);
 
             return model;
+        }
+
+        // GET: Meeting/Next
+        public MeetingViewModel[] NextFive()
+        {
+            List<Meeting> meetingList = new List<Meeting>();
+
+            FillSomeMeetings(DateTime.Now, meetingList, 5);
+
+            var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
+
+            return model;
+        }
+
+        private void FillSomeMeetings(DateTime date, List<Meeting> list, Int32 number)
+        {
+            Meeting meeting = GetMeetingAfterDate(date);
+
+            if (meeting != null)
+            {
+                list.Add(meeting);
+                if (number > 0 )
+                {
+                    FillSomeMeetings(meeting.MeetingDate, list, --number);
+                }
+                return;
+            }
+            return;
+        }
+
+        private Meeting GetMeetingAfterDate(DateTime beforeDate)
+        {
+            return _context.Meetings
+                .Include(m => m.Toastmaster)
+                .Include(m => m.TableTopics)
+                .Include(m => m.SpeakerI)
+                .Include(m => m.SpeakerII)
+                .Include(m => m.GeneralEvaluator)
+                .Include(m => m.EvaluatorI)
+                .Include(m => m.EvaluatorII)
+                .Include(m => m.Inspirational)
+                .Include(m => m.Joke)
+                .Include(m => m.Timer)
+                .Include(m => m.Grammarian)
+                .Include(m => m.BallotCounter)
+                .Include(m => m.President)
+                .Include(m => m.Sargent)
+                .Where(m => m.MeetingDate > beforeDate)
+                .OrderBy(m => m.MeetingDate)
+                .FirstOrDefault();
         }
 
         private bool MeetingExists(int id)

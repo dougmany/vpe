@@ -17,9 +17,9 @@ namespace Toastmasters.Tex
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public Meeting GetMeeting(string path, out String error)
+        public MeetingAgenda GetMeeting(string path, out String error)
         {
-            Meeting meeting = new Meeting();
+            MeetingAgenda meeting = new MeetingAgenda();
             error = "";
             try
             {
@@ -31,7 +31,7 @@ namespace Toastmasters.Tex
                 {
                     var jsonTask = response.Content.ReadAsStringAsync();
                     jsonTask.Wait();
-                    meeting = JsonConvert.DeserializeObject<Meeting>(jsonTask.Result);             
+                    meeting = JsonConvert.DeserializeObject<MeetingAgenda>(jsonTask.Result);             
                 }
                 else
                 {
@@ -47,9 +47,9 @@ namespace Toastmasters.Tex
         }
     }
 
-    public class Meeting
+    public class MeetingAgenda
     {
-        public Meeting()
+        public MeetingAgenda()
         {
             MeetingDate = DateTime.Now;
             Toastmaster = "";
