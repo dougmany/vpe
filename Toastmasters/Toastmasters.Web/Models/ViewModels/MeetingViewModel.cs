@@ -8,7 +8,7 @@ namespace Toastmasters.Web.Models
     {
         public MeetingViewModel(Meeting meeting)
         {
-            MeetingDate = meeting.MeetingDate;
+            MeetingDate = meeting.MeetingDate.ToString("d");
             Toastmaster = meeting.Toastmaster.FullName;
             Inspirational = meeting.Inspirational.FullName;
             Joke = meeting.Joke.FullName;
@@ -25,7 +25,7 @@ namespace Toastmasters.Web.Models
             Sargent = meeting.Sargent.FullName;
         }
 
-        public DateTime MeetingDate { get; set; }
+        public String MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }

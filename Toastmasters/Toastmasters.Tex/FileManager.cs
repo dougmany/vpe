@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -42,6 +43,56 @@ namespace Toastmasters.Tex
                                 var start = line.IndexOf("##");
                                 var length = line.Substring(start).IndexOf("}");
                                 var variableName = line.Substring(start + 2, length - 2);
+
+                                var first = line.Substring(0, start);
+                                var middle = data.GetType().GetProperty(variableName).GetValue(data);
+                                var last = line.Substring(start + length);
+                                line = first + middle + last;
+                            }
+                            file.Add(line);
+                        }
+                    }
+                    finally
+                    {
+
+                    }
+
+                    return file;
+                }
+            }
+        }
+
+        public static List<string> ReadAndReplace<T>(string inpath, IEnumerable<T> dataList)
+        {
+            var IteratorChars = new String[]{"A", "B", "C", "D", "E"};
+
+            var file = new List<string>();
+            using (var stream = new FileStream(inpath, FileMode.Open))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    try
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (line.Contains("##"))
+                            {
+                                var start = line.IndexOf("##");
+                                var length = line.Substring(start).IndexOf("}");
+                                var variableName = line.Substring(start + 2, length - 2);
+
+                                var dataIndex = Array.IndexOf(IteratorChars,  variableName.Substring(variableName.Length -1));
+                                var data = (T)Activator.CreateInstance(typeof(T));
+                                if(dataIndex == -1 )
+                                {
+                                     data = dataList.ElementAt(0);
+                                }
+                                else
+                                {
+                                    data = dataList.ElementAt(dataIndex + 1);
+                                    variableName = variableName.Substring(0, variableName.Length - 1);
+                                }
 
                                 var first = line.Substring(0, start);
                                 var middle = data.GetType().GetProperty(variableName).GetValue(data);

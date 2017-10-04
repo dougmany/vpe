@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,9 +18,10 @@ namespace Toastmasters.Tex
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public MeetingAgenda GetMeeting(string path, out String error)
+        public T GetMeeting<T>(string path, out String error)
         {
-            MeetingAgenda meeting = new MeetingAgenda();
+            var data = (T)Activator.CreateInstance(typeof(T));
+            
             error = "";
             try
             {
@@ -31,18 +33,48 @@ namespace Toastmasters.Tex
                 {
                     var jsonTask = response.Content.ReadAsStringAsync();
                     jsonTask.Wait();
-                    meeting = JsonConvert.DeserializeObject<MeetingAgenda>(jsonTask.Result);             
+                    data = JsonConvert.DeserializeObject<T>(jsonTask.Result);             
                 }
                 else
                 {
                     error = $"{response.StatusCode.ToString()}: {response.RequestMessage.RequestUri}";
                 }
-                return meeting;
+                return data;
             }
             catch (WebException e)
             {
                 error = e.Message;
-                return meeting;
+                return data;
+            }
+        }
+
+        public IEnumerable<T> GetMeetingList<T>(string path, out String error)
+        {
+            var data = new List<T>();
+
+            error = "";
+            try
+            {
+                var responseTask = client.GetAsync(path);
+                responseTask.Wait();
+                var response = responseTask.Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonTask = response.Content.ReadAsStringAsync();
+                    jsonTask.Wait();
+                    return JsonConvert.DeserializeObject<IEnumerable<T>>(jsonTask.Result);
+                }
+                else
+                {
+                    error = $"{response.StatusCode.ToString()}: {response.RequestMessage.RequestUri}";
+                }
+                return data;
+            }
+            catch (WebException e)
+            {
+                error = e.Message;
+                return data;
             }
         }
     }
@@ -106,5 +138,48 @@ namespace Toastmasters.Tex
         public String NextSargent { get; set; }
 
         public String NextMeetingDateString { get { return NextMeetingDate.ToString("d"); } }
+    }
+
+    public class Meeting
+    {
+        public Meeting()
+        {
+            MeetingDate = DateTime.Now;
+            Toastmaster = "";
+            Inspirational = "";
+            Joke = "";
+            GeneralEvaluator = "";
+            EvaluatorI = "";
+            EvaluatorII = "";
+            Timer = "";
+            BallotCounter = "";
+            Grammarian = "";
+            TableTopics = "";
+            SpeakerI = "";
+            SpeakerII = "";
+            President = "";
+            Sargent = "";
+            AbsentI = "";
+            AbsentII = "";
+        }
+
+        public DateTime MeetingDate { get; set; }
+        public String Toastmaster { get; set; }
+        public String Inspirational { get; set; }
+        public String Joke { get; set; }
+        public String GeneralEvaluator { get; set; }
+        public String EvaluatorI { get; set; }
+        public String EvaluatorII { get; set; }
+        public String Timer { get; set; }
+        public String BallotCounter { get; set; }
+        public String Grammarian { get; set; }
+        public String TableTopics { get; set; }
+        public String SpeakerI { get; set; }
+        public String SpeakerII { get; set; }
+        public String President { get; set; }
+        public String Sargent { get; set; }
+        public String AbsentI { get; set; }
+        public String AbsentII { get; set; }
+        public String MeetingDateString { get { return MeetingDate.ToString("f"); } }
     }
 }
