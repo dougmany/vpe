@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Toastmasters.Tex
 {
@@ -44,6 +46,19 @@ namespace Toastmasters.Tex
             }
         
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meetingList));
+
+            Thread.Sleep(3000);
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = "/vagrant/generate.sh";
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+
+            Process proc = new Process
+            {
+                StartInfo = psi
+            };
+
+            proc.Start();
 
         }
     }
