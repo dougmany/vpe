@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 namespace Toastmasters.Tex
 {
@@ -64,7 +66,7 @@ namespace Toastmasters.Tex
 
         public static List<string> ReadAndReplace<T>(string inpath, IEnumerable<T> dataList)
         {
-            var IteratorChars = new String[]{"A", "B", "C", "D", "E"};
+            var IteratorChars = new String[] { "A", "B", "C", "D", "E" };
 
             var file = new List<string>();
             using (var stream = new FileStream(inpath, FileMode.Open))
@@ -82,11 +84,11 @@ namespace Toastmasters.Tex
                                 var length = line.Substring(start).IndexOf("}");
                                 var variableName = line.Substring(start + 2, length - 2);
 
-                                var dataIndex = Array.IndexOf(IteratorChars,  variableName.Substring(variableName.Length -1));
+                                var dataIndex = Array.IndexOf(IteratorChars, variableName.Substring(variableName.Length - 1));
                                 var data = (T)Activator.CreateInstance(typeof(T));
-                                if(dataIndex == -1 )
+                                if (dataIndex == -1)
                                 {
-                                     data = dataList.ElementAt(0);
+                                    data = dataList.ElementAt(0);
                                 }
                                 else
                                 {
@@ -110,6 +112,27 @@ namespace Toastmasters.Tex
                     return file;
                 }
             }
+        }
+    }
+
+    public static class LocalFile
+    { 
+
+        public static void RunLocalFile(string file, string arguments)
+        {
+            Thread.Sleep(3000);
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = file;
+            psi.Arguments = arguments;
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+
+            Process proc = new Process
+            {
+                StartInfo = psi
+            };
+
+            proc.Start();
         }
     }
 }

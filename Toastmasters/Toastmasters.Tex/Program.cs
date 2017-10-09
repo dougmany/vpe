@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 
 namespace Toastmasters.Tex
 {
@@ -22,12 +20,14 @@ namespace Toastmasters.Tex
             String error;
             var meeting = apiCall.GetMeeting<MeetingAgenda>("Meetings/Next", out error);
 
-            if (!String.IsNullOrWhiteSpace(error) )
+            if (!String.IsNullOrWhiteSpace(error))
             {
                 Console.WriteLine($"ERROR: {error}");
             }
-        
+
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meeting));
+
+            LocalFile.RunLocalFile("latex2rtf", "/vagrant/agenda/Agenda.tex");
 
             Console.WriteLine("Converting NextFive....");
 
@@ -40,25 +40,14 @@ namespace Toastmasters.Tex
 
             var meetingList = apiCall.GetMeetingList<Meeting>("Meetings/NextFive", out error);
 
-            if (!String.IsNullOrWhiteSpace(error) )
+            if (!String.IsNullOrWhiteSpace(error))
             {
                 Console.WriteLine($"ERROR: {error}");
             }
-        
+
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meetingList));
 
-            Thread.Sleep(3000);
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = "/vagrant/generate.sh";
-            psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;
-
-            Process proc = new Process
-            {
-                StartInfo = psi
-            };
-
-            proc.Start();
+            LocalFile.RunLocalFile("latex2rtf", "/vagrant/agenda/NextFive.tex");
 
         }
     }
