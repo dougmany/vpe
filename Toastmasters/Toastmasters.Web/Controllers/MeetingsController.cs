@@ -67,19 +67,21 @@ namespace Toastmasters.Web.Controllers
 
             var model = new MeetingActionModel
             {
-                Members = membersList
+                Members = membersList,
+                Histories = new Dictionary<string, MemberHistories>
+                {
+                    {"toastmasterMeetingHistory", new MemberHistories() },
+                    {"tabletopicsMeetingHistory",  new MemberHistories() },
+                    {"generalEvaluatorMeetingHistory", new MemberHistories() },
+                    {"evaluatorMeetingHistory",  new MemberHistories() },
+                    {"speakerMeetingHistory",  new MemberHistories() },
+                    {"timerMeetingHistory",  new MemberHistories() },
+                    {"grammarianMeetingHistory",  new MemberHistories() },
+                    {"inspirationalMeetingHistory",  new MemberHistories() },
+                    {"jokeMeetingHistory",  new MemberHistories()},
+                    {"ballotCounterMeetingHistory",  new MemberHistories() }
+                }
             };
-
-            var toastmasterMeetingHistory = new MemberHistories();
-            var tabletopicsMeetingHistory = new MemberHistories();
-            var generalEvaluatorMeetingHistory = new MemberHistories();
-            var evaluatorMeetingHistory = new MemberHistories();
-            var speakerMeetingHistory = new MemberHistories();
-            var timerMeetingHistory = new MemberHistories();
-            var grammarianMeetingHistory = new MemberHistories();
-            var inspirationalMeetingHistory = new MemberHistories();
-            var jokeMeetingHistory = new MemberHistories();
-            var ballotCounterMeetingHistory = new MemberHistories();
 
             foreach (var item in _context.Members.ToArray())
             {
@@ -87,7 +89,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.Toastmaster.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                toastmasterMeetingHistory.Add(new MemberHistory
+                model.Histories["toastmasterMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.MeetingDate
@@ -96,7 +98,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.TableTopics.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                tabletopicsMeetingHistory.Add(new MemberHistory
+                model.Histories["tabletopicsMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = tabletopicsMeeting == null ? new DateTime() : tabletopicsMeeting.MeetingDate
@@ -105,7 +107,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.GeneralEvaluator.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                generalEvaluatorMeetingHistory.Add(new MemberHistory
+                model.Histories["generalEvaluatorMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = generalEvaluatorMeeting == null ? new DateTime() : generalEvaluatorMeeting.MeetingDate
@@ -114,7 +116,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.EvaluatorI.MemberID == item.MemberID || m.EvaluatorII.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                evaluatorMeetingHistory.Add(new MemberHistory
+                model.Histories["evaluatorMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = evaluatorMeeting == null ? new DateTime() : evaluatorMeeting.MeetingDate
@@ -124,7 +126,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.SpeakerI.MemberID == item.MemberID || m.SpeakerII.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                speakerMeetingHistory.Add(new MemberHistory
+                model.Histories["speakerMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = speakerMeeting == null ? new DateTime() : speakerMeeting.MeetingDate
@@ -133,7 +135,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.Timer.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                timerMeetingHistory.Add(new MemberHistory
+                model.Histories["timerMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = timerMeeting == null ? new DateTime() : timerMeeting.MeetingDate
@@ -142,7 +144,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.Grammarian.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                grammarianMeetingHistory.Add(new MemberHistory
+                model.Histories["grammarianMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = grammarianMeeting == null ? new DateTime() : grammarianMeeting.MeetingDate
@@ -151,7 +153,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.Inspirational.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                inspirationalMeetingHistory.Add(new MemberHistory
+                model.Histories["inspirationalMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = inspirationalMeeting == null ? new DateTime() : inspirationalMeeting.MeetingDate
@@ -160,7 +162,7 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.Joke.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                jokeMeetingHistory.Add(new MemberHistory
+                model.Histories["jokeMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = jokeMeeting == null ? new DateTime() : jokeMeeting.MeetingDate
@@ -169,25 +171,12 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.BallotCounter.MemberID == item.MemberID)
                     .OrderByDescending(m => m.MeetingDate)
                     .FirstOrDefault();
-                ballotCounterMeetingHistory.Add(new MemberHistory
+                model.Histories["ballotCounterMeetingHistory"].Add(new MemberHistory
                 {
                     MemberName = item.FullName,
                     MeetingDate = ballotCounterMeeting == null ? new DateTime() : ballotCounterMeeting.MeetingDate
                 });
             }
-
-            ViewBag.ToastmasterMemberHistory = toastmasterMeetingHistory.HtmlList;
-            ViewBag.TabletopicsMeetingHistory = tabletopicsMeetingHistory.HtmlList;
-            ViewBag.GeneralEvaluatorMeetingHistory = generalEvaluatorMeetingHistory.HtmlList;
-            ViewBag.EvaluatorMeetingHistory = evaluatorMeetingHistory.HtmlList;
-            ViewBag.SpeakerMeetingHistory = speakerMeetingHistory.HtmlList;
-            ViewBag.TimerMeetingHistory = timerMeetingHistory.HtmlList;
-            ViewBag.GrammarianMeetingHistory = grammarianMeetingHistory.HtmlList;
-            ViewBag.InspirationalMeetingHistory = inspirationalMeetingHistory.HtmlList;
-            ViewBag.JokeMeetingHistory = jokeMeetingHistory.HtmlList;
-            ViewBag.BallotCounterMeetingHistory = ballotCounterMeetingHistory.HtmlList;
-
-            ViewBag.MemberHistory = toastmasterMeetingHistory.HtmlList;
 
             return View(model);
         }
@@ -330,7 +319,7 @@ namespace Toastmasters.Web.Controllers
             if (meeting != null)
             {
                 list.Add(meeting);
-                if (number > 0 )
+                if (number > 0)
                 {
                     FillSomeMeetings(meeting.MeetingDate, list, --number);
                 }

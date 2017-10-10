@@ -48,6 +48,7 @@ namespace Toastmasters.Web.Models
         public Int32 AbsentIIMemberID { get; set; }
 
         public SelectList Members { get; set; }
+        public Dictionary<String,MemberHistories> Histories { get; set; }
     }
     public class MeetingActionBuilder : IModelBuilder<MeetingActionModel, Meeting>
     {
