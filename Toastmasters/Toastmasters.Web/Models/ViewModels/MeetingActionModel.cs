@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 using Toastmasters.Web.Models.ViewModels;
 
 namespace Toastmasters.Web.Models
@@ -48,15 +47,24 @@ namespace Toastmasters.Web.Models
         public Int32 AbsentIIMemberID { get; set; }
 
         public SelectList Members { get; set; }
-        public Dictionary<String,MemberHistories> Histories { get; set; }
+        public Dictionary<MeetingRoleNames, MemberHistories> Histories { get; set; }
     }
+
     public class MeetingActionBuilder : IModelBuilder<MeetingActionModel, Meeting>
     {
         private Member[] _members { get; set; }
+        public Meeting[] _meetings { get; set; }
+
+        public MeetingActionBuilder(Member[] members, Meeting[] meetings)
+        {
+            _members = members;
+            _meetings = meetings;
+        }
 
         public MeetingActionBuilder(Member[] members)
         {
             _members = members;
+            _meetings = new Meeting[0];
         }
 
         public Meeting Create(MeetingActionModel actionModel, out string ChangeLog)
@@ -86,6 +94,7 @@ namespace Toastmasters.Web.Models
             };
             return meeting;
         }
+
         public bool Update(MeetingActionModel actionModel, Meeting entity, out List<string> ChangeLogs)
         {
             ChangeLogs = new List<String>();
@@ -168,8 +177,8 @@ namespace Toastmasters.Web.Models
         public MeetingActionModel View(Meeting entity)
         {
             var blankMember = new Member { MemberID = 0, FirstName = "-Select", LastName = "Member -" };
-            _members = _members.Prepend(blankMember).ToArray();
-            var members = new SelectList(_members, "MemberID", "FullName");
+            var memberSelect = _members.Prepend(blankMember).ToArray();
+            var members = new SelectList(memberSelect, "MemberID", "FullName");
 
             return new MeetingActionModel
             {
@@ -192,13 +201,154 @@ namespace Toastmasters.Web.Models
                 AbsentIMemberID = entity.AbsentI == null ? 0 : entity.AbsentI.MemberID,
                 AbsentIIMemberID = entity.AbsentII == null ? 0 : entity.AbsentII.MemberID,
                 
-                Members = members
+                Members = members,
+                Histories = GetHistories()
             };
+        }
+
+        public MeetingActionModel View()
+        {
+            var model = new MeetingActionModel();
+            var blankMember = new Member { MemberID = 0, FirstName = "-Select", LastName = "Member -" };
+            var memberSelect = _members.Prepend(blankMember).ToArray();
+            model.Members = new SelectList(memberSelect, "MemberID", "FullName");
+
+            model.Histories = GetHistories();
+
+            return model;
+        }
+
+        private Dictionary<MeetingRoleNames, MemberHistories> GetHistories()
+        {
+            var histories = new Dictionary<MeetingRoleNames, MemberHistories>
+                {
+                    {MeetingRoleNames.Toastmaster, new MemberHistories() },
+                    {MeetingRoleNames.Tabletopics,  new MemberHistories() },
+                    {MeetingRoleNames.GeneralEvaluator, new MemberHistories() },
+                    {MeetingRoleNames.Evaluator,  new MemberHistories() },
+                    {MeetingRoleNames.Speaker,  new MemberHistories() },
+                    {MeetingRoleNames.Timer,  new MemberHistories() },
+                    {MeetingRoleNames.Grammarian,  new MemberHistories() },
+                    {MeetingRoleNames.Inspirational,  new MemberHistories() },
+                    {MeetingRoleNames.Joke,  new MemberHistories()},
+                    {MeetingRoleNames.BallotCounter,  new MemberHistories() }
+                };
+
+            foreach (var item in _members.ToArray())
+            {
+                var toastmasterMeeting = _meetings
+                    .Where(m => m.Toastmaster.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Toastmaster].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.MeetingDate
+                });
+                var tabletopicsMeeting = _meetings
+                    .Where(m => m.TableTopics.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Tabletopics].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = tabletopicsMeeting == null ? new DateTime() : tabletopicsMeeting.MeetingDate
+                });
+                var generalEvaluatorMeeting = _meetings
+                    .Where(m => m.GeneralEvaluator.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.GeneralEvaluator].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = generalEvaluatorMeeting == null ? new DateTime() : generalEvaluatorMeeting.MeetingDate
+                });
+                var evaluatorMeeting = _meetings
+                    .Where(m => m.EvaluatorI.MemberID == item.MemberID || m.EvaluatorII.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Evaluator].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = evaluatorMeeting == null ? new DateTime() : evaluatorMeeting.MeetingDate
+                });
+
+                var speakerMeeting = _meetings
+                    .Where(m => m.SpeakerI.MemberID == item.MemberID || m.SpeakerII.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Speaker].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = speakerMeeting == null ? new DateTime() : speakerMeeting.MeetingDate
+                });
+                var timerMeeting = _meetings
+                    .Where(m => m.Timer.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Timer].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = timerMeeting == null ? new DateTime() : timerMeeting.MeetingDate
+                });
+                var grammarianMeeting = _meetings
+                    .Where(m => m.Grammarian.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Grammarian].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = grammarianMeeting == null ? new DateTime() : grammarianMeeting.MeetingDate
+                });
+                var inspirationalMeeting = _meetings
+                    .Where(m => m.Inspirational.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Inspirational].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = inspirationalMeeting == null ? new DateTime() : inspirationalMeeting.MeetingDate
+                });
+                var jokeMeeting = _meetings
+                    .Where(m => m.Joke.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.Joke].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = jokeMeeting == null ? new DateTime() : jokeMeeting.MeetingDate
+                });
+                var ballotCounterMeeting = _meetings
+                    .Where(m => m.BallotCounter.MemberID == item.MemberID)
+                    .OrderByDescending(m => m.MeetingDate)
+                    .FirstOrDefault();
+                histories[MeetingRoleNames.BallotCounter].Add(new MemberHistory
+                {
+                    MemberName = item.FullName,
+                    MeetingDate = ballotCounterMeeting == null ? new DateTime() : ballotCounterMeeting.MeetingDate
+                });
+            }
+
+            return histories;
         }
 
         public MeetingActionModel Rebuild(MeetingActionModel model)
         {
             throw new NotImplementedException();
         }
+    }
+
+    public enum MeetingRoleNames
+    {
+        Toastmaster,
+        Tabletopics,
+        GeneralEvaluator,
+        Evaluator,
+        Speaker,
+        Timer,
+        Grammarian,
+        Inspirational,
+        Joke,
+        BallotCounter,
     }
 }

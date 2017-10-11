@@ -61,124 +61,9 @@ namespace Toastmasters.Web.Controllers
         // GET: Meeting/Create
         public IActionResult Create()
         {
-            var blankMember = new Member { MemberID = 0, FirstName = "-Select", LastName = "Member -" };
-            var members = _context.Members.OrderBy(m => m.FullName).Prepend(blankMember).ToArray();
-            var membersList = new SelectList(members, "MemberID", "FullName");
+            var builder = new MeetingActionBuilder(_context.Members.ToArray(), _context.Meetings.ToArray());
 
-            var model = new MeetingActionModel
-            {
-                Members = membersList,
-                Histories = new Dictionary<string, MemberHistories>
-                {
-                    {"toastmasterMeetingHistory", new MemberHistories() },
-                    {"tabletopicsMeetingHistory",  new MemberHistories() },
-                    {"generalEvaluatorMeetingHistory", new MemberHistories() },
-                    {"evaluatorMeetingHistory",  new MemberHistories() },
-                    {"speakerMeetingHistory",  new MemberHistories() },
-                    {"timerMeetingHistory",  new MemberHistories() },
-                    {"grammarianMeetingHistory",  new MemberHistories() },
-                    {"inspirationalMeetingHistory",  new MemberHistories() },
-                    {"jokeMeetingHistory",  new MemberHistories()},
-                    {"ballotCounterMeetingHistory",  new MemberHistories() }
-                }
-            };
-
-            foreach (var item in _context.Members.ToArray())
-            {
-                var toastmasterMeeting = _context.Meetings
-                    .Where(m => m.Toastmaster.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["toastmasterMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = toastmasterMeeting == null ? new DateTime() : toastmasterMeeting.MeetingDate
-                });
-                var tabletopicsMeeting = _context.Meetings
-                    .Where(m => m.TableTopics.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["tabletopicsMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = tabletopicsMeeting == null ? new DateTime() : tabletopicsMeeting.MeetingDate
-                });
-                var generalEvaluatorMeeting = _context.Meetings
-                    .Where(m => m.GeneralEvaluator.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["generalEvaluatorMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = generalEvaluatorMeeting == null ? new DateTime() : generalEvaluatorMeeting.MeetingDate
-                });
-                var evaluatorMeeting = _context.Meetings
-                    .Where(m => m.EvaluatorI.MemberID == item.MemberID || m.EvaluatorII.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["evaluatorMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = evaluatorMeeting == null ? new DateTime() : evaluatorMeeting.MeetingDate
-                });
-
-                var speakerMeeting = _context.Meetings
-                    .Where(m => m.SpeakerI.MemberID == item.MemberID || m.SpeakerII.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["speakerMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = speakerMeeting == null ? new DateTime() : speakerMeeting.MeetingDate
-                });
-                var timerMeeting = _context.Meetings
-                    .Where(m => m.Timer.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["timerMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = timerMeeting == null ? new DateTime() : timerMeeting.MeetingDate
-                });
-                var grammarianMeeting = _context.Meetings
-                    .Where(m => m.Grammarian.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["grammarianMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = grammarianMeeting == null ? new DateTime() : grammarianMeeting.MeetingDate
-                });
-                var inspirationalMeeting = _context.Meetings
-                    .Where(m => m.Inspirational.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["inspirationalMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = inspirationalMeeting == null ? new DateTime() : inspirationalMeeting.MeetingDate
-                });
-                var jokeMeeting = _context.Meetings
-                    .Where(m => m.Joke.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["jokeMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = jokeMeeting == null ? new DateTime() : jokeMeeting.MeetingDate
-                });
-                var ballotCounterMeeting = _context.Meetings
-                    .Where(m => m.BallotCounter.MemberID == item.MemberID)
-                    .OrderByDescending(m => m.MeetingDate)
-                    .FirstOrDefault();
-                model.Histories["ballotCounterMeetingHistory"].Add(new MemberHistory
-                {
-                    MemberName = item.FullName,
-                    MeetingDate = ballotCounterMeeting == null ? new DateTime() : ballotCounterMeeting.MeetingDate
-                });
-            }
-
-            return View(model);
+            return View(builder.View());
         }
 
         // POST: Meeting/Create
@@ -213,8 +98,8 @@ namespace Toastmasters.Web.Controllers
             {
                 return NotFound();
             }
-            var members = _context.Members.OrderBy(m => m.FullName);
-            var builder = new MeetingActionBuilder(members.ToArray());
+
+            var builder = new MeetingActionBuilder(_context.Members.ToArray(), _context.Meetings.ToArray());
             var model = builder.View(meeting);
 
             return View(model);
