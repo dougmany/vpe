@@ -180,6 +180,6 @@ namespace Toastmasters.Tex
         public String Sargent { get; set; }
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
-        public String MeetingDateString { get { return MeetingDate.ToString("f"); } }
+        public String MeetingDateString { get { return MeetingDate.ToString("M"); } }
     }
 }
