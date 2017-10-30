@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Toastmasters.Web.Data;
 using Toastmasters.Web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Toastmasters.Web
 {
@@ -31,16 +33,19 @@ namespace Toastmasters.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
-
             services.AddSingleton<IConfiguration>(_ => Configuration);
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IToastmastersRepository, ToastmastersRepository>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext dbContext)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -68,6 +73,10 @@ namespace Toastmasters.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            dbContext.Database.Migrate();
+
+            var seed = new Seed(dbContext);
         }
     }
 }
