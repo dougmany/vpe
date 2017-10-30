@@ -3,6 +3,18 @@ ROOTPASSWD=test123
 DBUSER=dbuser
 DBPASSWD=test123
 
+#echo -n "Root Password: "
+#stty -echo
+#read ROOTPASSWD
+#stty echo
+#echo ""  
+#
+#echo -n "User Password: "
+#stty -echo
+#read DBPASSWD
+#stty echo
+#echo ""  
+
 apt-get update
 # MySQL setup for development purposes ONLY
 echo -e "\n--- Install MySQL specific packages and settings ---\n"
@@ -13,7 +25,12 @@ sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-rel
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B02C46DF417A0893
 apt-get update
 
-apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4 nginx
+apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4 nginx software-properties-common
+
+add-apt-repository ppa:certbot/certbot
+apt-get update
+apt-get install python-certbot-nginx 
+
 
 echo -e "\n--- Create database ---\n"
 

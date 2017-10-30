@@ -37,7 +37,10 @@ namespace Toastmasters.Web
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IToastmastersRepository, ToastmastersRepository>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+                {
+                    config.SignIn.RequireConfirmedEmail = true;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -66,6 +69,8 @@ namespace Toastmasters.Web
             });
 
             app.UseStaticFiles();
+
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
