@@ -29,10 +29,10 @@ namespace Toastmasters.Tex
 
             LocalFile.RunLocalFile("latex2rtf", "/vagrant/agenda/Agenda.tex");
 
-            Console.WriteLine("Converting NextFive....");
+            Console.WriteLine("Converting Email....");
 
-            inpath = "/vagrant/agenda/NextFiveTemplate.tex";
-            //inpath = "/Users/Doug/Projects/vpe/agenda/NextFiveTemplate.tex";
+            inpath = "/vagrant/agenda/EmailTemplate.tex";
+            //inpath = "/Users/Doug/Projects/vpe/agenda/EmailTemplate.tex";
             outpath = "1";
 
             outpath = inpath.Replace("Template.tex", ".tex");
@@ -47,7 +47,7 @@ namespace Toastmasters.Tex
 
             FileManager.WriteFile(outpath, FileManager.ReadAndReplace(inpath, meetingList));
 
-            LocalFile.RunLocalFile("latex2rtf", "/vagrant/agenda/NextFive.tex");
+            LocalFile.RunLocalFile("latex2rtf", "/vagrant/agenda/Email.tex");
 
         }
     }

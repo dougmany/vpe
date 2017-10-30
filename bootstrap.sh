@@ -24,7 +24,8 @@ mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Members ( MemberID INT 
 
 mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Meetings ( MeetingID INT AUTO_INCREMENT, MeetingDate DateTime, ToastmasterMemberID INT, InspirationalMemberID INT, JokeMemberID INT, GeneralEvaluatorMemberID INT, EvaluatorIMemberID INT, EvaluatorIIMemberID INT, TimerMemberID INT, BallotCounterMemberID INT, GrammarianMemberID INT, TableTopicsMemberID INT, SpeakerIMemberID INT, SpeakerIIMemberID INT, PresidentMemberID INT, SargentMemberID INT, AbsentIMemberID INT, AbsentIIMemberID INT, PRIMARY KEY (MeetingID) );"
 
-mysql  -uroot -p$ROOTPASSWD $DBNAME < /vagrant/seed.sql
+mysql  -uroot -p$ROOTPASSWD $DBNAME < /vagrant/MemberSeed.sql
+mysql  -uroot -p$ROOTPASSWD $DBNAME < /vagrant/MeetingSeed.sql
 
 mkdir /var/aspnetcore/
 mkdir /var/aspnetcore/toastmasters.web/

@@ -1,8 +1,16 @@
 # vpe
-This project is to assist me in my role as Vice President Education of my Toastmasters club.
+This project is to assist a Vice President Education of a Toastmasters club.
 
-The Web site allows me to assign roles to the mebers.
+It assists in assiging roles for upcoming meetings and uses Latex to generate agenda and email files.
 
-The Tex program then fills a TEX template with the members names.
-
-I then run Latex2RTF for einal editing and distribution.
+Instructions:
+Install Virtualbox and Vagrant
+Clone this repository.
+cd to clones folder.
+Type "Vagrant up".
+browse http:localhost:8000
+Enter Members then meetings on the web site.
+Type "Vagrant ssh".
+Edit agendaTemplate.Tex (optional)
+Type "/vagrant/generate".
+Find RTF files in agenda folder.
