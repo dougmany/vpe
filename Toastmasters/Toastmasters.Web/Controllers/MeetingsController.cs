@@ -170,6 +170,7 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Next
+        [AllowAnonymous]
         public AgendaViewModel Next()
         {
             Meeting meeting = GetMeetingAfterDate(DateTime.Now);
@@ -187,6 +188,7 @@ namespace Toastmasters.Web.Controllers
         }
 
         // GET: Meeting/Next
+        [AllowAnonymous]
         public MeetingViewModel[] NextFive()
         {
             List<Meeting> meetingList = new List<Meeting>();
