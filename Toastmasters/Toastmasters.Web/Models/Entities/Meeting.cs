@@ -25,8 +25,6 @@ namespace Toastmasters.Web.Models
             SpeakerII = new Member();
             President = new Member();
             Sargent = new Member();
-            AbsentI = new Member();
-            AbsentII = new Member();
         }
         [Display(Name = "Meeting")]
         public Int32 MeetingID { get; set; }
@@ -46,7 +44,5 @@ namespace Toastmasters.Web.Models
         public Member SpeakerII { get; set; }
         public Member President  { get; set; }        
         public Member Sargent { get; set; }
-        public Member AbsentI { get; set; }
-        public Member AbsentII { get; set; }
     }
 }

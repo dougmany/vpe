@@ -89,8 +89,6 @@ namespace Toastmasters.Web.Models
                 BallotCounter = actionModel.BallotCounterMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.BallotCounterMemberID),
                 President = actionModel.PresidentMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.PresidentMemberID),
                 Sargent = actionModel.SargentMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.SargentMemberID),
-                AbsentI = actionModel.AbsentIMemberID == 0 ? null :_members.Single(m => m.MemberID == actionModel.AbsentIMemberID),
-                AbsentII = actionModel.AbsentIMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.AbsentIIMemberID),
             };
             return meeting;
         }
@@ -162,14 +160,6 @@ namespace Toastmasters.Web.Models
             {
                 entity.Sargent = _members.Single(m => m.MemberID == actionModel.SargentMemberID);
             }
-            if (actionModel.AbsentIMemberID != 0)
-            {
-                entity.AbsentI = _members.Single(m => m.MemberID == actionModel.AbsentIMemberID);
-            }
-            if (actionModel.AbsentIIMemberID != 0)
-            {
-                entity.AbsentII = _members.Single(m => m.MemberID == actionModel.AbsentIIMemberID);
-            }
 
             return ChangeLogs.Count == 0 ? false : true;
         }
@@ -198,8 +188,6 @@ namespace Toastmasters.Web.Models
                 BallotCounterMemberID = entity.BallotCounter == null ? 0 : entity.BallotCounter.MemberID,
                 PresidentMemberID = entity.President == null ? 0 : entity.President.MemberID,
                 SargentMemberID = entity.Sargent == null ? 0 : entity.Sargent.MemberID,
-                AbsentIMemberID = entity.AbsentI == null ? 0 : entity.AbsentI.MemberID,
-                AbsentIIMemberID = entity.AbsentII == null ? 0 : entity.AbsentII.MemberID,
                 
                 Members = members,
                 Histories = GetHistories()
