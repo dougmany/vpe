@@ -16,7 +16,7 @@ namespace Toastmasters.Tex
 
             outpath = inpath.Replace("Template.tex", ".tex");
 
-            var apiCall = new WebGet("http://localhost/");
+            var apiCall = new WebGet("https://agwoow.ga/");
             String error;
             var meeting = apiCall.GetMeeting<MeetingAgenda>("Meetings/Next", out error);
 

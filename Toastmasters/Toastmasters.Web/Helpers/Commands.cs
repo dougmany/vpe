@@ -1,23 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Toastmasters.Web.Helpers
 {
-    public class Commands
+    public static class Commands
     {
-        public String GetAgenda(Int32 meetingID)
+        public static void LoadFile()
         {
-
-            var line = "";
             Process proc = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "program.exe",
-                    Arguments = "command line arguments to your executable",
+                    FileName = @"/vagrant/generate.sh",
+                    Arguments = "",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
@@ -26,13 +26,22 @@ namespace Toastmasters.Web.Helpers
 
 
             proc.Start();
-            while (!proc.StandardOutput.EndOfStream)
-            {
-                line = proc.StandardOutput.ReadLine();
-                // do something with line
-            }
+            //while (!proc.StandardOutput.EndOfStream)
+            //{
 
-            return line;
+            //}
+
+        }
+
+        public static FileStream GetFile(FilesToGet file)
+        {
+            return new FileStream($"/Users/doug/Projects/vpe/agenda/{file}.rtf", FileMode.Open);
+        }
+
+        public enum FilesToGet
+        {
+            Agenda,
+            Email
         }
     }
 }

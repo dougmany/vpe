@@ -80,18 +80,25 @@ namespace Toastmasters.Tex
                         {
                             if (line.Contains("##"))
                             {
+                                
                                 var start = line.IndexOf("##");
                                 var length = line.Substring(start).IndexOf("}");
                                 var variableName = line.Substring(start + 2, length - 2);
 
+                                Console.WriteLine($"Line: {line}");
                                 var dataIndex = Array.IndexOf(IteratorChars, variableName.Substring(variableName.Length - 1));
+                                
+                                Console.WriteLine($"Line: {line}");
                                 var data = (T)Activator.CreateInstance(typeof(T));
+                                
                                 if (dataIndex == -1)
                                 {
+                                    
                                     data = dataList.ElementAt(0);
                                 }
                                 else
                                 {
+                                    
                                     data = dataList.ElementAt(dataIndex + 1);
                                     variableName = variableName.Substring(0, variableName.Length - 1);
                                 }
@@ -116,22 +123,21 @@ namespace Toastmasters.Tex
     }
 
     public static class LocalFile
-    { 
-
+    {
         public static void RunLocalFile(string file, string arguments)
         {
             Thread.Sleep(3000);
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = file;
-            psi.Arguments = arguments;
-            psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;
-
             Process proc = new Process
             {
-                StartInfo = psi
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = file,
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true
+                }
             };
-
+   
             proc.Start();
         }
     }

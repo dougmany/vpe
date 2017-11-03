@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Toastmasters.Web.Data;
 using Toastmasters.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Toastmasters.Web.Helpers;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -198,6 +199,24 @@ namespace Toastmasters.Web.Controllers
             var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             return model;
+        }
+
+        public ActionResult LoadAgenda()
+        {
+            Commands.LoadFile();
+            return View("Index");
+        }
+
+        public ActionResult GetAgenda()
+        {
+            var stream =  Commands.GetFile(Commands.FilesToGet.Agenda);
+            return File(stream, "application/rtf", $"Agenda.rtf");
+        }
+
+        public ActionResult GetEmail()
+        {
+            var stream = Commands.GetFile(Commands.FilesToGet.Email);
+            return File(stream, "application/rtf", $"Email.rtf");
         }
 
         private void FillSomeMeetings(DateTime date, List<Meeting> list, Int32 number)
