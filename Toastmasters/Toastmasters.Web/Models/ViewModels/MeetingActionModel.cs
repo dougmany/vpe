@@ -11,7 +11,8 @@ namespace Toastmasters.Web.Models
     {
         public Int32 MeetingID { get; set; }
         [Display(Name = "Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime MeetingDate { get; set; }
         [Display (Name="Toastmaster")]
         public Int32 ToastmasterMemberID { get; set; }
@@ -74,7 +75,7 @@ namespace Toastmasters.Web.Models
             var meeting =  new Meeting
             {
                 MeetingID = actionModel.MeetingID,
-                MeetingDate = actionModel.MeetingDate,
+                MeetingDate = actionModel.MeetingDate.Date.AddHours(12).AddMinutes(5),
                 Toastmaster = actionModel.ToastmasterMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.ToastmasterMemberID),
                 TableTopics = actionModel.TableTopicsMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.TableTopicsMemberID),
                 SpeakerI = actionModel.SpeakerIMemberID == 0 ? null : _members.Single(m => m.MemberID == actionModel.SpeakerIMemberID),
@@ -100,9 +101,9 @@ namespace Toastmasters.Web.Models
             {
                 return false;
             }
-            if (entity.MeetingDate != actionModel.MeetingDate)
+            if (entity.MeetingDate != actionModel.MeetingDate.Date.AddHours(12).AddMinutes(5))
             {
-                entity.MeetingDate = actionModel.MeetingDate;
+                entity.MeetingDate = actionModel.MeetingDate.Date.AddHours(12).AddMinutes(5);
             }
             if (actionModel.ToastmasterMemberID != 0)
             {
@@ -173,7 +174,7 @@ namespace Toastmasters.Web.Models
             return new MeetingActionModel
             {
                 MeetingID = entity.MeetingID,
-                MeetingDate = entity.MeetingDate,
+                MeetingDate = entity.MeetingDate.Date,
                 ToastmasterMemberID = entity.Toastmaster == null ? 0 : entity.Toastmaster.MemberID,
                 TableTopicsMemberID = entity.TableTopics == null ? 0 : entity.TableTopics.MemberID,
                 SpeakerIMemberID = entity.SpeakerI == null ? 0 : entity.SpeakerI.MemberID,
