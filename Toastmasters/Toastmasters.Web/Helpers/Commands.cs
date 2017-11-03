@@ -35,7 +35,8 @@ namespace Toastmasters.Web.Helpers
 
         public static FileStream GetFile(FilesToGet file)
         {
-            return new FileStream($"/Users/doug/Projects/vpe/agenda/{file}.rtf", FileMode.Open);
+            return new FileStream($"/vagrant/agenda/{file}.rtf", FileMode.Open);
+            //return new FileStream($"/Users/doug/Projects/vpe/agenda/{file}.rtf", FileMode.Open);
         }
 
         public enum FilesToGet

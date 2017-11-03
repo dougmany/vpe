@@ -201,10 +201,10 @@ namespace Toastmasters.Web.Controllers
             return model;
         }
 
-        public ActionResult LoadAgenda()
+        public ActionResult GenerateFiles()
         {
             Commands.LoadFile();
-            return View("Index");
+             return RedirectToAction("Index");
         }
 
         public ActionResult GetAgenda()
