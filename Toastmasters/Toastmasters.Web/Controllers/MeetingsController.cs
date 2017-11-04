@@ -170,41 +170,21 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Meeting/Next
-        [AllowAnonymous]
-        public AgendaViewModel Next()
-        {
-            Meeting meeting = GetMeetingAfterDate(DateTime.Now);
-
-            var nextMeeting = GetMeetingAfterDate(meeting.MeetingDate);
-
-            if (meeting == null || nextMeeting == null)
-            {
-                return new AgendaViewModel(new Meeting(), new Meeting());
-            }
-
-            var model = new AgendaViewModel(meeting, nextMeeting);
-
-            return model;
-        }
-
-        // GET: Meeting/Next
-        [AllowAnonymous]
-        public MeetingViewModel[] NextFive()
-        {
-            List<Meeting> meetingList = new List<Meeting>();
-
-            FillSomeMeetings(DateTime.Now, meetingList, 5);
-
-            var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
-
-            return model;
-        }
-
         public ActionResult GenerateFiles()
         {
-            Commands.LoadFile();
-             return RedirectToAction("Index");
+            var meeting = GetMeetingAfterDate(DateTime.Now);
+            var nextMeeting = GetMeetingAfterDate(meeting.MeetingDate);
+            var model = new AgendaViewModel(meeting, nextMeeting);
+
+            Commands.LoadAgenda(model);
+
+            var meetingList = new List<Meeting>();
+            FillSomeMeetings(DateTime.Now, meetingList, 5);
+            var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
+
+            Commands.LoadEmail(models);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult GetAgenda()

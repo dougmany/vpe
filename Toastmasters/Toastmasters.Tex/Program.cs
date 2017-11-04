@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace Toastmasters.Tex
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static HttpClient client = new HttpClient();
+
+        public static void Main()
         {
             Console.WriteLine("Converting Agenda....");
 

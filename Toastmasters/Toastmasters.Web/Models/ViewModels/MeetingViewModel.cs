@@ -6,9 +6,11 @@ namespace Toastmasters.Web.Models
 {
     public class MeetingViewModel
     {
+        public MeetingViewModel() { }
+
         public MeetingViewModel(Meeting meeting)
         {
-            MeetingDate = meeting.MeetingDate.ToString("d");
+            MeetingDate = meeting.MeetingDate;
             Toastmaster = meeting.Toastmaster.FullName;
             Inspirational = meeting.Inspirational.FullName;
             Joke = meeting.Joke.FullName;
@@ -25,7 +27,7 @@ namespace Toastmasters.Web.Models
             Sargent = meeting.Sargent.FullName;
         }
 
-        public String MeetingDate { get; set; }
+        public DateTime MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }
@@ -42,11 +44,14 @@ namespace Toastmasters.Web.Models
         public String Sargent { get; set; }
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
+        public String MeetingDateString { get { return MeetingDate.ToString("M"); } }
 
     }
 
     public class AgendaViewModel
     {
+        public AgendaViewModel() { }
+
         public AgendaViewModel(Meeting meeting, Meeting nextMeeting)
         {
             MeetingDate = meeting.MeetingDate;
@@ -99,6 +104,7 @@ namespace Toastmasters.Web.Models
         public String Sargent { get; set; }
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
+        public String MeetingDateString { get { return MeetingDate.ToString("f"); } }
 
         public DateTime NextMeetingDate { get; set; }
         public String NextToastmaster { get; set; }
@@ -115,6 +121,7 @@ namespace Toastmasters.Web.Models
         public String NextSpeakerII { get; set; }
         public String NextPresident { get; set; }
         public String NextSargent { get; set; }
+        public String NextMeetingDateString { get { return NextMeetingDate.ToString("d"); } }
     }
 
     public class MemberHistory
@@ -131,7 +138,7 @@ namespace Toastmasters.Web.Models
         }
 
         public List<MemberHistory> Histories { get; set; }
-        
+
         public String HtmlList
         {
             get
