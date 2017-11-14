@@ -10,6 +10,7 @@ namespace Toastmasters.Web.Models
 
         public MeetingViewModel(Meeting meeting)
         {
+            MeetingID = meeting.MeetingID;
             MeetingDate = meeting.MeetingDate;
             Toastmaster = meeting.Toastmaster.FullName;
             Inspirational = meeting.Inspirational.FullName;
@@ -27,6 +28,7 @@ namespace Toastmasters.Web.Models
             Sargent = meeting.Sargent.FullName;
         }
 
+        public Int32 MeetingID { get; set; }
         public DateTime MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
@@ -45,6 +47,21 @@ namespace Toastmasters.Web.Models
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
         public String MeetingDateString { get { return MeetingDate.ToString("M"); } }
+
+        public String ToastmasterClass { get; set; }
+        public String InspirationalClass { get; set; }
+        public String JokeClass { get; set; }
+        public String GeneralEvaluatorClass { get; set; }
+        public String EvaluatorIClass { get; set; }
+        public String EvaluatorIIClass { get; set; }
+        public String TimerClass { get; set; }
+        public String BallotCounterClass { get; set; }
+        public String GrammarianClass { get; set; }
+        public String TableTopicsClass { get; set; }
+        public String SpeakerIClass { get; set; }
+        public String SpeakerIIClass { get; set; }
+        public String PresidentClass { get; set; }
+        public String SargentClass { get; set; }
 
     }
 

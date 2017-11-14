@@ -1,4 +1,4 @@
-@model IEnumerable<Toastmasters.Web.Models.Meeting>
+@model IEnumerable<Toastmasters.Web.Models.MeetingViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,17 +7,17 @@
 <h2>Index</h2>
 <div class=row>
     <div class="col-md-3">
-	    <a asp-action="Create">Create New</a>
-	</div>
+        <a asp-action="Create">Create New</a>
+    </div>
     <div class="col-md-3">
-	    <a asp-action="GenerateFiles">Generate Files</a>
-	</div>
+        <a asp-action="GenerateFiles">Generate Files</a>
+    </div>
     <div class="col-md-3">
-	    <a asp-action="GetAgenda">Get Agenda</a>
-	</div>
-	<div class="col-md-3">
-	    <a asp-action="GetEmail">Get Email</a>
-	</div>
+        <a asp-action="GetAgenda">Get Agenda</a>
+    </div>
+    <div class="col-md-3">
+        <a asp-action="GetEmail">Get Email</a>
+    </div>
 </div>
 
 <table class="table">
@@ -67,43 +67,43 @@
         {
             <tr>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a> 
+                    <a asp-action="Edit" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a>
+                </td>
+                <td class="@item.ToastmasterClass">
+                    @Html.DisplayFor(modelItem => item.Toastmaster)
+                </td>
+                <td class="@item.TableTopicsClass">
+                    @Html.DisplayFor(modelItem => item.TableTopics)
+                </td>
+                <td class="@item.SpeakerIClass">
+                    @Html.DisplayFor(modelItem => item.SpeakerI)
+                </td>
+                <td class="@item.SpeakerIIClass">
+                    @Html.DisplayFor(modelItem => item.SpeakerII)
+                </td>
+                <td class="@item.GeneralEvaluatorClass">
+                    @Html.DisplayFor(modelItem => item.GeneralEvaluator)
+                </td>
+                <td class="@item.EvaluatorIClass">
+                    @Html.DisplayFor(modelItem => item.EvaluatorI)
+                </td>
+                <td class="@item.EvaluatorIIClass">
+                    @Html.DisplayFor(modelItem => item.EvaluatorII)
+                </td>
+                <td class="@item.InspirationalClass">
+                    @Html.DisplayFor(modelItem => item.Inspirational)
+                </td>
+                <td class="@item.JokeClass">
+                    @Html.DisplayFor(modelItem => item.Joke)
+                </td>
+                <td class="@item.TimerClass">
+                    @Html.DisplayFor(modelItem => item.Timer)
+                </td>
+                <td class="@item.GrammarianClass">
+                    @Html.DisplayFor(modelItem => item.Grammarian)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Toastmaster.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TableTopics.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpeakerI.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpeakerII.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GeneralEvaluator.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EvaluatorI.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EvaluatorII.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Inspirational.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Joke.FirstInitial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Timer.FirstInitial)
-                <td>
-                    @Html.DisplayFor(modelItem => item.Grammarian.FirstInitial)
-                </td>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.MeetingID" >X</a>
+                    <a asp-action="Delete" asp-route-id="@item.MeetingID">X</a>
                 </td>
             </tr>
         }

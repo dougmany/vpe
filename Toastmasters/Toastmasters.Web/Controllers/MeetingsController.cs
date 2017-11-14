@@ -40,7 +40,44 @@ namespace Toastmasters.Web.Controllers
                 .OrderByDescending(m => m.MeetingDate)
                 .ToList();
 
-            return View(meetings);
+            var model = new List<MeetingViewModel>();
+            
+            foreach (var item in meetings)
+            {
+                var meetingmembers = new Member[]
+                {
+                    item.Toastmaster,
+                    item.TableTopics,
+                    item.SpeakerI,
+                    item.SpeakerII,
+                    item.GeneralEvaluator,
+                    item.EvaluatorI,
+                    item.EvaluatorII,
+                    item.Inspirational,
+                    item.Joke,
+                    item.Timer,
+                    item.Grammarian,
+                    item.BallotCounter
+                };
+                var dups = meetingmembers.GroupBy(d => d.MemberID).Where(d => d.Count() > 1).Select(d => d.Key).ToArray();
+
+                model.Add( new MeetingViewModel(item)
+                {
+                    ToastmasterClass = dups.Contains(item.Toastmaster.MemberID) ? "duplicate" : "",
+                    TableTopicsClass = dups.Contains(item.TableTopics.MemberID) ? "duplicate" : "",
+                    SpeakerIClass = dups.Contains(item.SpeakerI.MemberID) ? "duplicate" : "",
+                    SpeakerIIClass = dups.Contains(item.SpeakerII.MemberID) ? "duplicate" : "",
+                    GeneralEvaluatorClass = dups.Contains(item.GeneralEvaluator.MemberID) ? "duplicate" : "",
+                    EvaluatorIClass = dups.Contains(item.EvaluatorI.MemberID) ? "duplicate" : "",
+                    EvaluatorIIClass = dups.Contains(item.EvaluatorII.MemberID) ? "duplicate" : "",
+                    InspirationalClass = dups.Contains(item.Inspirational.MemberID) ? "duplicate" : "",
+                    JokeClass = dups.Contains(item.Joke.MemberID) ? "duplicate" : "",
+                    TimerClass = dups.Contains(item.Timer.MemberID) ? "duplicate" : "",
+                    GrammarianClass = dups.Contains(item.Grammarian.MemberID) ? "duplicate" : ""
+                });
+            }
+
+            return View(model);
         }
 
         // GET: Meeting/Details/5
