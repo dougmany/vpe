@@ -1,0 +1,156 @@
+@model IEnumerable<Toastmasters.Web.Models.MeetingViewModel>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().MeetingDate)
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Toastmaster)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inspirational)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Joke)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Joke)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().GeneralEvaluator)
+            </th>
+            @foreach (var item in Model)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneralEvaluator)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorI)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvaluatorI)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorII)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvaluatorII)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Timer)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timer)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BallotCounter)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BallotCounter)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Grammarian)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grammarian)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TableTopics)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TableTopics)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpeakerI)
+                </td>
+            }
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
+            </th>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpeakerII)
+                </td>
+            }
+        </tr>
+    </table>

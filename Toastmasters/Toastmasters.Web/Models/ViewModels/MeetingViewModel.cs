@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Toastmasters.Web.Models
@@ -12,35 +13,43 @@ namespace Toastmasters.Web.Models
         {
             MeetingID = meeting.MeetingID;
             MeetingDate = meeting.MeetingDate;
-            Toastmaster = meeting.Toastmaster.FullName;
-            Inspirational = meeting.Inspirational.FullName;
-            Joke = meeting.Joke.FullName;
-            GeneralEvaluator = meeting.GeneralEvaluator.FullName;
-            EvaluatorI = meeting.EvaluatorI.FullName;
-            EvaluatorII = meeting.EvaluatorII.FullName;
-            Timer = meeting.Timer.FullName;
-            BallotCounter = meeting.BallotCounter.FullName;
-            Grammarian = meeting.Grammarian.FullName;
-            TableTopics = meeting.TableTopics.FullName;
-            SpeakerI = meeting.SpeakerI.FullName;
-            SpeakerII = meeting.SpeakerII.FullName;
-            President = meeting.President.FullName;
-            Sargent = meeting.Sargent.FullName;
+            Toastmaster = meeting.Toastmaster.FirstInitial;
+            Inspirational = meeting.Inspirational.FirstInitial;
+            Joke = meeting.Joke.FirstInitial;
+            GeneralEvaluator = meeting.GeneralEvaluator.FirstInitial;
+            EvaluatorI = meeting.EvaluatorI.FirstInitial;
+            EvaluatorII = meeting.EvaluatorII.FirstInitial;
+            Timer = meeting.Timer.FirstInitial;
+            BallotCounter = meeting.BallotCounter.FirstInitial;
+            Grammarian = meeting.Grammarian.FirstInitial;
+            TableTopics = meeting.TableTopics.FirstInitial;
+            SpeakerI = meeting.SpeakerI.FirstInitial;
+            SpeakerII = meeting.SpeakerII.FirstInitial;
+            President = meeting.President.FirstInitial;
+            Sargent = meeting.Sargent.FirstInitial;
         }
 
         public Int32 MeetingID { get; set; }
+        [DisplayName("Meeting Date")]
         public DateTime MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }
+        [DisplayName("General Evaluator")]
         public String GeneralEvaluator { get; set; }
+        [DisplayName("Evaluator I")]
         public String EvaluatorI { get; set; }
+        [DisplayName("Evaluator II")]
         public String EvaluatorII { get; set; }
         public String Timer { get; set; }
+        [DisplayName("Ballot Counter")]
         public String BallotCounter { get; set; }
         public String Grammarian { get; set; }
+        [DisplayName("Table Topics")]
         public String TableTopics { get; set; }
+        [DisplayName("Speaker I")]
         public String SpeakerI { get; set; }
+        [DisplayName("Speaker II")]
         public String SpeakerII { get; set; }
         public String President { get; set; }
         public String Sargent { get; set; }

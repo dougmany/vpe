@@ -15,10 +15,12 @@ namespace Toastmasters.Web.Controllers
     public class MeetingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly MeetingHelpers _meetingHelpers;
 
         public MeetingsController(ApplicationDbContext context)
         {
             _context = context;
+            _meetingHelpers = new MeetingHelpers(context);
         }
 
         // GET: Meeting
@@ -209,14 +211,14 @@ namespace Toastmasters.Web.Controllers
 
         public ActionResult GenerateFiles()
         {
-            var meeting = GetMeetingAfterDate(DateTime.Now);
-            var nextMeeting = GetMeetingAfterDate(meeting.MeetingDate);
+            var meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now);
+            var nextMeeting = _meetingHelpers.GetMeetingAfterDate(meeting.MeetingDate);
             var model = new AgendaViewModel(meeting, nextMeeting);
 
             Commands.LoadAgenda(model);
 
             var meetingList = new List<Meeting>();
-            FillSomeMeetings(DateTime.Now, meetingList, 5);
+            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             Commands.LoadEmail(models);
@@ -234,44 +236,6 @@ namespace Toastmasters.Web.Controllers
         {
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");
-        }
-
-        private void FillSomeMeetings(DateTime date, List<Meeting> list, Int32 number)
-        {
-            Meeting meeting = GetMeetingAfterDate(date);
-
-            if (meeting != null)
-            {
-                list.Add(meeting);
-                if (number > 0)
-                {
-                    FillSomeMeetings(meeting.MeetingDate, list, --number);
-                }
-                return;
-            }
-            return;
-        }
-
-        private Meeting GetMeetingAfterDate(DateTime beforeDate)
-        {
-            return _context.Meetings
-                .Include(m => m.Toastmaster)
-                .Include(m => m.TableTopics)
-                .Include(m => m.SpeakerI)
-                .Include(m => m.SpeakerII)
-                .Include(m => m.GeneralEvaluator)
-                .Include(m => m.EvaluatorI)
-                .Include(m => m.EvaluatorII)
-                .Include(m => m.Inspirational)
-                .Include(m => m.Joke)
-                .Include(m => m.Timer)
-                .Include(m => m.Grammarian)
-                .Include(m => m.BallotCounter)
-                .Include(m => m.President)
-                .Include(m => m.Sargent)
-                .Where(m => m.MeetingDate > beforeDate)
-                .OrderBy(m => m.MeetingDate)
-                .FirstOrDefault();
         }
 
         private bool MeetingExists(int id)
