@@ -34,7 +34,11 @@ namespace Toastmasters.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(_ => Configuration);
-            services.AddScoped<ApplicationDbContext>();
+            services.AddDbContext<ApplicationDbContext>(options => 
+            {
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddScoped<IToastmastersRepository, ToastmastersRepository>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
