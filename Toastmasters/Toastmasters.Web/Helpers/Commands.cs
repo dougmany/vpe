@@ -173,6 +173,7 @@ namespace Toastmasters.Web.Helpers
             };
 
             proc.Start();
+            proc.WaitForExit();
         }
     }
 }

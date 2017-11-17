@@ -209,31 +209,48 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GenerateFiles()
+        [AllowAnonymous]
+        public ActionResult GetAgenda(Int32? meetingID)
         {
-            var meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now);
+            Meeting meeting;
+
+            if (meetingID == null)
+            {
+                meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now);
+            }
+            else
+            {
+                meeting = _context.Meetings.FirstOrDefault(m => m.MeetingID == meetingID);
+            }
+
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+
             var nextMeeting = _meetingHelpers.GetMeetingAfterDate(meeting.MeetingDate);
+
+            if (nextMeeting == null)
+            {
+                return NotFound();
+            }
+
             var model = new AgendaViewModel(meeting, nextMeeting);
 
             Commands.LoadAgenda(model);
 
-            var meetingList = new List<Meeting>();
-            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
-            var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
-
-            Commands.LoadEmail(models);
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult GetAgenda()
-        {
             var stream =  Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");
         }
 
         public ActionResult GetEmail()
         {
+            var meetingList = new List<Meeting>();
+            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
+            var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
+
+            Commands.LoadEmail(models);
+
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");
         }

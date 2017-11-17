@@ -8,7 +8,7 @@
             @foreach (var item in Model)
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                    <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a>
                 </td>
             }
         </tr>
