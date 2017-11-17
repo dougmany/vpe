@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Toastmasters.Web.Models
@@ -30,26 +31,27 @@ namespace Toastmasters.Web.Models
         }
 
         public Int32 MeetingID { get; set; }
-        [DisplayName("Meeting Date")]
+        [Display(Name = "Meeting Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime MeetingDate { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }
-        [DisplayName("General Evaluator")]
+        [Display(Name = "General Evaluator")]
         public String GeneralEvaluator { get; set; }
-        [DisplayName("Evaluator I")]
+        [Display(Name = "Evaluator I")]
         public String EvaluatorI { get; set; }
-        [DisplayName("Evaluator II")]
+        [Display(Name = "Evaluator II")]
         public String EvaluatorII { get; set; }
         public String Timer { get; set; }
-        [DisplayName("Ballot Counter")]
+        [Display(Name = "Ballot Counter")]
         public String BallotCounter { get; set; }
         public String Grammarian { get; set; }
-        [DisplayName("Table Topics")]
+        [Display(Name = "Table Topics")]
         public String TableTopics { get; set; }
-        [DisplayName("Speaker I")]
+        [Display(Name = "Speaker I")]
         public String SpeakerI { get; set; }
-        [DisplayName("Speaker II")]
+        [Display(Name = "Speaker II")]
         public String SpeakerII { get; set; }
         public String President { get; set; }
         public String Sargent { get; set; }
