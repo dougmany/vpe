@@ -248,6 +248,8 @@ namespace Toastmasters.Web.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<bool>("IsActive");
+
                     b.Property<bool>("IsPresident");
 
                     b.Property<bool>("IsSargent");

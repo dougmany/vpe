@@ -16,6 +16,7 @@ namespace Toastmasters.Web.Models
         public String Email { get; set; }
         public Boolean IsPresident { get; set; }
         public Boolean IsSargent { get; set; }
+        public Boolean IsActive { get; set; }
 
         [Display(Name="Name")]
         [NotMapped]

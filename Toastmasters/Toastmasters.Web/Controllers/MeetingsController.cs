@@ -102,7 +102,7 @@ namespace Toastmasters.Web.Controllers
         // GET: Meeting/Create
         public IActionResult Create()
         {
-            var builder = new MeetingActionBuilder(_context.Members.ToArray(), _context.Meetings.ToArray());
+            var builder = new MeetingActionBuilder(_context.Members.Where(m=>m.IsActive).ToArray(), _context.Meetings.ToArray());
 
             return View(builder.View());
         }
@@ -116,7 +116,7 @@ namespace Toastmasters.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var builder = new MeetingActionBuilder(_context.Members.ToArray());
+                var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).ToArray());
                 String changes;
                 _context.Meetings.Add(builder.Create(meeting, out changes));
                 _context.SaveChanges();
@@ -140,7 +140,7 @@ namespace Toastmasters.Web.Controllers
                 return NotFound();
             }
 
-            var builder = new MeetingActionBuilder(_context.Members.ToArray(), _context.Meetings.ToArray());
+            var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).ToArray(), _context.Meetings.ToArray());
             var model = builder.View(meeting);
 
             return View(model);
@@ -157,7 +157,7 @@ namespace Toastmasters.Web.Controllers
             {
                 try
                 {
-                    var builder = new MeetingActionBuilder(_context.Members.ToArray());
+                    var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).ToArray());
                     List<String> changes;
                     var entity = _context.Meetings.Single(m => m.MeetingID == meeting.MeetingID);
                     builder.Update(meeting, entity, out changes);
