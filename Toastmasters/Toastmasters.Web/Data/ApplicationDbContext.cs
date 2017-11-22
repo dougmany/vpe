@@ -10,6 +10,7 @@ namespace Toastmasters.Web.Data
 
         public DbSet<Member> Members { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
     }
 }
