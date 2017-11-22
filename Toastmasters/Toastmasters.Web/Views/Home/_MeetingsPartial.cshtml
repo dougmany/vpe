@@ -9,6 +9,8 @@
             {
                 <td>
                     <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a>
+                    <br />
+                    <a asp-action="RemoveMe" asp-route-id="@item.MeetingID">Remove Me</a>
                 </td>
             }
         </tr>
