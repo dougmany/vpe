@@ -56,6 +56,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Grammarian)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BallotCounter)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -98,6 +101,9 @@
                 </td>
                 <td class="@item.GrammarianClass">
                     @Html.DisplayFor(modelItem => item.Grammarian)
+                </td>
+                <td class="@item.BallotCounterClass">
+                    @Html.DisplayFor(modelItem => item.BallotCounter)
                 </td>
                 <td>
                     <a asp-action="Delete" asp-route-id="@item.MeetingID">X</a>
