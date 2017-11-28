@@ -14,20 +14,20 @@ namespace Toastmasters.Web.Models
         {
             MeetingID = meeting.MeetingID;
             MeetingDate = meeting.MeetingDate;
-            Toastmaster = meeting.Toastmaster.FirstInitial;
-            Inspirational = meeting.Inspirational.FirstInitial;
-            Joke = meeting.Joke.FirstInitial;
-            GeneralEvaluator = meeting.GeneralEvaluator.FirstInitial;
-            EvaluatorI = meeting.EvaluatorI.FirstInitial;
-            EvaluatorII = meeting.EvaluatorII.FirstInitial;
-            Timer = meeting.Timer.FirstInitial;
-            BallotCounter = meeting.BallotCounter.FirstInitial;
-            Grammarian = meeting.Grammarian.FirstInitial;
-            TableTopics = meeting.TableTopics.FirstInitial;
-            SpeakerI = meeting.SpeakerI.FirstInitial;
-            SpeakerII = meeting.SpeakerII.FirstInitial;
-            President = meeting.President.FirstInitial;
-            Sargent = meeting.Sargent.FirstInitial;
+            Toastmaster = meeting.Toastmaster == null ? "" : meeting.Toastmaster.FirstInitial;
+            Inspirational = meeting.Inspirational == null ? "" : meeting.Inspirational.FirstInitial;
+            Joke = meeting.Joke == null ? "" : meeting.Joke.FirstInitial;
+            GeneralEvaluator = meeting.GeneralEvaluator == null ? "" : meeting.GeneralEvaluator.FirstInitial;
+            EvaluatorI = meeting.EvaluatorI == null ? "" : meeting.EvaluatorI.FirstInitial;
+            EvaluatorII = meeting.EvaluatorII == null ? "" : meeting.EvaluatorII.FirstInitial;
+            Timer = meeting.Timer == null ? "" : meeting.Timer.FirstInitial;
+            BallotCounter = meeting.BallotCounter == null ? "" : meeting.BallotCounter.FirstInitial;
+            Grammarian = meeting.Grammarian == null ? "" : meeting.Grammarian.FirstInitial;
+            TableTopics = meeting.TableTopics == null ? "" : meeting.TableTopics.FirstInitial;
+            SpeakerI = meeting.SpeakerI == null ? "" : meeting.SpeakerI.FirstInitial;
+            SpeakerII = meeting.SpeakerII == null ? "" : meeting.SpeakerII.FirstInitial;
+            President = meeting.President == null ? "" : meeting.President.FirstInitial;
+            Sargent = meeting.Sargent == null ? "" : meeting.Sargent.FirstInitial;
         }
 
         public Int32 MeetingID { get; set; }

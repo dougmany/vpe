@@ -30,6 +30,21 @@ namespace Toastmasters.Web.Models
         public Int32 MeetingID { get; set; }
         [Display(Name ="Date")]
         public DateTime MeetingDate { get; set; }
+        public Int32? ToastmasterMemberID { get; set; }
+        public Int32? InspirationalMemberID { get; set; }
+        public Int32? JokeMemberID { get; set; }
+        public Int32? GeneralEvaluatorMemberID { get; set; }
+        public Int32? EvaluatorIMemberID { get; set; }
+        public Int32? EvaluatorIIMemberID { get; set; }
+        public Int32? TimerMemberID { get; set; }
+        public Int32? BallotCounterMemberID { get; set; }
+        public Int32? GrammarianMemberID { get; set; }
+        public Int32? TableTopicsMemberID { get; set; }
+        public Int32? SpeakerIMemberID { get; set; }
+        public Int32? SpeakerIIMemberID { get; set; }
+        public Int32? PresidentMemberID { get; set; }        
+        public Int32? SargentMemberID { get; set; }
+
         public Member Toastmaster { get; set; }
         public Member Inspirational { get; set; }
         public Member Joke { get; set; }
@@ -42,7 +57,7 @@ namespace Toastmasters.Web.Models
         public Member TableTopics { get; set; }
         public Member SpeakerI { get; set; }
         public Member SpeakerII { get; set; }
-        public Member President  { get; set; }        
+        public Member President { get; set; }
         public Member Sargent { get; set; }
     }
 }

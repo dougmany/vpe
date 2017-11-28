@@ -60,59 +60,59 @@ namespace Toastmasters.Web.Controllers
 
                 if (meeting != null)
                 {
-                    if (meeting.Toastmaster.MemberID == user.MemberID)
+                    if (meeting.ToastmasterMemberID == user.MemberID)
                     {
-                        meeting.Toastmaster = null;
+                        meeting.ToastmasterMemberID = null;
                     }
 
-                    if (meeting.TableTopics.MemberID == user.MemberID)
+                    if (meeting.TableTopicsMemberID == user.MemberID)
                     {
-                        meeting.TableTopics = null;
+                        meeting.TableTopicsMemberID = null;
                     }
 
-                    if (meeting.SpeakerI.MemberID == user.MemberID)
+                    if (meeting.SpeakerIMemberID == user.MemberID)
                     {
-                        meeting.SpeakerI = null;
+                        meeting.SpeakerIMemberID = null;
                     }
 
-                    if (meeting.SpeakerII.MemberID == user.MemberID)
+                    if (meeting.SpeakerIIMemberID == user.MemberID)
                     {
-                        meeting.SpeakerII = null;
+                        meeting.SpeakerIIMemberID = null;
                     }
 
-                    if (meeting.GeneralEvaluator.MemberID == user.MemberID)
+                    if (meeting.GeneralEvaluatorMemberID == user.MemberID)
                     {
-                        meeting.GeneralEvaluator = null;
+                        meeting.GeneralEvaluatorMemberID = null;
                     }
 
-                    if (meeting.EvaluatorI.MemberID == user.MemberID)
+                    if (meeting.EvaluatorIMemberID == user.MemberID)
                     {
-                        meeting.EvaluatorII = null;
+                        meeting.EvaluatorIIMemberID = null;
                     }
 
-                    if (meeting.Inspirational.MemberID == user.MemberID)
+                    if (meeting.InspirationalMemberID == user.MemberID)
                     {
-                        meeting.Inspirational = null;
+                        meeting.InspirationalMemberID = null;
                     }
 
-                    if (meeting.Joke.MemberID == user.MemberID)
+                    if (meeting.JokeMemberID == user.MemberID)
                     {
-                        meeting.Joke = null;
+                        meeting.JokeMemberID = null;
                     }
 
-                    if (meeting.Timer.MemberID == user.MemberID)
+                    if (meeting.TimerMemberID == user.MemberID)
                     {
-                        meeting.Timer = null;
+                        meeting.TimerMemberID = null;
                     }
 
-                    if (meeting.Grammarian.MemberID == user.MemberID)
+                    if (meeting.GrammarianMemberID == user.MemberID)
                     {
-                        meeting.Grammarian = null;
+                        meeting.GrammarianMemberID = null;
                     }
 
-                    if (meeting.BallotCounter.MemberID == user.MemberID)
+                    if (meeting.BallotCounterMemberID == user.MemberID)
                     {
-                        meeting.BallotCounter = null;
+                        meeting.BallotCounterMemberID = null;
                     }
 
                     _context.SaveChanges();
