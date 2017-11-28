@@ -7,3 +7,7 @@ sudo dotnet publish /vagrant/Toastmasters/Toastmasters.Web/ -c Release -o /var/a
 #sudo cp /vagrant/Toastmasters/Toastmasters.Web/bin/Release/netcoreapp1.0/* /var/aspnetcore/toastmasters.web/
 sudo systemctl start kestrel-toastmasters.service
 
+sudo chown :www-data /vagrant/agenda/AgendaTemplate.tex
+sudo chmod g+w AgendaTemplate.tex
+sudo chown :www-data /vagrant/agenda/EmailTemplate.tex
+sudo chmod g+w EmailTemplate.tex
