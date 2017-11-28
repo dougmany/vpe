@@ -3,6 +3,7 @@
 \RequirePackage[T1]{fontenc}
 \usepackage{graphicx}
 
+\newcommand{\meetingTheme}{MeetingTheme}
 \newcommand{\meetingDateString}{##MeetingDateString}
 \newcommand{\toastmaster}{##Toastmaster}
 \newcommand{\president}{##President}
@@ -50,18 +51,18 @@
   \begin{itemize}
     \item Call Meeting to order
     \item Pledge of Allegiance
-    \item Introduce Toastmaster of the Day
+    \item Introduce Toastmaster of the Day - \textcolor{blue}{\toastmaster{}}
   \end{itemize}
   {\Large \bf12:10 Toastmaster of the Day - \textcolor{blue}{\toastmaster{}}} 
   \begin{itemize}
     \item Ask Guest to introduce themselves
     \item Distribute Manuals
-    \item Introduce Theme
+    \item Introduce Theme - \textcolor{blue}{\meetingTheme{}}
     \item Inspirational - \textcolor{blue}{\inspirational{}}
     \item Jokemaster - \textcolor{blue}{\joke{}}
 	\item Table Topics Master - \textcolor{blue}{\tableTopics{}}
     \item Introduce General Evaluator - \textcolor{blue}{\generalEvaluator{}}
-	\item Grammarian - \textcolor{blue}{\grammarian{}}
+	\item Introduce Grammarian and Word of the Day - \textcolor{blue}{\grammarian{}}
     \item Timer - \textcolor{blue}{\timer{}}
     \item Ballot Counter - \textcolor{blue}{\ballotCounter{}}
     \item Introduce Speaker Evaluators - \textcolor{blue}{\evaluatorI{}} and \textcolor{blue}{\evaluatorII{}}
@@ -80,10 +81,10 @@
   \end{itemize}
   {\Large \bf12:30 Table Topics - \textcolor{blue}{\tableTopics{}}} 
   \begin{itemize}
-   \item Remind contestants to use Word of the day 
-   \item Ask timer to review Time Limits  (1-2 Minutes)
-   \item List eligible contestants and call for Vote
-   \item Return control to \textcolor{blue}{\toastmaster{}}
+    \item Remind contestants to use Word of the day
+    \item Ask timer to review Time Limits  (1-2 Minutes)
+    \item List eligible contestants and call for Vote
+    \item Return control to \textcolor{blue}{\toastmaster{}}
   \end{itemize}
   {\Large \bf12:40 Evaluation - \textcolor{blue}{\generalEvaluator{}}} 
   \begin{itemize}
@@ -98,8 +99,8 @@
   {\Large \bf12:50 President - \textcolor{blue}{\president{}}} 
   \begin{itemize}
     \item Awards
+    \item Club Business
     \item Next Meeting Roles
-    \item Other Business
   \end{itemize}
   {\Large \bf12:55 Adjourn Meeting} 
   \end{spacing}
