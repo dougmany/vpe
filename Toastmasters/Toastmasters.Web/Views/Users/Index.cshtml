@@ -1,4 +1,4 @@
-@model IEnumerable<Toastmasters.Web.Models.ApplicationUser>
+@model IEnumerable<Toastmasters.Web.Models.UserViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,10 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Member.FirstInitial)
+                    @Html.DisplayNameFor(model => model.MemberID)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserName)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
@@ -24,6 +24,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.EmailConfirmed)
                 </th>
+            <th>
+                Role
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,10 +34,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.FirstInitial)
+                @Html.DisplayFor(modelItem => item.MemberID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserName)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -43,8 +46,20 @@
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <form asp-action="RemoveUserRole">
+                    @Html.DisplayFor(modelItem => item.RoleID)
+                    <input name="RoleID" type="hidden" value="@item.RoleID"  />
+                    <input type="hidden" name="UserID" value="@item.UserID" />
+
+                    @if(@item.RoleID != null && @item.RoleID != ""){
+                        <button type="submit" class="btn btn-link">X</button>
+                    }
+                    
+                </form>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
             </td>
         </tr>
 }
