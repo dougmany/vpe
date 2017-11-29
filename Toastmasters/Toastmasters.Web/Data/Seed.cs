@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
 using System.Linq;
 using Toastmasters.Web.Models;
 
@@ -50,7 +51,13 @@ namespace Toastmasters.Web.Data
                 context.Add(new Meeting { MeetingDate = new DateTime(2017, 11, 06, 12, 05, 00), Toastmaster = new Member { MemberID = 8 }, SpeakerI = new Member { MemberID = 7 }, President = new Member { MemberID = 1 }, Sargent = new Member { MemberID = 10 } });
             }
 
-            context.SaveChanges();
+            if (context.Roles.Count() == 0)
+            {
+                context.Roles.Add(new IdentityRole { Name = "Admin" });
+                context.Roles.Add(new IdentityRole { Name = "Scheduler" });
+            }
+
+                context.SaveChanges();
         }
     }
 }

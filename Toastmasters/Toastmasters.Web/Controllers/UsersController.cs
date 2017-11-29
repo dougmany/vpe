@@ -44,6 +44,9 @@ namespace Toastmasters.Web.Controllers
             var members = _context.Members.Where(m => m.IsActive).ToArray();
             ViewBag.Members = new SelectList(members, "MemberID", "FirstInitial");
 
+            var roles = _context.Roles.ToArray();
+            ViewBag.Roles = new SelectList(roles, "Id", "Name");
+
             return View(applicationUser);
         }
 
@@ -68,6 +71,10 @@ namespace Toastmasters.Web.Controllers
                     user.Email = applicationUser.Email;
                     user.UserName = applicationUser.UserName;
                     user.EmailConfirmed = applicationUser.EmailConfirmed;
+                    if (applicationUser.Roles.FirstOrDefault() != null)
+                    {
+                        user.Roles.Add(applicationUser.Roles.First());
+                    }
 
                     _context.SaveChanges();
                 }
