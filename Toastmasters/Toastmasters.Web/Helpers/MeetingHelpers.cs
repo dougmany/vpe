@@ -53,5 +53,21 @@ namespace Toastmasters.Web.Helpers
                 .OrderBy(m => m.MeetingDate)
                 .FirstOrDefault();
         }
+
+        public enum MeetingRole
+        {
+            Toastmaster,
+            TableTopics,
+            SpeakerI,
+            SpeakerII,
+            GeneralEvaluator,
+            EvaluatorI,
+            EvaluatorII,
+            Inspirational,
+            Joke,
+            Timer,
+            Grammarian,
+            BallotCounter
+        }
     }
 }

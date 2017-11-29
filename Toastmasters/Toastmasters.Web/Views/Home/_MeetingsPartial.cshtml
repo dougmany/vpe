@@ -1,158 +1,288 @@
 @model IEnumerable<Toastmasters.Web.Models.MeetingViewModel>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().MeetingDate)
-            </th>
-            @foreach (var item in Model)
-            {
-                <td>
-                    <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID">@Html.DisplayFor(modelItem => item.MeetingDate)</a>
-                    <br />
-                    <a asp-action="RemoveMe" asp-route-id="@item.MeetingID">Remove Me</a>
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
-            </th>
-            @foreach (var item in Model)
-            {
-                <td>
+@using static Toastmasters.Web.Helpers.MeetingHelpers;
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MeetingDate)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                <h4>@Html.DisplayFor(modelItem => item.MeetingDate)</h4>
+                <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID" class="btn btn-primary">Agenda</a>
+                <br /><br>
+                <form asp-controller="Home" asp-action="RemoveMe" method="post">
+                    <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                    <button type="submit" class="btn btn-danger">Remove Me</button>
+                </form>
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.Toastmaster != "")
+                {
                     @Html.DisplayFor(modelItem => item.Toastmaster)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
-            </th>
-            @foreach (var item in Model)
-            {
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.Toastmaster" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.Inspirational != "")
+                {
                     @Html.DisplayFor(modelItem => item.Inspirational)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Joke)
-            </th>
-            @foreach (var item in Model)
-            {
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.Inspirational" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Joke)
+        </th>
+        @foreach (var item in Model)
+        {
 
-                <td>
+            <td>
+                @if (item.Joke != "")
+                {
                     @Html.DisplayFor(modelItem => item.Joke)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().GeneralEvaluator)
-            </th>
-            @foreach (var item in Model)
-            {
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.Joke" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().GeneralEvaluator)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.GeneralEvaluator != "")
+                {
                     @Html.DisplayFor(modelItem => item.GeneralEvaluator)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorI)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.GeneralEvaluator" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorI)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.EvaluatorI != "")
+                {
                     @Html.DisplayFor(modelItem => item.EvaluatorI)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorII)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.EvaluatorI" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorII)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.EvaluatorII != "")
+                {
                     @Html.DisplayFor(modelItem => item.EvaluatorII)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Timer)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.EvaluatorII" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Timer)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.Timer != "")
+                {
                     @Html.DisplayFor(modelItem => item.Timer)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().BallotCounter)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.Timer" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BallotCounter)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.BallotCounter != "")
+                {
                     @Html.DisplayFor(modelItem => item.BallotCounter)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Grammarian)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.BallotCounter" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Grammarian)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.Grammarian != "")
+                {
                     @Html.DisplayFor(modelItem => item.Grammarian)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().TableTopics)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.Grammarian" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TableTopics)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.TableTopics != "")
+                {
                     @Html.DisplayFor(modelItem => item.TableTopics)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.TableTopics" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.SpeakerI != "")
+                {
                     @Html.DisplayFor(modelItem => item.SpeakerI)
-                </td>
-            }
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
-            </th>
-            @foreach (var item in Model)
-            {
-
-                <td>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.SpeakerI" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.SpeakerII != "")
+                {
                     @Html.DisplayFor(modelItem => item.SpeakerII)
-                </td>
-            }
-        </tr>
-    </table>
+                }
+                else
+                {
+                    <form asp-controller="Home" asp-action="AddMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="Role" type="hidden" value="@MeetingRole.SpeakerII" />
+                        <button type="submit" class="btn btn-success">Add Me</button>
+                    </form>
+                }
+            </td>
+        }
+    </tr>
+</table>

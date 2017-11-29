@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Toastmasters.Web.Models;
 using Toastmasters.Web.Data;
 using Toastmasters.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static Toastmasters.Web.Helpers.MeetingHelpers;
+using System.Reflection;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -36,7 +37,9 @@ namespace Toastmasters.Web.Controllers
 
         }
 
-        public IActionResult RemoveMe(Int32 ID)
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult RemoveMe(Int32 meetingID)
         {
             var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
 
@@ -55,7 +58,7 @@ namespace Toastmasters.Web.Controllers
                     .Include(m => m.Timer)
                     .Include(m => m.Grammarian)
                     .Include(m => m.BallotCounter)
-                    .Where(m => m.MeetingID == ID)
+                    .Where(m => m.MeetingID == meetingID)
                     .FirstOrDefault();
 
                 if (meeting != null)
@@ -86,6 +89,11 @@ namespace Toastmasters.Web.Controllers
                     }
 
                     if (meeting.EvaluatorIMemberID == user.MemberID)
+                    {
+                        meeting.EvaluatorIMemberID = null;
+                    }
+
+                    if (meeting.EvaluatorIIMemberID == user.MemberID)
                     {
                         meeting.EvaluatorIIMemberID = null;
                     }
@@ -119,14 +127,32 @@ namespace Toastmasters.Web.Controllers
 
                 }
             }
-            List<Meeting> meetingList = new List<Meeting>();
 
-            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
+            return RedirectToAction("Index");
 
-            var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
+        }
 
-            return View("Index", model);
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult AddMe(Int32 meetingID, MeetingRole role)
+        {
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
 
+            if (user != null && user.MemberID != null)
+            {
+                var meeting = _context.Meetings
+                    .Where(m => m.MeetingID == meetingID)
+                    .FirstOrDefault();
+
+                if (meeting != null)
+                {
+                    meeting.GetType().GetProperty(role.ToString() + "MemberID").SetValue(meeting, user.MemberID);
+                    _context.SaveChanges();
+                }
+
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult About()
@@ -147,5 +173,6 @@ namespace Toastmasters.Web.Controllers
         {
             return View();
         }
+
     }
 }
