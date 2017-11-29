@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Toastmasters.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class MembersController : Controller
     {
         private readonly ApplicationDbContext _context;

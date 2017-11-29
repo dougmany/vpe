@@ -11,7 +11,7 @@ using Toastmasters.Web.Helpers;
 
 namespace Toastmasters.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Scheduler")]
     public class MeetingsController : Controller
     {
         private readonly ApplicationDbContext _context;

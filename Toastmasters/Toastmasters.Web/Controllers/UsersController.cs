@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Toastmasters.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
