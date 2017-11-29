@@ -8,6 +8,6 @@ sudo dotnet publish /vagrant/Toastmasters/Toastmasters.Web/ -c Release -o /var/a
 sudo systemctl start kestrel-toastmasters.service
 
 sudo chown :www-data /vagrant/agenda/AgendaTemplate.tex
-sudo chmod g+w AgendaTemplate.tex
+sudo chmod g+w /vagrant/agenda/AgendaTemplate.tex
 sudo chown :www-data /vagrant/agenda/EmailTemplate.tex
-sudo chmod g+w EmailTemplate.tex
+sudo chmod g+w /vagrant/agenda/EmailTemplate.tex
