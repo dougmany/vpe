@@ -1,7 +1,14 @@
 @model IEnumerable<Toastmasters.Web.Models.MeetingViewModel>
 
 @using static Toastmasters.Web.Helpers.MeetingHelpers;
+@using Microsoft.AspNetCore.Identity
+@using Toastmasters.Web.Models
 
+@inject ApplicationUserManager UserManager
+
+@{
+    var memberID = UserManager.GetMemberID(User);
+}
 <table class="table">
     <tr>
         <th>
@@ -22,10 +29,32 @@
     </tr>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MeetingTheme)
         </th>
         @foreach (var item in Model)
         {
+            <td>
+                @if (item.ToastmasterID == memberID)
+                {
+                    <form asp-controller="Home" asp-action="SetTheme" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <input name="MeetingTheme" type="text" value="@item.MeetingTheme" />
+                        <button type="submit" class="btn btn-default">Save</button>
+                    </form>
+                }
+                else
+                {
+                    @item.MeetingTheme
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
+        </th>
+        @foreach (var item in Model)
+            {
             <td>
                 @if (item.Toastmaster != "")
                 {
@@ -47,7 +76,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.Inspirational != "")
                 {
@@ -69,7 +98,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Joke)
         </th>
         @foreach (var item in Model)
-        {
+            {
 
             <td>
                 @if (item.Joke != "")
@@ -92,7 +121,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().GeneralEvaluator)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.GeneralEvaluator != "")
                 {
@@ -114,7 +143,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorI)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.EvaluatorI != "")
                 {
@@ -136,7 +165,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorII)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.EvaluatorII != "")
                 {
@@ -158,7 +187,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Timer)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.Timer != "")
                 {
@@ -180,7 +209,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().BallotCounter)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.BallotCounter != "")
                 {
@@ -202,7 +231,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Grammarian)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.Grammarian != "")
                 {
@@ -224,7 +253,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().TableTopics)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.TableTopics != "")
                 {
@@ -246,7 +275,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.SpeakerI != "")
                 {
@@ -268,7 +297,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
         </th>
         @foreach (var item in Model)
-        {
+            {
             <td>
                 @if (item.SpeakerII != "")
                 {

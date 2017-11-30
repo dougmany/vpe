@@ -30,6 +30,8 @@ namespace Toastmasters.Web.Models
         public Int32 MeetingID { get; set; }
         [Display(Name ="Date")]
         public DateTime MeetingDate { get; set; }
+        public String MeetingTheme { get; set; }
+
         public Int32? ToastmasterMemberID { get; set; }
         public Int32? InspirationalMemberID { get; set; }
         public Int32? JokeMemberID { get; set; }

@@ -17,9 +17,9 @@ namespace Toastmasters.Web.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationUserManager _userManager;
 
-        public UsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public UsersController(ApplicationDbContext context, ApplicationUserManager userManager)
         {
             _context = context;
             _userManager = userManager;

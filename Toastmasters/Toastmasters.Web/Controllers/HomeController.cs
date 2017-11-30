@@ -16,9 +16,9 @@ namespace Toastmasters.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly MeetingHelpers _meetingHelpers;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationUserManager _userManager;
 
-        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public HomeController(ApplicationDbContext context, ApplicationUserManager userManager)
         {
             _context = context;
             _meetingHelpers = new MeetingHelpers(context);
@@ -155,7 +155,26 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult About()
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult SetTheme(Int32 meetingID, String meetingTheme)
+        {
+            var meeting = _context.Meetings.Where(m => m.MeetingID == meetingID).FirstOrDefault();
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+
+            if (user.MemberID != meeting.ToastmasterMemberID)
+            {
+                return NotFound();
+            }
+            if (meeting != null)
+            {
+                meeting.MeetingTheme = meetingTheme;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+            public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 

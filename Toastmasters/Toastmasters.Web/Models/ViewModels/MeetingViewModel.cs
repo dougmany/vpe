@@ -14,6 +14,8 @@ namespace Toastmasters.Web.Models
         {
             MeetingID = meeting.MeetingID;
             MeetingDate = meeting.MeetingDate;
+            MeetingTheme = meeting.MeetingTheme;
+            ToastmasterID = meeting.ToastmasterMemberID ?? 0;
             Toastmaster = meeting.Toastmaster == null ? "" : meeting.Toastmaster.FirstInitial;
             Inspirational = meeting.Inspirational == null ? "" : meeting.Inspirational.FirstInitial;
             Joke = meeting.Joke == null ? "" : meeting.Joke.FirstInitial;
@@ -34,6 +36,9 @@ namespace Toastmasters.Web.Models
         [Display(Name = "Meeting Date")]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime MeetingDate { get; set; }
+        [Display(Name ="Theme")]
+        public String MeetingTheme { get; set; }
+        public Int32 ToastmasterID { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }
