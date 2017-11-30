@@ -88,6 +88,7 @@ namespace Toastmasters.Web.Models
         public AgendaViewModel(Meeting meeting, Meeting nextMeeting)
         {
             MeetingDate = meeting.MeetingDate;
+            MeetingTheme = meeting.MeetingTheme;
             Toastmaster = meeting.Toastmaster.FullName;
             Inspirational = meeting.Inspirational.FullName;
             Joke = meeting.Joke.FullName;
@@ -121,6 +122,7 @@ namespace Toastmasters.Web.Models
         }
 
         public DateTime MeetingDate { get; set; }
+        public String MeetingTheme { get; set; }
         public String Toastmaster { get; set; }
         public String Inspirational { get; set; }
         public String Joke { get; set; }
