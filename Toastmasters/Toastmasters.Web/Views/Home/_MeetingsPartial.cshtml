@@ -20,10 +20,13 @@
                 <h4>@Html.DisplayFor(modelItem => item.MeetingDate)</h4>
                 <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID" class="btn btn-primary">Agenda</a>
                 <br /><br>
-                <form asp-controller="Home" asp-action="RemoveMe" method="post">
-                    <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                    <button type="submit" class="btn btn-danger">Remove Me</button>
-                </form>
+                @if (memberID > 0)
+                {
+                    <form asp-controller="Home" asp-action="RemoveMe" method="post">
+                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                        <button type="submit" class="btn btn-danger">Remove Me</button>
+                    </form>
+                }
             </td>
         }
     </tr>
@@ -62,11 +65,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.Toastmaster" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.Toastmaster" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -84,11 +90,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.Inspirational" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.Inspirational" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -107,11 +116,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.Joke" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.Joke" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -129,11 +141,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.GeneralEvaluator" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.GeneralEvaluator" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -151,11 +166,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.EvaluatorI" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.EvaluatorI" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -173,11 +191,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.EvaluatorII" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.EvaluatorII" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -195,11 +216,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.Timer" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.Timer" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -217,11 +241,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.BallotCounter" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.BallotCounter" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -239,11 +266,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.Grammarian" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.Grammarian" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -261,11 +291,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.TableTopics" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.TableTopics" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -283,11 +316,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.SpeakerI" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerI" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
@@ -305,11 +341,14 @@
                 }
                 else
                 {
-                    <form asp-controller="Home" asp-action="AddMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <input name="Role" type="hidden" value="@MeetingRole.SpeakerII" />
-                        <button type="submit" class="btn btn-success">Add Me</button>
-                    </form>
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerII" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
                 }
             </td>
         }
