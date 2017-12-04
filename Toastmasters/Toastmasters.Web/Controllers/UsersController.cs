@@ -58,11 +58,11 @@ namespace Toastmasters.Web.Controllers
                 return NotFound();
             }
 
-            var members = _context.Members.Where(m => m.IsActive).ToArray();
+            var members = _context.Members.Where(m => m.IsActive).OrderBy(m => m.FullName).ToArray();
             var memberList = new SelectList(members, "MemberID", "FirstInitial");
             ViewBag.Members = memberList.Prepend(new SelectListItem { Text = "-Select-", Value = "" });
 
-            var roles = _context.Roles.ToArray();
+            var roles = _context.Roles.OrderBy(r => r.Name).ToArray();
             var roleList = new SelectList(roles, "Id", "Name");
             ViewBag.Roles = roleList.Prepend(new SelectListItem { Text = "-Select-", Value = "" });
 
@@ -128,11 +128,11 @@ namespace Toastmasters.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            var members = _context.Members.Where(m => m.IsActive).ToArray();
+            var members = _context.Members.Where(m => m.IsActive).OrderBy(m => m.FullName).ToArray();
             var memberList = new SelectList(members, "MemberID", "FirstInitial");
             ViewBag.Members = memberList.Prepend(new SelectListItem { Text = "-Select-", Value = "" });
 
-            var roles = _context.Roles.ToArray();
+            var roles = _context.Roles.OrderBy(r => r.Name).ToArray();
             var roleList = new SelectList(roles, "Id", "Name");
             ViewBag.Roles = roleList.Prepend(new SelectListItem { Text = "-Select-", Value = "" });
 
