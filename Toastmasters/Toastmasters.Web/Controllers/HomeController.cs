@@ -61,66 +61,144 @@ namespace Toastmasters.Web.Controllers
                     .Where(m => m.MeetingID == meetingID)
                     .FirstOrDefault();
 
+                var Absences = new List<Absence>();
                 if (meeting != null)
                 {
                     if (meeting.ToastmasterMemberID == user.MemberID)
                     {
                         meeting.ToastmasterMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Toastmaster
+                        });
                     }
 
                     if (meeting.TableTopicsMemberID == user.MemberID)
                     {
                         meeting.TableTopicsMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Tabletopics
+                        });
                     }
 
                     if (meeting.SpeakerIMemberID == user.MemberID)
                     {
                         meeting.SpeakerIMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Speaker
+                        });
                     }
 
                     if (meeting.SpeakerIIMemberID == user.MemberID)
                     {
                         meeting.SpeakerIIMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Speaker
+                        });
                     }
 
                     if (meeting.GeneralEvaluatorMemberID == user.MemberID)
                     {
                         meeting.GeneralEvaluatorMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.GeneralEvaluator
+                        });
                     }
 
                     if (meeting.EvaluatorIMemberID == user.MemberID)
                     {
                         meeting.EvaluatorIMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Evaluator
+                        });
                     }
 
                     if (meeting.EvaluatorIIMemberID == user.MemberID)
                     {
                         meeting.EvaluatorIIMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Evaluator
+                        });
                     }
 
                     if (meeting.InspirationalMemberID == user.MemberID)
                     {
                         meeting.InspirationalMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Inspirational
+                        });
                     }
 
                     if (meeting.JokeMemberID == user.MemberID)
                     {
                         meeting.JokeMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Joke
+                        });
                     }
 
                     if (meeting.TimerMemberID == user.MemberID)
                     {
                         meeting.TimerMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Timer
+                        });
                     }
 
                     if (meeting.GrammarianMemberID == user.MemberID)
                     {
                         meeting.GrammarianMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.Grammarian
+                        });
                     }
 
                     if (meeting.BallotCounterMemberID == user.MemberID)
                     {
                         meeting.BallotCounterMemberID = null;
+                        Absences.Add(new Absence
+                        {
+                            MemberID = (Int32)user.MemberID,
+                            MeetingID = meeting.MeetingID,
+                            Role = MeetingRoleNames.BallotCounter
+                        });
+                    }
+
+                    if (Absences.Count > 0)
+                    {
+                        _context.Absences.AddRange(Absences.ToArray());
                     }
 
                     _context.SaveChanges();
