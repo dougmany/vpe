@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static Toastmasters.Web.Helpers.MeetingHelpers;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -32,6 +33,12 @@ namespace Toastmasters.Web.Controllers
             _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
 
             var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
+
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+
+            var speeches = _context.Speeches.Where(s => s.MemberID ==user.MemberID).OrderBy(m => m.Title).ToArray();
+            var speechList = new SelectList(speeches, "SpeechID", "Title");
+            ViewBag.Speeches = speechList.Prepend(new SelectListItem { Text = "-Add New-", Value = "0" });
 
             return View(model);
 
@@ -252,7 +259,48 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
-            public IActionResult About()
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult SetSpeech(Int32 meetingID, Int32 speechID, Boolean isINotII)
+        {
+            if (speechID == 0)
+            {
+                return RedirectToAction("Create", "Speeches");
+            }
+
+            var meeting = _context.Meetings.Where(m => m.MeetingID == meetingID).FirstOrDefault();
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+
+            if (isINotII)
+            {
+                if (user.MemberID != meeting.SpeakerIMemberID)
+                {
+                    return NotFound();
+                }
+
+                meeting.SpeechISpeechID = speechID;
+                _context.SaveChanges();
+            }
+            else
+            {
+                if (user.MemberID != meeting.SpeakerIIMemberID)
+                {
+                    return NotFound();
+                }
+
+                meeting.SpeechIISpeechID = speechID;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 

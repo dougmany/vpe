@@ -30,6 +30,12 @@ namespace Toastmasters.Web.Models
             SpeakerII = meeting.SpeakerII == null ? "" : meeting.SpeakerII.FirstInitial;
             President = meeting.President == null ? "" : meeting.President.FirstInitial;
             Sargent = meeting.Sargent == null ? "" : meeting.Sargent.FirstInitial;
+
+            SpeakerIMemberID = meeting.SpeakerIMemberID ?? 0;
+            SpeakerIIMemberID = meeting.SpeakerIIMemberID ?? 0;
+
+            SpeechISpeechID = meeting.SpeechISpeechID ?? 0;
+            SpeechIISpeechID = meeting.SpeechIISpeechID ?? 0;
         }
 
         public Int32 MeetingID { get; set; }
@@ -54,8 +60,10 @@ namespace Toastmasters.Web.Models
         public String Grammarian { get; set; }
         [Display(Name = "Table Topics")]
         public String TableTopics { get; set; }
+        public Int32 SpeakerIMemberID { get; set; }
         [Display(Name = "Speaker I")]
         public String SpeakerI { get; set; }
+        public Int32 SpeakerIIMemberID { get; set; }
         [Display(Name = "Speaker II")]
         public String SpeakerII { get; set; }
         public String President { get; set; }
@@ -63,6 +71,9 @@ namespace Toastmasters.Web.Models
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
         public String MeetingDateString { get { return MeetingDate.ToString("M"); } }
+
+        public Int32 SpeechISpeechID { get; set; }
+        public Int32 SpeechIISpeechID { get; set; }
 
         public String ToastmasterClass { get; set; }
         public String InspirationalClass { get; set; }

@@ -312,7 +312,20 @@
             <td>
                 @if (item.SpeakerI != "")
                 {
-                    @Html.DisplayFor(modelItem => item.SpeakerI)
+
+                    @if (false)//memberID == item.SpeakerIMemberID)
+                    {
+                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="IsINotII" type="hidden" value="true" />
+                            <select name="SpeechID" class="form-control" asp-items="@ViewBag.Speeches"></select>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </form>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.SpeakerI)
+                    }
                 }
                 else
                 {

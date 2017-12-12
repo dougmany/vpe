@@ -46,6 +46,8 @@ namespace Toastmasters.Web.Models
         public Int32? SpeakerIIMemberID { get; set; }
         public Int32? PresidentMemberID { get; set; }        
         public Int32? SargentMemberID { get; set; }
+        public Int32? SpeechISpeechID { get; set; }
+        public Int32? SpeechIISpeechID { get; set; }
 
         public Member Toastmaster { get; set; }
         public Member Inspirational { get; set; }
@@ -61,5 +63,7 @@ namespace Toastmasters.Web.Models
         public Member SpeakerII { get; set; }
         public Member President { get; set; }
         public Member Sargent { get; set; }
+        public Speech SpeechI { get; set; }
+        public Speech SpeechII { get; set; }
     }
 }
