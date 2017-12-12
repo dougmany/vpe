@@ -28,6 +28,7 @@ namespace Toastmasters.Web.Controllers
         // GET: Users
         public IActionResult Index()
         {
+            var roles = _context.Roles.ToArray();
             var model = _context.ApplicationUser
                 .Include(a => a.Member)
                 .Include(a => a.Roles)
@@ -38,7 +39,9 @@ namespace Toastmasters.Web.Controllers
                     Email = a.Email,
                     EmailConfirmed = a.EmailConfirmed,
                     MemberID = a.MemberID,
-                    RoleID = a.Roles.FirstOrDefault().RoleId
+                    MemberName = a.Member == null?"": a.Member.FirstInitial,
+                    RoleID = a.Roles.FirstOrDefault().RoleId,
+                    RoleName = roles.Where(r=>r.Id == (a.Roles.FirstOrDefault() == null? "":a.Roles.FirstOrDefault().RoleId)).FirstOrDefault().Name
                 }).ToArray();
 
             return View(model);
