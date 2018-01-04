@@ -11,7 +11,7 @@ using Toastmasters.Web.Helpers;
 
 namespace Toastmasters.Web.Controllers
 {
-    [Authorize(Roles ="Scheduler")]
+    [Authorize(Roles = "Scheduler")]
     public class MeetingsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -43,7 +43,7 @@ namespace Toastmasters.Web.Controllers
                 .ToList();
 
             var model = new List<MeetingViewModel>();
-            
+
             foreach (var item in meetings)
             {
                 var meetingmembers = new Member[]
@@ -63,7 +63,7 @@ namespace Toastmasters.Web.Controllers
                 };
                 var dups = meetingmembers.GroupBy(d => d.MemberID).Where(d => d.Count() > 1).Select(d => d.Key).ToArray();
 
-                model.Add( new MeetingViewModel(item)
+                model.Add(new MeetingViewModel(item)
                 {
                     ToastmasterClass = dups.Contains(item.Toastmaster.MemberID) ? "duplicate" : "",
                     TableTopicsClass = dups.Contains(item.TableTopics.MemberID) ? "duplicate" : "",
@@ -75,7 +75,8 @@ namespace Toastmasters.Web.Controllers
                     InspirationalClass = dups.Contains(item.Inspirational.MemberID) ? "duplicate" : "",
                     JokeClass = dups.Contains(item.Joke.MemberID) ? "duplicate" : "",
                     TimerClass = dups.Contains(item.Timer.MemberID) ? "duplicate" : "",
-                    GrammarianClass = dups.Contains(item.Grammarian.MemberID) ? "duplicate" : ""
+                    GrammarianClass = dups.Contains(item.Grammarian.MemberID) ? "duplicate" : "",
+                    BallotCounterClass = dups.Contains(item.BallotCounter.MemberID) ? "duplicate" : ""
                 });
             }
 
@@ -102,7 +103,7 @@ namespace Toastmasters.Web.Controllers
         // GET: Meeting/Create
         public IActionResult Create()
         {
-            var builder = new MeetingActionBuilder(_context.Members.Where(m=>m.IsActive).OrderBy(m => m.FirstInitial).ToArray(), _context.Meetings.ToArray());
+            var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).OrderBy(m => m.FirstInitial).ToArray(), _context.Meetings.ToArray());
 
             return View(builder.View());
         }
@@ -140,7 +141,7 @@ namespace Toastmasters.Web.Controllers
                 return NotFound();
             }
 
-            var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).OrderBy(m=>m.FirstInitial).ToArray(), _context.Meetings.ToArray());
+            var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).OrderBy(m => m.FirstInitial).ToArray(), _context.Meetings.ToArray());
             var model = builder.View(meeting);
 
             return View(model);
@@ -239,7 +240,7 @@ namespace Toastmasters.Web.Controllers
 
             Commands.LoadAgenda(model);
 
-            var stream =  Commands.GetFile(Commands.FilesToGet.Agenda);
+            var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");
         }
 
