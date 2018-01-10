@@ -26,43 +26,66 @@
         <div class="col-md-3">
             <label asp-for="ToastmasterMemberID" class="control-label"></label>
             <select asp-for="ToastmasterMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Toastmaster].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="TableTopicsMemberID" class="control-label"></label>
             <select asp-for="TableTopicsMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Tabletopics].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="SpeakerIMemberID" class="control-label"></label>
             <select asp-for="SpeakerIMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Speaker].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="SpeakerIIMemberID" class="control-label"></label>
             <select asp-for="SpeakerIIMemberID" class="form-control" asp-items="Model.Members"></select>
+        </div>
+    </div>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <div id="firstHistory" class="row">
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Toastmaster].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Tabletopics].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Speaker].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Speaker].HtmlList)</p>
+
         </div>
     </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="GeneralEvaluatorMemberID" class="control-label"></label>
             <select asp-for="GeneralEvaluatorMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.GeneralEvaluator].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="EvaluatorIMemberID" class="control-label"></label>
             <select asp-for="EvaluatorIMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Evaluator].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="EvaluatorIIMemberID" class="control-label"></label>
             <select asp-for="EvaluatorIIMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Evaluator].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="InspirationalMemberID" class="control-label"></label>
             <select asp-for="InspirationalMemberID" class="form-control" asp-items="Model.Members"></select>
+        </div>
+    </div>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <div class="row">
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.GeneralEvaluator].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Evaluator].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Evaluator].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Inspirational].HtmlList)</p>
         </div>
     </div>
@@ -70,21 +93,32 @@
         <div class="col-md-3">
             <label asp-for="JokeMemberID" class="control-label"></label>
             <select asp-for="JokeMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Joke].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="TimerMemberID" class="control-label"></label>
             <select asp-for="TimerMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Timer].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="GrammarianMemberID" class="control-label"></label>
             <select asp-for="GrammarianMemberID" class="form-control" asp-items="Model.Members"></select>
-            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Grammarian].HtmlList)</p>
         </div>
         <div class="col-md-3">
             <label asp-for="BallotCounterMemberID" class="control-label"></label>
             <select asp-for="BallotCounterMemberID" class="form-control" asp-items="Model.Members"></select>
+        </div>
+    </div>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <div class="row">
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Joke].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Timer].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
+            <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Grammarian].HtmlList)</p>
+        </div>
+        <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.BallotCounter].HtmlList)</p>
         </div>
     </div>
