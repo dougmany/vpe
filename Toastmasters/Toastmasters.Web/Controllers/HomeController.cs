@@ -35,10 +35,12 @@ namespace Toastmasters.Web.Controllers
             var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
-
-            var speeches = _context.Speeches.Where(s => s.MemberID ==user.MemberID).OrderBy(m => m.Title).ToArray();
-            var speechList = new SelectList(speeches, "SpeechID", "Title");
-            ViewBag.Speeches = speechList.Prepend(new SelectListItem { Text = "-Add New-", Value = "0" });
+            if (user != null)
+            {
+                var speeches = _context.Speeches.Where(s => s.MemberID == user.MemberID).OrderBy(m => m.Title).ToArray();
+                var speechList = new SelectList(speeches, "SpeechID", "Title");
+                ViewBag.Speeches = speechList.Prepend(new SelectListItem { Text = "-Add New-", Value = "0" });
+            }
 
             return View(model);
 
