@@ -49,6 +49,8 @@ namespace Toastmasters.Web.Helpers
                 .Include(m => m.BallotCounter)
                 .Include(m => m.President)
                 .Include(m => m.Sargent)
+                .Include(m => m.SpeechI)
+                .Include(m => m.SpeechII)
                 .Where(m => m.MeetingDate > beforeDate)
                 .OrderBy(m => m.MeetingDate)
                 .FirstOrDefault();

@@ -35,7 +35,9 @@ namespace Toastmasters.Web.Models
             SpeakerIIMemberID = meeting.SpeakerIIMemberID ?? 0;
 
             SpeechISpeechID = meeting.SpeechISpeechID ?? 0;
+            SpeechITitle = meeting.SpeechI == null ? "" : meeting.SpeechI.Title;
             SpeechIISpeechID = meeting.SpeechIISpeechID ?? 0;
+            SpeechIITitle = meeting.SpeechII == null ? "" : meeting.SpeechII.Title; ;
         }
 
         public Int32 MeetingID { get; set; }
@@ -73,7 +75,9 @@ namespace Toastmasters.Web.Models
         public String MeetingDateString { get { return MeetingDate.ToString("M"); } }
 
         public Int32 SpeechISpeechID { get; set; }
+        public String SpeechITitle { get; set; }
         public Int32 SpeechIISpeechID { get; set; }
+        public String SpeechIITitle { get; set; }
 
         public String ToastmasterClass { get; set; }
         public String InspirationalClass { get; set; }

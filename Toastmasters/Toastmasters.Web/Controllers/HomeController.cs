@@ -38,8 +38,7 @@ namespace Toastmasters.Web.Controllers
             if (user != null)
             {
                 var speeches = _context.Speeches.Where(s => s.MemberID == user.MemberID).OrderBy(m => m.Title).ToArray();
-                var speechList = new SelectList(speeches, "SpeechID", "Title");
-                ViewBag.Speeches = speechList.Prepend(new SelectListItem { Text = "-Add New-", Value = "0" });
+                ViewBag.Speeches = speeches.Prepend(new Speech { Title = "-Add New-", SpeechID = 0 });
             }
 
             return View(model);

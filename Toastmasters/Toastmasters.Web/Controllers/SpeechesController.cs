@@ -24,7 +24,12 @@ namespace Toastmasters.Web.Controllers
         // GET: Speeches
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Speeches.ToListAsync());
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+            if (user.MemberID != null)
+            {
+                return View(await _context.Speeches.Where(s=>s.MemberID == user.MemberID).ToListAsync());
+            }
+            return View();
         }
 
         // GET: Speeches/Details/5

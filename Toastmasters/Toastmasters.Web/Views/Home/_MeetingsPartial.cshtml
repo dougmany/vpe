@@ -57,7 +57,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Toastmaster)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.Toastmaster != "")
                 {
@@ -82,7 +82,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.Inspirational != "")
                 {
@@ -107,7 +107,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Joke)
         </th>
         @foreach (var item in Model)
-            {
+        {
 
             <td>
                 @if (item.Joke != "")
@@ -133,7 +133,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().GeneralEvaluator)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.GeneralEvaluator != "")
                 {
@@ -158,7 +158,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorI)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.EvaluatorI != "")
                 {
@@ -183,7 +183,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().EvaluatorII)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.EvaluatorII != "")
                 {
@@ -208,7 +208,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Timer)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.Timer != "")
                 {
@@ -233,7 +233,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().BallotCounter)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.BallotCounter != "")
                 {
@@ -258,7 +258,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Grammarian)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.Grammarian != "")
                 {
@@ -283,7 +283,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().TableTopics)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.TableTopics != "")
                 {
@@ -308,23 +308,25 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.SpeakerI != "")
                 {
-
-                    @if (false)//memberID == item.SpeakerIMemberID)
+                    @if (memberID == item.SpeakerIMemberID)
                     {
+                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechISpeechID);
                         <form asp-controller="Home" asp-action="SetSpeech" method="post">
                             <input name="MeetingID" type="hidden" value="@item.MeetingID" />
                             <input name="IsINotII" type="hidden" value="true" />
-                            <select name="SpeechID" class="form-control" asp-items="@ViewBag.Speeches"></select>
+                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
                             <button type="submit" class="btn btn-default">Save</button>
                         </form>
                     }
                     else
                     {
                         @Html.DisplayFor(modelItem => item.SpeakerI)
+                        <br />
+                        <span>@item.SpeechITitle</span>
                     }
                 }
                 else
@@ -346,11 +348,26 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
         </th>
         @foreach (var item in Model)
-            {
+        {
             <td>
                 @if (item.SpeakerII != "")
                 {
-                    @Html.DisplayFor(modelItem => item.SpeakerII)
+                    @if (memberID == item.SpeakerIIMemberID)
+                    {
+                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechIISpeechID);
+                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="IsINotII" type="hidden" value="false" />
+                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </form>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.SpeakerI)
+                        <br />
+                        <span>@item.SpeechIITitle</span>
+                    }
                 }
                 else
                 {
