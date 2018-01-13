@@ -11,7 +11,7 @@
         <h4>Member</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="MemberID" />
+        <input type="hidden" asp-for="MemberID" />
         <div class="form-group">
             <label asp-for="FirstName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -38,6 +38,14 @@
                 <div class="checkbox">
                     <input asp-for="IsPresident" />
                     <label asp-for="IsPresident"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsSargent" />
+                    <label asp-for="IsSargent"></label>
                 </div>
             </div>
         </div>

@@ -70,7 +70,8 @@ namespace Toastmasters.Web
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                LoginPath = new PathString("/Account/SignIn")
+                LoginPath = new PathString("/Account/SignIn"),
+                ExpireTimeSpan = TimeSpan.FromDays(30),
             });
 
             app.UseStaticFiles();

@@ -21,7 +21,7 @@ namespace Toastmasters.Web.Controllers
         // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Members.ToListAsync());
+            return View(await _context.Members.OrderBy(m=>m.FullName).ToListAsync());
         }
 
         // GET: Members/Details/5
@@ -85,7 +85,7 @@ namespace Toastmasters.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MemberID,FirstName,LastName,Email")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("MemberID,FirstName,LastName,Email,IsPresident,IsSargent,IsActive")] Member member)
         {
             if (id != member.MemberID)
             {
