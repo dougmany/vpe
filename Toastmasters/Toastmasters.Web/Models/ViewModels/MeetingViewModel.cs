@@ -119,6 +119,20 @@ namespace Toastmasters.Web.Models
             President = meeting.President.FullName;
             Sargent = meeting.Sargent.FullName;
 
+            if (meeting.SpeechI != null)
+            {
+                SpeechITitle =  meeting.SpeechI.Title;
+                SpeechIProject =  meeting.SpeechI.Project;
+                SpeechITimeConstraints = meeting.SpeechI.TimeConstraints;
+            }
+
+            if (meeting.SpeechII != null)
+            {
+                SpeechIITitle = meeting.SpeechII.Title;
+                SpeechIIProject = meeting.SpeechII.Project;
+                SpeechIITimeConstraints = meeting.SpeechII.TimeConstraints;
+            }
+
             NextMeetingDate = nextMeeting.MeetingDate;
             NextToastmaster = nextMeeting.Toastmaster.FullName;
             NextInspirational = nextMeeting.Inspirational.FullName;
@@ -155,6 +169,14 @@ namespace Toastmasters.Web.Models
         public String AbsentI { get; set; }
         public String AbsentII { get; set; }
         public String MeetingDateString { get { return MeetingDate.ToString("f"); } }
+
+        public String SpeechITitle { get; set; }
+        public String SpeechIProject { get; set; }
+        public String SpeechITimeConstraints { get; set; }
+        public String SpeechIITitle { get; set; }
+        public String SpeechIIProject { get; set; }
+        public String SpeechIITimeConstraints { get; set; }
+
 
         public DateTime NextMeetingDate { get; set; }
         public String NextToastmaster { get; set; }

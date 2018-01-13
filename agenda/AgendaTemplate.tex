@@ -20,6 +20,13 @@
 \newcommand{\ballotCounter}{##BallotCounter}
 \newcommand{\joke}{##Joke}
 
+\newcommand{\speechITitle}{##SpeechITitle}
+\newcommand{\speechIProject}{##SpeechIProject}
+\newcommand{\speechITimeConstraints}{##SpeechITimeConstraints}
+\newcommand{\speechIITitle}{##SpeechIITitle}
+\newcommand{\speechIIProject}{##SpeechIIProject}
+\newcommand{\speechIITimeConstraints}{##SpeechIITimeConstraints}
+
 \newcommand{\nextMeetingDateString}{##NextMeetingDateString}
 \newcommand{\nextToastmaster}{##NextToastmaster}
 \newcommand{\nextPresident}{##NextPresident}
@@ -66,15 +73,15 @@
     \item Introduce Speaker Evaluators - \textcolor{blue}{\evaluatorI{}} and \textcolor{blue}{\evaluatorII{}}
     \item Speaker 1 - \textcolor{blue}{\speakerI{}}
       \begin{description}
-          \item{Title:}
-          \item{Project:}
-          \item{Time Limits:}
+          \item{Title: }\speechITitle{}
+          \item{Project: }\speechIProject{}
+          \item{Time Limits: }\speechITimeConstraints{}
       \end{description}
     \item Speaker 2 - \textcolor{blue}{\speakerII{}}
-      \begin{description}
-          \item{Title:}
-          \item{Project:}
-          \item{Time Limits:}
+      \begin{description}     
+          \item{Title: }\speechIITitle{}
+          \item{Project: } \speechIIProject{}
+          \item{Time Limits: }\speechIITimeConstraints{}
       \end{description}
   \end{itemize}
   {\Large \bf12:30 Table Topics - \textcolor{blue}{\tableTopics{}}} 
@@ -136,4 +143,3 @@
     \hline
   \end{tabular}
 \end{document}
-

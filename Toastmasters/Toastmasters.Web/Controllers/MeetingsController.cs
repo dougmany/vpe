@@ -221,7 +221,7 @@ namespace Toastmasters.Web.Controllers
             }
             else
             {
-                meeting = _context.Meetings.FirstOrDefault(m => m.MeetingID == meetingID);
+                meeting = _context.Meetings.Include(m=>m.SpeechI).Include(m => m.SpeechII).FirstOrDefault(m => m.MeetingID == meetingID);
             }
 
             if (meeting == null)
