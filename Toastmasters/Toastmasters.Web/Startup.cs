@@ -12,6 +12,7 @@ using Toastmasters.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Toastmasters.Web.Services;
 
 namespace Toastmasters.Web
 {
@@ -50,6 +51,11 @@ namespace Toastmasters.Web
                 .AddUserManager<ApplicationUserManager>(); ;
 
             services.AddMvc();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+
+            services.Configure<EmailCredentials>(Configuration.GetSection("Email"));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

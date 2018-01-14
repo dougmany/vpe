@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Toastmasters.Web.Models;
 using Toastmasters.Web.Models.ViewModels;
+using Toastmasters.Web.Services;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -17,7 +18,7 @@ namespace Toastmasters.Web.Controllers
     {
         private readonly ApplicationUserManager _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
@@ -26,14 +27,14 @@ namespace Toastmasters.Web.Controllers
             ApplicationUserManager userManager,
             SignInManager<ApplicationUser> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
-            //IEmailSender emailSender,
+            IEmailSender emailSender,
             //ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
            // _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
@@ -115,10 +116,10 @@ namespace Toastmasters.Web.Controllers
                 {
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
