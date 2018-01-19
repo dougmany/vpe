@@ -22,7 +22,7 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.MeetingDate)
-                <span>@DateTime.Now</span>
+                <span>@DateTime.Now.AddHours(-9)</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Toastmaster)

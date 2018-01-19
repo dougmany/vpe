@@ -30,7 +30,7 @@ namespace Toastmasters.Web.Controllers
         {
             List<Meeting> meetingList = new List<Meeting>();
 
-            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
+            _meetingHelpers.FillSomeMeetings(DateTime.Now.AddHours(-9), meetingList, 5);
 
             var model = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 

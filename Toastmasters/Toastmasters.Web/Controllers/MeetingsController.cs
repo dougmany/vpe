@@ -217,7 +217,7 @@ namespace Toastmasters.Web.Controllers
 
             if (meetingID == null)
             {
-                meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now);
+                meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
             }
             else
             {
@@ -247,7 +247,7 @@ namespace Toastmasters.Web.Controllers
         public ActionResult GetEmail()
         {
             var meetingList = new List<Meeting>();
-            _meetingHelpers.FillSomeMeetings(DateTime.Now, meetingList, 5);
+            _meetingHelpers.FillSomeMeetings(DateTime.Now.AddHours(-9), meetingList, 5);
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             Commands.LoadEmail(models);
