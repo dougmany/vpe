@@ -211,17 +211,17 @@ namespace Toastmasters.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult GetAgenda(Int32? meetingID)
+        public ActionResult GetAgenda(Int32? id)
         {
             Meeting meeting;
 
-            if (meetingID == null)
+            if (id == null)
             {
                 meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
             }
             else
             {
-                meeting = _context.Meetings.Include(m=>m.SpeechI).Include(m => m.SpeechII).FirstOrDefault(m => m.MeetingID == meetingID);
+                meeting = _context.Meetings.Include(m=>m.SpeechI).Include(m => m.SpeechII).FirstOrDefault(m => m.MeetingID == id);
             }
 
             if (meeting == null)
