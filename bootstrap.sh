@@ -29,7 +29,7 @@ apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4 nginx software-proper
 
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install python-certbot-nginx 
+apt-get install python-certbot-nginx awscli
 
 
 echo -e "\n--- Create database ---\n"
