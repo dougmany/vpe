@@ -245,6 +245,7 @@ namespace Toastmasters.Web.Controllers
             {
                 return View("Error");
             }
+            await _emailSender.SendNotifyEmail("Confirmed account", $"A new account was confirmed: {user.Email}");
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }

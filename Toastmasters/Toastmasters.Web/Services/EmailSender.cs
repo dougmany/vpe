@@ -39,6 +39,11 @@ namespace Toastmasters.Web.Services
 
             }
         }
+
+        public async Task SendNotifyEmail(String subject, String message)
+        {
+             await SendEmailAsync(_credentials.NotifyEmail, subject, message);
+        }
     }
 
     public class EmailCredentials
@@ -46,5 +51,6 @@ namespace Toastmasters.Web.Services
         public String Server { get; set; }
         public String Username{get;set; }
         public String Password { get; set; }
+        public String NotifyEmail { get; set; }
     }
 }

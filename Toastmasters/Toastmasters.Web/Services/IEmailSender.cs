@@ -8,5 +8,6 @@ namespace Toastmasters.Web.Services
     public interface IEmailSender
     {
         Task SendEmailAsync(string email, string subject, string message);
+        Task SendNotifyEmail(String subject, String message);
     }
 }
