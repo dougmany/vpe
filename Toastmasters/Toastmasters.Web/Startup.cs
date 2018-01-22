@@ -78,6 +78,7 @@ namespace Toastmasters.Web
             {
                 LoginPath = new PathString("/Account/SignIn"),
                 ExpireTimeSpan = TimeSpan.FromDays(30),
+                CookieName = Configuration.GetSection("AppSettings")["CookieName"]
             });
 
             app.UseStaticFiles();
