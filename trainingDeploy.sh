@@ -8,6 +8,7 @@ sudo systemctl start kestrel-toastmasters-training.service
 
 sed -i 's/5000/5001/g' /var/aspnetcore/toastmasters.web.training/hosting.json
 sed -i 's/database=toastmasters;/database=toastmastersTraining;/g' /var/aspnetcore/toastmasters.web.training/appsettings.json
+sed -i 's/"CookieName": "toastmasters"/"CookieName": "toastmasterstraining"/g' /var/aspnetcore/toastmasters.web.training/appsettings.json
 
 sudo chown :www-data /vagrant/agenda/AgendaTemplate.tex
 sudo chmod g+w /vagrant/agenda/AgendaTemplate.tex
