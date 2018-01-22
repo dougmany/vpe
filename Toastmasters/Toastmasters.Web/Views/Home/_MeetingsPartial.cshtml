@@ -79,6 +79,86 @@
     </tr>
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.SpeakerI != "")
+                {
+                    @if (memberID == item.SpeakerIMemberID)
+                    {
+                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechISpeechID);
+                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="IsINotII" type="hidden" value="true" />
+                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </form>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.SpeakerI)
+                        <br />
+                        <span>@item.SpeechITitle</span>
+                    }
+                }
+                else
+                {
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerI" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
+        </th>
+        @foreach (var item in Model)
+        {
+            <td>
+                @if (item.SpeakerII != "")
+                {
+                    @if (memberID == item.SpeakerIIMemberID)
+                    {
+                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechIISpeechID);
+                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="IsINotII" type="hidden" value="false" />
+                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </form>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.SpeakerII)
+                        <br />
+                        <span>@item.SpeechIITitle</span>
+                    }
+                }
+                else
+                {
+                    @if (memberID > 0)
+                    {
+                        <form asp-controller="Home" asp-action="AddMe" method="post">
+                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerII" />
+                            <button type="submit" class="btn btn-success">Add Me</button>
+                        </form>
+                    }
+                }
+            </td>
+        }
+    </tr>
+    <tr>
+        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Inspirational)
         </th>
         @foreach (var item in Model)
@@ -296,86 +376,6 @@
                         <form asp-controller="Home" asp-action="AddMe" method="post">
                             <input name="MeetingID" type="hidden" value="@item.MeetingID" />
                             <input name="Role" type="hidden" value="@MeetingRole.TableTopics" />
-                            <button type="submit" class="btn btn-success">Add Me</button>
-                        </form>
-                    }
-                }
-            </td>
-        }
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerI)
-        </th>
-        @foreach (var item in Model)
-        {
-            <td>
-                @if (item.SpeakerI != "")
-                {
-                    @if (memberID == item.SpeakerIMemberID)
-                    {
-                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechISpeechID);
-                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
-                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                            <input name="IsINotII" type="hidden" value="true" />
-                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
-                            <button type="submit" class="btn btn-default">Save</button>
-                        </form>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.SpeakerI)
-                        <br />
-                        <span>@item.SpeechITitle</span>
-                    }
-                }
-                else
-                {
-                    @if (memberID > 0)
-                    {
-                        <form asp-controller="Home" asp-action="AddMe" method="post">
-                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerI" />
-                            <button type="submit" class="btn btn-success">Add Me</button>
-                        </form>
-                    }
-                }
-            </td>
-        }
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().SpeakerII)
-        </th>
-        @foreach (var item in Model)
-        {
-            <td>
-                @if (item.SpeakerII != "")
-                {
-                    @if (memberID == item.SpeakerIIMemberID)
-                    {
-                        var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechIISpeechID);
-                        <form asp-controller="Home" asp-action="SetSpeech" method="post">
-                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                            <input name="IsINotII" type="hidden" value="false" />
-                            <select name="SpeechID" class="form-control" asp-items="speechlist"></select>
-                            <button type="submit" class="btn btn-default">Save</button>
-                        </form>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.SpeakerII)
-                        <br />
-                        <span>@item.SpeechIITitle</span>
-                    }
-                }
-                else
-                {
-                    @if (memberID > 0)
-                    {
-                        <form asp-controller="Home" asp-action="AddMe" method="post">
-                            <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                            <input name="Role" type="hidden" value="@MeetingRole.SpeakerII" />
                             <button type="submit" class="btn btn-success">Add Me</button>
                         </form>
                     }
