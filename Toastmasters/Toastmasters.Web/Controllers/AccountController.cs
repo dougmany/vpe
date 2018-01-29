@@ -104,6 +104,7 @@ namespace Toastmasters.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;

@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Toastmasters.Web.Services;
+using System.IO;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Toastmasters.Web
 {
@@ -34,6 +36,10 @@ namespace Toastmasters.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(Configuration.GetSection("AppSettings")["DP_Key_Path"]))
+                .SetApplicationName(Configuration.GetSection("AppSettings")["CookieName"]);
+
             services.AddSingleton<IConfiguration>(_ => Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
