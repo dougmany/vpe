@@ -44,6 +44,12 @@ mysql -uroot -p$ROOTPASSWD -e "USE $DBNAME; CREATE table Meetings ( MeetingID IN
 mysql  -uroot -p$ROOTPASSWD $DBNAME < /vagrant/MemberSeed.sql
 mysql  -uroot -p$ROOTPASSWD $DBNAME < /vagrant/MeetingSeed.sql
 
+mkdir /home/www-data
+mkdir /home/www-data/pd_keys
+
+chown www-data:www-data /home/www-data -R
+chmod g+w /home/www-data -R
+
 mkdir /var/aspnetcore/
 mkdir /var/aspnetcore/toastmasters.web/
 
