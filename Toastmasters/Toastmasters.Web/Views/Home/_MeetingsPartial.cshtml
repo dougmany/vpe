@@ -37,7 +37,7 @@
         @foreach (var item in Model)
         {
             <td>
-                @if (item.ToastmasterID == memberID)
+                @if (memberID > 0 && item.ToastmasterID == memberID)
                 {
                     <form asp-controller="Home" asp-action="SetTheme" method="post">
                         <input name="MeetingID" type="hidden" value="@item.MeetingID" />
@@ -126,7 +126,7 @@
             <td>
                 @if (item.SpeakerII != "")
                 {
-                    @if (memberID == item.SpeakerIIMemberID)
+                    @if (memberID > 0 && memberID == item.SpeakerIIMemberID)
                     {
                         var speechlist = new SelectList(ViewBag.Speeches, "SpeechID", "Title", item.SpeechIISpeechID);
                         <form asp-controller="Home" asp-action="SetSpeech" method="post">
