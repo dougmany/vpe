@@ -104,8 +104,20 @@ namespace Toastmasters.Web.Controllers
         public IActionResult Create()
         {
             var builder = new MeetingActionBuilder(_context.Members.Where(m => m.IsActive).OrderBy(m => m.FirstInitial).ToArray(), _context.Meetings.ToArray());
+            var model = builder.View();
+            model.MeetingDate = DateTime.Now;
+            var sargent = _context.Members.Where(m => m.IsSargent).FirstOrDefault();
+            if (sargent != null)
+            {
+                model.SargentMemberID = sargent.MemberID;
+            }
+            var president = _context.Members.Where(m => m.IsPresident).FirstOrDefault();
+            if (president != null)
+            {
+                model.PresidentMemberID = president.MemberID;
+            }
 
-            return View(builder.View());
+            return View(model);
         }
 
         // POST: Meeting/Create
