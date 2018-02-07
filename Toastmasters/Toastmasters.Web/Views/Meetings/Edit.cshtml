@@ -40,7 +40,7 @@
             <select asp-for="SpeakerIIMemberID" class="form-control" asp-items="Model.Members"></select>
         </div>
     </div>
-    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }" class="btn btn-default">-</a> 
     <div id="firstHistory" class="row">
         <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Toastmaster].HtmlList)</p>
@@ -74,7 +74,7 @@
             <select asp-for="InspirationalMemberID" class="form-control" asp-items="Model.Members"></select>
         </div>
     </div>
-    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }" class="btn btn-default">-</a>
     <div class="row">
         <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.GeneralEvaluator].HtmlList)</p>
@@ -107,7 +107,7 @@
             <select asp-for="BallotCounterMemberID" class="form-control" asp-items="Model.Members"></select>
         </div>
     </div>
-    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }">-</a>
+    <a onclick="if ($(this).html() == '-') { $(this).next().hide(); $(this).text('+'); } else{ $(this).next().show(); $(this).text('-'); }" class="btn btn-default">-</a>
     <div class="row">
         <div class="col-md-3">
             <p class="form-control-static">@Html.Raw(Model.Histories[MeetingRoleNames.Joke].HtmlList)</p>
