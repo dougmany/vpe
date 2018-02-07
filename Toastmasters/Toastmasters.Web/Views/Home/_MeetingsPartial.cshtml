@@ -16,18 +16,19 @@
         </th>
         @foreach (var item in Model)
         {
-            <td>
-                <h4>@Html.DisplayFor(modelItem => item.MeetingDate)</h4>
+        <td>
+            <h4>@Html.DisplayFor(modelItem => item.MeetingDate)</h4>
+
+            @if (memberID > 0)
+            {
                 <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID" class="btn btn-primary">Agenda</a>
                 <br /><br>
-                @if (memberID > 0)
-                {
                     <form asp-controller="Home" asp-action="RemoveMe" method="post">
-                        <input name="MeetingID" type="hidden" value="@item.MeetingID" />
-                        <button type="submit" class="btn btn-danger">Remove Me</button>
-                    </form>
-                }
-            </td>
+                    <input name="MeetingID" type="hidden" value="@item.MeetingID" />
+                    <button type="submit" class="btn btn-danger">Remove Me</button>
+                </form>
+            }
+        </td>
         }
     </tr>
     <tr>
