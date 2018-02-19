@@ -2,9 +2,13 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    var name = ViewBag.Club == null ? "" : ViewBag.Club.ClubName;
+}
+
 <div class="row">
     <div class="col-md-12">
-        <h2>Welcome @ViewBag.Club.ClubName Toastmasters!</h2>
+        <h2>Welcome @name Toastmasters!</h2>
         <hr />
         <h3>Schedule:</h3>
         @await Html.PartialAsync("_MeetingsPartial")
