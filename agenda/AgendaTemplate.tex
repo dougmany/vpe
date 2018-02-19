@@ -3,6 +3,11 @@
 \RequirePackage[T1]{fontenc}
 \usepackage{graphicx}
 
+\newcommand{\clubName}{##ClubName}
+\newcommand{\clubNumber}{##ClubNumber}
+\newcommand{\district}{##District}
+\newcommand{\meetingRoom}{##MeetingRoom}
+
 \newcommand{\meetingTheme}{##MeetingTheme}
 \newcommand{\meetingDateString}{##MeetingDateString}
 \newcommand{\toastmaster}{##Toastmaster}
@@ -46,11 +51,11 @@
 \begin{document}
   \begin{spacing}{.8}
   \begin{center}
-    {\bf Clear Signals Toastmasters Club \#999}
-	
-	{\bf Area 53 Division E District 39}
-	
-	\meetingDateString{} Room 230  
+    {\bf \clubName Toastmasters Club \#\clubNumber}
+    
+	{\bf \district}
+    
+	\meetingDateString{} Room \meetingRoom 
   \end{center}
   {\Large \bf12:05 Sargent at Arms - \textcolor{blue}{\sargent{}}}
   \begin{itemize}

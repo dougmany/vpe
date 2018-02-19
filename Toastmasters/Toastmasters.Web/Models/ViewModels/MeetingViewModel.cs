@@ -79,6 +79,11 @@ namespace Toastmasters.Web.Models
         public Int32 SpeechIISpeechID { get; set; }
         public String SpeechIITitle { get; set; }
 
+        public String ClubName { get; set; }
+        public String ClubNumber { get; set; }
+        public String District { get; set; }
+        public String MeetingRoom { get; set; }
+
         public String ToastmasterClass { get; set; }
         public String InspirationalClass { get; set; }
         public String JokeClass { get; set; }
@@ -100,8 +105,13 @@ namespace Toastmasters.Web.Models
     {
         public AgendaViewModel() { }
 
-        public AgendaViewModel(Meeting meeting, Meeting nextMeeting)
+        public AgendaViewModel(Meeting meeting, Meeting nextMeeting, Club club)
         {
+            ClubName = club.ClubName;
+            ClubNumber = club.ClubNumber;
+            District = club.District;
+            MeetingRoom = club.MeetingRoom;
+
             MeetingDate = meeting.MeetingDate;
             MeetingTheme = meeting.MeetingTheme;
             Toastmaster = meeting.Toastmaster.FullName;
@@ -149,6 +159,11 @@ namespace Toastmasters.Web.Models
             NextPresident = nextMeeting.President.FullName;
             NextSargent = nextMeeting.Sargent.FullName;
         }
+
+        public String ClubName { get; set; }
+        public String ClubNumber { get; set; }
+        public String District { get; set; }
+        public String MeetingRoom { get; set; }
 
         public DateTime MeetingDate { get; set; }
         public String MeetingTheme { get; set; }

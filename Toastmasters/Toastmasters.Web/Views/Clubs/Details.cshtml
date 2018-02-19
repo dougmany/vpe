@@ -1,0 +1,48 @@
+@model Toastmasters.Web.Models.Club
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Club</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.District)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRoom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRoom)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ClubID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
