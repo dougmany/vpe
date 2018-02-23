@@ -14,7 +14,7 @@ namespace Toastmasters.Web.Helpers
 {
     public static class Commands
     {
-        const String VAGRANTPATH = "vagrant"; 
+        const String VAGRANTPATH = "vagrant";
         //const String VAGRANTPATH = "Users/Doug/Projects/vpe";
 
         public static void LoadAgenda(AgendaViewModel model)
@@ -124,6 +124,11 @@ namespace Toastmasters.Web.Helpers
 
                                 Console.WriteLine($"Line: {line}");
                                 var dataIndex = Array.IndexOf(IteratorChars, variableName.Substring(variableName.Length - 1));
+                                if (dataIndex + 1 > dataList.Count())
+                                {
+                                    file.Add(line);
+                                    continue;
+                                }
 
                                 Console.WriteLine($"Line: {line}");
                                 var data = (T)Activator.CreateInstance(typeof(T));
