@@ -23,15 +23,11 @@ namespace Toastmasters.Web.Helpers
             if (meeting != null)
             {
                 list.Add(meeting);
-            }
-            else
-            {
-                list.Add(new Meeting());
-            }
-
-            if (number > 0)
-            {
-                FillSomeMeetings(meeting.MeetingDate, list, --number);
+                if (number > 0)
+                {
+                    FillSomeMeetings(meeting.MeetingDate, list, --number);
+                }
+                return;
             }
             return;
         }
