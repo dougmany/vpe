@@ -105,7 +105,7 @@ namespace Toastmasters.Web
 
             dbContext.Database.Migrate();
 
-            var seed = new Seed(dbContext);
+            //var seed = new Seed(dbContext);
         }
     }
 }

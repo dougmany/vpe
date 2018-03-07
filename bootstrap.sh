@@ -16,6 +16,14 @@ DBPASSWD=test123
 #echo ""  
 
 apt-get update
+
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile   none    swap    sw    0   0' >> /etc/fstab
+
+
 # MySQL setup for development purposes ONLY
 echo -e "\n--- Install MySQL specific packages and settings ---\n"
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $ROOTPASSWD"
@@ -29,8 +37,10 @@ apt-get -y install mysql-server latex2rtf dotnet-dev-1.0.4 nginx software-proper
 
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install python-certbot-nginx awscli
+apt-get install python-certbot-nginx python-pip
 
+pip install --upgrade pip
+pip install awscli
 
 echo -e "\n--- Create database ---\n"
 

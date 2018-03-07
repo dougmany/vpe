@@ -41,6 +41,8 @@ namespace Toastmasters.Web.Controllers
                 ViewBag.Speeches = speeches.Prepend(new Speech { Title = "-Add New-", SpeechID = 0 });
             }
 
+            ViewBag.Club = _context.Clubs.FirstOrDefault();
+
             return View(model);
 
         }

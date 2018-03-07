@@ -247,7 +247,7 @@ namespace Toastmasters.Web.Controllers
                 return NotFound();
             }
 
-            var model = new AgendaViewModel(meeting, nextMeeting);
+            var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
 
             Commands.LoadAgenda(model);
 

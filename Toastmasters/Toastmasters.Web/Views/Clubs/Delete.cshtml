@@ -1,0 +1,53 @@
+@model Toastmasters.Web.Models.Club
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Club</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="ClubID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.District)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRoom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRoom)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

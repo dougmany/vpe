@@ -13,5 +13,6 @@ namespace Toastmasters.Web.Data
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Absence> Absences { get; set; }
         public DbSet<Speech> Speeches { get; set; }
+        public DbSet<Club> Clubs { get; set; }
     }
 }
