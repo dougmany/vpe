@@ -222,6 +222,7 @@ namespace Toastmasters.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public ActionResult GetAgenda(Int32? id)
         {
             Meeting meeting;
