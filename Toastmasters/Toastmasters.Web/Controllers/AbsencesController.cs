@@ -22,7 +22,7 @@ namespace Toastmasters.Web.Controllers
         // GET: Absences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Absences.ToListAsync());
+            return View(await _context.Absences.OrderByDescending(a=>a.MeetingID).ToListAsync());
         }
     }
 }

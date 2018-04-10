@@ -21,7 +21,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Role)
                 </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,11 +34,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AbsenceID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AbsenceID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AbsenceID">Delete</a>
             </td>
         </tr>
 }
