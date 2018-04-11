@@ -1,4 +1,4 @@
-@model IEnumerable<Toastmasters.Web.Models.Absence>
+@model IEnumerable<Toastmasters.Web.Models.AbsenceViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,10 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.MemberID)
+                    Member
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.MeetingID)
+                    Date
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Role)
@@ -27,10 +27,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MemberID)
+                @Html.DisplayFor(modelItem => item.MemberName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MeetingID)
+                @Html.DisplayFor(modelItem => item.MeetingDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Role)
