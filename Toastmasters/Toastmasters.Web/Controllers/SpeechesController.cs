@@ -108,6 +108,12 @@ namespace Toastmasters.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+                if (user.MemberID != null)
+                {
+                    speech.MemberID = (Int32)user.MemberID;
+                }
+
                 try
                 {
                     _context.Update(speech);
