@@ -23,7 +23,7 @@ namespace Toastmasters.Web.Helpers
             if (meeting != null)
             {
                 list.Add(meeting);
-                if (number > 0)
+                if (number > 1)
                 {
                     FillSomeMeetings(meeting.MeetingDate, list, --number);
                 }

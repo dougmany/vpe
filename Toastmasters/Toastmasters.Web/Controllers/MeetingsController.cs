@@ -256,10 +256,22 @@ namespace Toastmasters.Web.Controllers
             return File(stream, "application/rtf", $"Agenda.rtf");
         }
 
-        public ActionResult GetEmail()
+        public ActionResult GetEmail(Int32? id)
         {
             var meetingList = new List<Meeting>();
-            _meetingHelpers.FillSomeMeetings(DateTime.Now.AddHours(-9), meetingList, 5);
+            DateTime beforeMeetingDate;
+
+            if (id == null)
+            {
+                beforeMeetingDate = DateTime.Now.AddHours(-9);
+            }
+            else
+            {
+                var beforeMeeting = _context.Meetings.FirstOrDefault(m => m.MeetingID == id);
+                beforeMeetingDate = beforeMeeting == null ? DateTime.Now.AddHours(-9) : beforeMeeting.MeetingDate;
+            }
+
+            _meetingHelpers.FillSomeMeetings(beforeMeetingDate, meetingList, 5);
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             Commands.LoadEmail(models);
