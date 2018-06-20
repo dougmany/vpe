@@ -30,11 +30,12 @@ namespace Toastmasters.Web.Controllers
                 AbsenceID = m.AbsenceID,
                 MeetingDate = m.MeetingID.ToString(),
                 MemberName= members.Where(me=>me.MemberID == m.MemberID).FirstOrDefault().FullName,
+                Role = m.Role
             }).OrderByDescending(a=>a.MeetingDate).ToListAsync();
 
             foreach (var item in model)
             {
-                item.MeetingDate = meetings.Where(m => m.MeetingID.ToString() == item.MeetingDate).FirstOrDefault().MeetingDate.ToString();
+                item.MeetingDate = meetings.Where(m => m.MeetingID.ToString() == item.MeetingDate).FirstOrDefault().MeetingDate.ToString("{}:d");
             }
 
             return View(model);
