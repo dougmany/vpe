@@ -35,7 +35,7 @@ namespace Toastmasters.Web.Controllers
 
             foreach (var item in model)
             {
-                item.MeetingDate = meetings.Where(m => m.MeetingID.ToString() == item.MeetingDate).FirstOrDefault().MeetingDate.ToString("{}:d");
+                item.MeetingDate = meetings.Where(m => m.MeetingID.ToString() == item.MeetingDate).FirstOrDefault().MeetingDate.ToString("MM/dd/yyyy");
             }
 
             return View(model);
