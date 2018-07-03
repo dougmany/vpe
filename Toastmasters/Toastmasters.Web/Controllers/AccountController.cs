@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Toastmasters.Web.Models;
 using Toastmasters.Web.Models.ViewModels;
 using Toastmasters.Web.Services;
+using System.Text.Encodings.Web;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -279,8 +280,9 @@ namespace Toastmasters.Web.Controllers
                 // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                var encodedUrl = HtmlEncoder.Default.Encode(callbackUrl);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                   $"Please reset your password by clicking here: <a href='{encodedUrl}'>link</a>");
                 return View("ForgotPasswordConfirmation");
             }
 
