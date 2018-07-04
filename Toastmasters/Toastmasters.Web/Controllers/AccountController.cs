@@ -10,6 +10,7 @@ using Toastmasters.Web.Models;
 using Toastmasters.Web.Models.ViewModels;
 using Toastmasters.Web.Services;
 using System.Web;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -21,7 +22,6 @@ namespace Toastmasters.Web.Controllers
         private readonly IEmailSender _emailSender;
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly string _externalCookieScheme;
 
         public AccountController(
             ApplicationUserManager userManager,
@@ -44,7 +44,7 @@ namespace Toastmasters.Web.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -323,7 +323,8 @@ namespace Toastmasters.Web.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var decodedCode = HttpUtility.UrlDecode(model.Code);
+            var result = await _userManager.ResetPasswordAsync(user, decodedCode, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
