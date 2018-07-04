@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Toastmasters.Web.Data;
 
 namespace Toastmasters.Web
 {
@@ -12,21 +18,34 @@ namespace Toastmasters.Web
     {
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", true)
-                .Build();
+            var host = BuildWebHost(args);
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
 
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                 .UseConfiguration(config)
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
-                .Build();
+                try
+                {
+                    var context = services.GetService<ApplicationDbContext>();
+                    context.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred seeding the DB.");
+                }
+            }
 
             host.Run();
         }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+                WebHost.CreateDefaultBuilder(args)
+                    .UseConfiguration(new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("hosting.json", optional: true)
+                        .Build()
+                    )
+                .UseStartup<Startup>()
+                .Build();
     }
 }

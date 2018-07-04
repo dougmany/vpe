@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Toastmasters.Web.Models;
 using Toastmasters.Web.Models.ViewModels;
 using Toastmasters.Web.Services;
-using System.Text.Encodings.Web;
+using System.Web;
 
 namespace Toastmasters.Web.Controllers
 {
@@ -27,14 +26,12 @@ namespace Toastmasters.Web.Controllers
         public AccountController(
             ApplicationUserManager userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             //ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
            // _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -279,10 +276,11 @@ namespace Toastmasters.Web.Controllers
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                 // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                var encodedUrl = HtmlEncoder.Default.Encode(callbackUrl);
+                var encodedCode = HttpUtility.UrlEncode(code);
+                var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = encodedCode }, protocol: HttpContext.Request.Scheme);
+                
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{encodedUrl}'>link</a>");
+                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return View("ForgotPasswordConfirmation");
             }
 
