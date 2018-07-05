@@ -29,10 +29,6 @@ namespace Toastmasters.Web.Services
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart("plain") { Text = message };
 
-#if DEBUG
-
-#else
-
             using (var client = new SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
@@ -42,7 +38,7 @@ namespace Toastmasters.Web.Services
                 client.Disconnect(true);
 
             }
-#endif
+
         }
 
         public async Task SendNotifyEmail(String subject, String message)
