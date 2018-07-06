@@ -232,7 +232,7 @@ namespace Toastmasters.Web.Controllers
                 return NotFound();
             }
 
-            var nextMeeting = _meetingHelpers.GetMeeting(id);
+            var nextMeeting = _meetingHelpers.GetMeetingAfterDate(meeting.MeetingDate);
 
             if (nextMeeting == null)
             {
