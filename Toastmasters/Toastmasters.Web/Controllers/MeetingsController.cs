@@ -244,7 +244,7 @@ namespace Toastmasters.Web.Controllers
             Commands.LoadAgenda(model);
 #if DEBUG
 #else
-            Commands.Latex2Rtf("agenda");
+            Commands.Latex2Rtf("Agenda");
 #endif
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
@@ -273,7 +273,7 @@ namespace Toastmasters.Web.Controllers
             Commands.LoadAgenda(model);
 #if DEBUG
 #else
-            Commands.Latex2Rtf("agenda");
+            Commands.Latex2Rtf("Agenda");
 #endif
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
