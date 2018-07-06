@@ -14,27 +14,33 @@ namespace Toastmasters.Web.Helpers
 {
     public static class Commands
     {
+#if DEBUG
+        const String VAGRANTPATH = "Users/Doug/Projects/vpe";
+#else
         const String VAGRANTPATH = "vagrant";
-        //const String VAGRANTPATH = "Users/Doug/Projects/vpe";
+#endif
+        const String EXTENTION = "tex";
+        const String ENDTOKEN = "}";
 
         public static void LoadAgenda(AgendaViewModel model)
         {
-            var inpath = $"/{VAGRANTPATH}/agenda/AgendaTemplate.tex";
-            string outpath = inpath.Replace("Template.tex", ".tex");
+            var inpath = $"/{VAGRANTPATH}/agenda/AgendaTemplate.{EXTENTION}";
+            string outpath = inpath.Replace($"Template.{EXTENTION}", $".{EXTENTION}");
 
             WriteFile(outpath, ReadAndReplace(inpath, model));
-
-            RunLocalFile("latex2rtf", $"/{VAGRANTPATH}/agenda/Agenda.tex");
         }
 
         public static void LoadEmail(IEnumerable<MeetingViewModel> model)
         {
-            var inpath = $"/{VAGRANTPATH}/agenda/EmailTemplate.tex";
-            var outpath = inpath.Replace("Template.tex", ".tex");
+            var inpath = $"/{VAGRANTPATH}/agenda/EmailTemplate.{EXTENTION}";
+            var outpath = inpath.Replace($"Template.{EXTENTION}", $".{EXTENTION}");
 
-            WriteFile(outpath, ReadAndReplace(inpath, model));
+            WriteFile(outpath, ReadAndReplace(inpath, model));            
+        }
 
-            RunLocalFile("latex2rtf", $"/{VAGRANTPATH}/agenda/Email.tex");
+        public static void Latex2Rtf(String file)
+        {
+            RunLocalFile("latex2rtf", $"/{VAGRANTPATH}/agenda/{file}.{EXTENTION}");
         }
 
         public static FileStream GetFile(FilesToGet file)
@@ -80,7 +86,7 @@ namespace Toastmasters.Web.Helpers
                             if (line.Contains("##"))
                             {
                                 var start = line.IndexOf("##");
-                                var length = line.Substring(start).IndexOf("}");
+                                var length = line.Substring(start).IndexOf(ENDTOKEN);
                                 var variableName = line.Substring(start + 2, length - 2);
 
                                 var first = line.Substring(0, start);

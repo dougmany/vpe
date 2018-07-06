@@ -32,6 +32,31 @@ namespace Toastmasters.Web.Helpers
             return;
         }
 
+        public Meeting GetMeeting(Int32 id)
+        {
+            var data = _context.Meetings
+                .Include(m => m.Toastmaster)
+                .Include(m => m.TableTopics)
+                .Include(m => m.SpeakerI)
+                .Include(m => m.SpeakerII)
+                .Include(m => m.GeneralEvaluator)
+                .Include(m => m.EvaluatorI)
+                .Include(m => m.EvaluatorII)
+                .Include(m => m.Inspirational)
+                .Include(m => m.Joke)
+                .Include(m => m.Timer)
+                .Include(m => m.Grammarian)
+                .Include(m => m.BallotCounter)
+                .Include(m => m.President)
+                .Include(m => m.Sargent)
+                .Include(m => m.SpeechI)
+                .Include(m => m.SpeechII)
+                .FirstOrDefault(m => m.MeetingID == id);
+
+            return data ?? new Meeting();
+
+        }
+
         public Meeting GetMeetingAfterDate(DateTime beforeDate)
         {
             return _context.Meetings
