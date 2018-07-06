@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +7,10 @@ using Microsoft.Extensions.Logging;
 using Toastmasters.Web.Models;
 using Toastmasters.Web.Models.ViewModels;
 using Toastmasters.Web.Services;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNetCore.Authentication;
 
 namespace Toastmasters.Web.Controllers
 {

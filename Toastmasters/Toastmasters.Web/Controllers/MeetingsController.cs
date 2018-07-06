@@ -233,7 +233,7 @@ namespace Toastmasters.Web.Controllers
             }
             else
             {
-                meeting = _context.Meetings.Include(m=>m.SpeechI).Include(m => m.SpeechII).FirstOrDefault(m => m.MeetingID == id);
+                meeting = _meetingHelpers.GetMeeting((Int32)id);
             }
 
             if (meeting == null)
@@ -251,6 +251,7 @@ namespace Toastmasters.Web.Controllers
             var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
 
             Commands.LoadAgenda(model);
+            Commands.Latex2Rtf("agenda");
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");
@@ -275,6 +276,7 @@ namespace Toastmasters.Web.Controllers
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             Commands.LoadEmail(models);
+            Commands.Latex2Rtf("email");
 
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");
