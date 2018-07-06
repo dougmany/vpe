@@ -15,8 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Toastmasters.Web.Services;
 using System.IO;
 using Microsoft.AspNetCore.DataProtection;
-using NLog.Extensions.Logging;
-using NLog.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -74,9 +72,6 @@ namespace Toastmasters.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            loggerFactory.AddNLog();
-            env.ConfigureNLog("nlog.config");
 
             if (env.IsDevelopment())
             {
