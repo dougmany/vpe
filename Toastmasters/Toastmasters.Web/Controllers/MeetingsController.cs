@@ -223,18 +223,38 @@ namespace Toastmasters.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult GetAgenda(Int32? id)
+        public ActionResult GetAgenda(Int32 id)
         {
-            Meeting meeting;
+            var meeting = _meetingHelpers.GetMeeting((Int32)id);
 
-            if (id == null)
+            if (meeting == null)
             {
-                meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
+                return NotFound();
             }
-            else
+
+            var nextMeeting = _meetingHelpers.GetMeeting(id);
+
+            if (nextMeeting == null)
             {
-                meeting = _meetingHelpers.GetMeeting((Int32)id);
+                return NotFound();
             }
+
+            var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
+
+            Commands.LoadAgenda(model);
+#if DEBUG
+#else
+            Commands.Latex2Rtf("agenda");
+#endif
+
+            var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
+            return File(stream, "application/rtf", $"Agenda.rtf");
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetNextAgenda()
+        {
+            var meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
 
             if (meeting == null)
             {
@@ -251,7 +271,10 @@ namespace Toastmasters.Web.Controllers
             var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
 
             Commands.LoadAgenda(model);
+#if DEBUG
+#else
             Commands.Latex2Rtf("agenda");
+#endif
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");

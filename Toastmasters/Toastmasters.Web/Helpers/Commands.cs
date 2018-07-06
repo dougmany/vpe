@@ -15,7 +15,8 @@ namespace Toastmasters.Web.Helpers
     public static class Commands
     {
 #if DEBUG
-        const String VAGRANTPATH = "Users/Doug/Projects/vpe";
+        //const String VAGRANTPATH = "Users/Doug/Projects/vpe";
+        const String VAGRANTPATH = "Users/Dmeeker/Desktop//vpe";
 #else
         const String VAGRANTPATH = "vagrant";
 #endif
