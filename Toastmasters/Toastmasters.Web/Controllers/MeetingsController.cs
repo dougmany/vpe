@@ -299,7 +299,10 @@ namespace Toastmasters.Web.Controllers
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             Commands.LoadEmail(models);
-            Commands.Latex2Rtf("email");
+            #if DEBUG
+#else
+            Commands.Latex2Rtf("Email");
+#endif
 
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");
