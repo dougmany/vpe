@@ -298,6 +298,11 @@ namespace Toastmasters.Web.Controllers
             _meetingHelpers.FillSomeMeetings(beforeMeetingDate, meetingList, 5);
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
+            var memberEmails = _context.Members.Where(m => m.IsActive).Select(m => m.Email).ToArray();
+
+
+            models[0].EmailTo = String.Join(";", memberEmails);
+
             Commands.LoadEmail(models);
             #if DEBUG
 #else
