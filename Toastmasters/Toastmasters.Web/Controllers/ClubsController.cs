@@ -53,7 +53,7 @@ namespace Toastmasters.Web.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubID,ClubName,ClubNumber,District,MeetingDay,MeetingRoom")] Club club)
+        public async Task<IActionResult> Create([Bind("ClubID,ClubName,ClubNumber,District,MeetingDay,MeetingRoom,GuestEmails")] Club club)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Toastmasters.Web.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClubID,ClubName,ClubNumber,District,MeetingDay,MeetingRoom")] Club club)
+        public async Task<IActionResult> Edit(int id, [Bind("ClubID,ClubName,ClubNumber,District,MeetingDay,MeetingRoom,GuestEmails")] Club club)
         {
             if (id != club.ClubID)
             {

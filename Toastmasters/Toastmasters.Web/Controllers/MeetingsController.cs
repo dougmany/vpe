@@ -299,9 +299,9 @@ namespace Toastmasters.Web.Controllers
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
             var memberEmails = _context.Members.Where(m => m.IsActive).Select(m => m.Email).ToArray();
+            var guestEmails = _context.Clubs.FirstOrDefault().GuestEmails;
 
-
-            models[0].EmailTo = String.Join(";", memberEmails);
+            models[0].EmailTo = String.Join(";", memberEmails) + ";" + guestEmails;
 
             Commands.LoadEmail(models);
             #if DEBUG
