@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Toastmasters.Web
 {
@@ -44,6 +45,8 @@ namespace Toastmasters.Web
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                     config.SignIn.RequireConfirmedEmail = true;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequiredLength = 8;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
@@ -81,6 +84,12 @@ namespace Toastmasters.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+                RequireHeaderSymmetry = true
+            });
 
             app.UseStaticFiles();
 
