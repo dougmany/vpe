@@ -17,6 +17,7 @@ using System.IO;
 using Microsoft.AspNetCore.DataProtection;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Toastmasters.Web
 {
@@ -84,6 +85,12 @@ namespace Toastmasters.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+                RequireHeaderSymmetry = true
+            });
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
