@@ -27,7 +27,7 @@ namespace Toastmasters.Web.Services
             emailMessage.From.Add(new MailboxAddress("agwoow.ga", "dougmany@gmail.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart("plain") { Text = message };
+            emailMessage.Body = new TextPart() { Text = message };
 
             using (var client = new SmtpClient())
             {
