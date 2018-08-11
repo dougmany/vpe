@@ -280,8 +280,7 @@ namespace Toastmasters.Web.Controllers
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                 // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var EncodedCode = WebUtility.UrlEncode(code);
-                var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = EncodedCode }, protocol: HttpContext.Request.Scheme);
+                var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return View("ForgotPasswordConfirmation");
@@ -327,7 +326,8 @@ namespace Toastmasters.Web.Controllers
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
             var DecodedCode = WebUtility.UrlDecode(model.Code);
-            var result = await _userManager.ResetPasswordAsync(user, DecodedCode, model.Password);
+            var spaceplussedcode = model.Code.Replace(' ', '+');
+            var result = await _userManager.ResetPasswordAsync(user, spaceplussedcode, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");

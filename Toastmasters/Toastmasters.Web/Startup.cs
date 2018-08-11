@@ -54,6 +54,8 @@ namespace Toastmasters.Web
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
                 {
                     config.SignIn.RequireConfirmedEmail = true;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequiredLength = 8;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
