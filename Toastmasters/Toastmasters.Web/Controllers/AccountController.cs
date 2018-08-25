@@ -327,14 +327,11 @@ namespace Toastmasters.Web.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
-<<<<<<< HEAD
-            var decodedCode = HttpUtility.UrlDecode(model.Code);
-            var result = await _userManager.ResetPasswordAsync(user, decodedCode, model.Password);
-=======
+
             var DecodedCode = WebUtility.UrlDecode(model.Code);
             var spaceplussedcode = model.Code.Replace(' ', '+');
             var result = await _userManager.ResetPasswordAsync(user, spaceplussedcode, model.Password);
->>>>>>> TempFix
+
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");

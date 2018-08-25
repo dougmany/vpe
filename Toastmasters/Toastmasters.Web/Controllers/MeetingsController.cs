@@ -271,14 +271,11 @@ namespace Toastmasters.Web.Controllers
             var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
 
             Commands.LoadAgenda(model);
-<<<<<<< HEAD
-            Commands.Latex2Rtf("agenda");
-=======
+
 #if DEBUG
 #else
             Commands.Latex2Rtf("Agenda");
 #endif
->>>>>>> TempFix
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");
@@ -308,14 +305,11 @@ namespace Toastmasters.Web.Controllers
             models[0].EmailTo = String.Join(";", memberEmails) + ";" + guestEmails;
 
             Commands.LoadEmail(models);
-<<<<<<< HEAD
-            Commands.Latex2Rtf("email");
-=======
+
             #if DEBUG
 #else
             Commands.Latex2Rtf("Email");
 #endif
->>>>>>> TempFix
 
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");
