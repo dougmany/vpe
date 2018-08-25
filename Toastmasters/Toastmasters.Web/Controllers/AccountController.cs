@@ -10,11 +10,9 @@ using Toastmasters.Web.Services;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-<<<<<<< HEAD
 using System.Web;
-=======
 using System.Net;
->>>>>>> TempFix
+
 
 namespace Toastmasters.Web.Controllers
 {
