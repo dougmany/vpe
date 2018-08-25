@@ -16,6 +16,7 @@ namespace Toastmasters.Web.Helpers
     {
 #if DEBUG
         const String VAGRANTPATH = "Users/Doug/Projects/vpe";
+        //const String VAGRANTPATH = "Users/Dmeeker/Desktop//vpe";
 #else
         const String VAGRANTPATH = "vagrant";
 #endif
@@ -130,9 +131,9 @@ namespace Toastmasters.Web.Helpers
 
                                 Console.WriteLine($"Line: {line}");
                                 var dataIndex = Array.IndexOf(IteratorChars, variableName.Substring(variableName.Length - 1));
-                                if (dataIndex + 1 > dataList.Count())
+                                if (dataIndex + 2 > dataList.Count())
                                 {
-                                    file.Add(line);
+                                    file.Add(line.Substring(0, start) + line.Substring(start + length));
                                     continue;
                                 }
 

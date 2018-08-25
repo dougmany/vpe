@@ -10,7 +10,11 @@ using Toastmasters.Web.Services;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using System.Web;
+=======
+using System.Net;
+>>>>>>> TempFix
 
 namespace Toastmasters.Web.Controllers
 {
@@ -117,7 +121,7 @@ namespace Toastmasters.Web.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Please confirm your account by copying this link into your borwser: {callbackUrl}");
+                        $"Please confirm your account by copying this link into your browser: {callbackUrl}");
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
@@ -323,8 +327,14 @@ namespace Toastmasters.Web.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
+<<<<<<< HEAD
             var decodedCode = HttpUtility.UrlDecode(model.Code);
             var result = await _userManager.ResetPasswordAsync(user, decodedCode, model.Password);
+=======
+            var DecodedCode = WebUtility.UrlDecode(model.Code);
+            var spaceplussedcode = model.Code.Replace(' ', '+');
+            var result = await _userManager.ResetPasswordAsync(user, spaceplussedcode, model.Password);
+>>>>>>> TempFix
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");

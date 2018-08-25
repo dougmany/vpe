@@ -15,5 +15,7 @@ namespace Toastmasters.Web.Models
         public String MeetingDay { get; set; }
         [Display(Name = "Room")]
         public String MeetingRoom { get; set; }
+        [Display(Name = "Guest Emails")]
+        public String GuestEmails { get; set; }
     }
 }

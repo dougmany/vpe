@@ -48,6 +48,7 @@ namespace Toastmasters.Web
                     config.Password.RequireNonAlphanumeric = false;
                     config.Password.RequiredLength = 8;
             })
+
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddUserManager<ApplicationUserManager>(); ;

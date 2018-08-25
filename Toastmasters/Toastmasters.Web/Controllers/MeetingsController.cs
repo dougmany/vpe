@@ -223,18 +223,9 @@ namespace Toastmasters.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult GetAgenda(Int32? id)
+        public ActionResult GetAgenda(Int32 id)
         {
-            Meeting meeting;
-
-            if (id == null)
-            {
-                meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
-            }
-            else
-            {
-                meeting = _meetingHelpers.GetMeeting((Int32)id);
-            }
+            var meeting = _meetingHelpers.GetMeeting((Int32)id);
 
             if (meeting == null)
             {
@@ -251,7 +242,43 @@ namespace Toastmasters.Web.Controllers
             var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
 
             Commands.LoadAgenda(model);
+#if DEBUG
+#else
+            Commands.Latex2Rtf("Agenda");
+#endif
+
+            var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
+            return File(stream, "application/rtf", $"Agenda.rtf");
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetNextAgenda()
+        {
+            var meeting = _meetingHelpers.GetMeetingAfterDate(DateTime.Now.AddHours(-9));
+
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+
+            var nextMeeting = _meetingHelpers.GetMeetingAfterDate(meeting.MeetingDate);
+
+            if (nextMeeting == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AgendaViewModel(meeting, nextMeeting, _context.Clubs.FirstOrDefault());
+
+            Commands.LoadAgenda(model);
+<<<<<<< HEAD
             Commands.Latex2Rtf("agenda");
+=======
+#if DEBUG
+#else
+            Commands.Latex2Rtf("Agenda");
+#endif
+>>>>>>> TempFix
 
             var stream = Commands.GetFile(Commands.FilesToGet.Agenda);
             return File(stream, "application/rtf", $"Agenda.rtf");
@@ -275,8 +302,20 @@ namespace Toastmasters.Web.Controllers
             _meetingHelpers.FillSomeMeetings(beforeMeetingDate, meetingList, 5);
             var models = meetingList.Select(m => new MeetingViewModel(m)).ToArray();
 
+            var memberEmails = _context.Members.Where(m => m.IsActive).Select(m => m.Email).ToArray();
+            var guestEmails = _context.Clubs.FirstOrDefault().GuestEmails;
+
+            models[0].EmailTo = String.Join(";", memberEmails) + ";" + guestEmails;
+
             Commands.LoadEmail(models);
+<<<<<<< HEAD
             Commands.Latex2Rtf("email");
+=======
+            #if DEBUG
+#else
+            Commands.Latex2Rtf("Email");
+#endif
+>>>>>>> TempFix
 
             var stream = Commands.GetFile(Commands.FilesToGet.Email);
             return File(stream, "application/rtf", $"Email.rtf");

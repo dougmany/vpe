@@ -19,9 +19,10 @@
         <td>
             <h4>@Html.DisplayFor(modelItem => item.MeetingDate)</h4>
 
+            <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID" class="btn btn-primary">Agenda</a>
             @if (memberID > 0)
             {
-                <a asp-action="GetAgenda" asp-controller="Meetings" asp-route-id="@item.MeetingID" class="btn btn-primary">Agenda</a>
+                
                 <br /><br>
                     <form asp-controller="Home" asp-action="RemoveMe" method="post">
                     <input name="MeetingID" type="hidden" value="@item.MeetingID" />

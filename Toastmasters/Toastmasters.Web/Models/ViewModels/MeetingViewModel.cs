@@ -45,6 +45,7 @@ namespace Toastmasters.Web.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime MeetingDate { get; set; }
         [Display(Name ="Theme")]
+        public String EmailTo { get; set; }
         public String MeetingTheme { get; set; }
         public Int32 ToastmasterID { get; set; }
         public String Toastmaster { get; set; }

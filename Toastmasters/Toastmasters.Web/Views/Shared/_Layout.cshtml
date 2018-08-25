@@ -43,8 +43,8 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     @if (User.IsInRole("Scheduler"))
                     {
-
                         <li><a asp-controller="Meetings" asp-action="Index">Meetings</a> </li>
+                        <li><a asp-controller="Clubs" asp-action="Index">Club Info</a> </li>
                     }
                     @if (User.IsInRole("Admin"))
                     {
