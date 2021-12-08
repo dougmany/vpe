@@ -18,13 +18,13 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Toastmasters/Toastmasters.Web.csproj
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test Toastmasters/Toastmasters.Web.csproj --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish -c Release -o website
+      run: dotnet publish Toastmasters/Toastmasters.Web.csproj -c Release -o website
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.2
       with:
