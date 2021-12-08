@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Toastmasters/Toastmasters.Web/Toastmasters.Web.csproj
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Toastmasters/Toastmasters.Web/Toastmasters.Web.csproj --no-restore
     - name: Test
       run: dotnet test Toastmasters/Toastmasters.Web/Toastmasters.Web.csproj --no-build --verbosity normal
     - name: Publish
